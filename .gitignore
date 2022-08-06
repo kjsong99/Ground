@@ -11,7 +11,7 @@ Pods/
 
 #API KEY
 KeyInfo.plist
-
+*.xcconfig
 
 ### Database ###
 *.accdb
