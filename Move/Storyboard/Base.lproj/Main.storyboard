@@ -12,7 +12,7 @@
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Move" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC" customClass="MovieView" customModule="Move" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -21,7 +21,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Button"/>
                                 <connections>
-                                    <action selector="ButtonTouched:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gM4-4f-V1w"/>
+                                    <action selector="buttonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="af0-mZ-jTQ"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nza-38-Weh">
@@ -64,11 +64,15 @@
                             <constraint firstItem="Ymc-4e-suZ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="100" id="niM-iE-Xx3"/>
                             <constraint firstItem="mLx-OM-tvF" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="100" id="xkB-5T-iJZ"/>
                         </constraints>
+                        <connections>
+                            <outlet property="clickButton" destination="Ymc-4e-suZ" id="koc-XE-RRE"/>
+                            <outlet property="movieImage" destination="mLx-OM-tvF" id="BLt-lV-tho"/>
+                            <outlet property="overviewLabel" destination="nza-38-Weh" id="zcc-vM-5iP"/>
+                            <outlet property="titleLabel" destination="Rbf-ep-VBc" id="URr-cP-jpY"/>
+                        </connections>
                     </view>
                     <connections>
-                        <outlet property="descLabel" destination="nza-38-Weh" id="GYk-WI-POa"/>
-                        <outlet property="nameLabel" destination="Rbf-ep-VBc" id="XLt-gG-sTr"/>
-                        <outlet property="posterImage" destination="mLx-OM-tvF" id="PEJ-ZM-2D9"/>
+                        <outlet property="movieView" destination="8bC-Xf-vdC" id="tHJ-qA-GEd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
