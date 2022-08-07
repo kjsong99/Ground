@@ -1,59 +1,32 @@
-//
-//  ViewController.swift
-//  Move
-//
-//  Created by 송경진 on 2022/08/04.
-//
-
 import UIKit
 import Alamofire
 
 
 class ViewController: UIViewController {
-//    @IBOutlet weak var posterImage: UIImageView!
-//    @IBOutlet weak var descLabel: UILabel!
-//    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet var movieView: MovieView!
-   
+    
     private var movies : [MovieInfo] = []
-    private let baseUrl : String = "https://api.themoviedb.org/3/movie/"
-
+    
+    @IBOutlet weak var collectionView: UICollectionView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        
+        
         // Do any additional setup after loading the view.
     }
-    
-    @IBAction func buttonTapped(_ sender: Any) {
-       //ZButton Tappend
-        Task{
-            try? await getMovieDetail(movieId: "616037")
-            movieView.updateView(movie: movies[0])
-        }
-    }
-    
-    
-    func getMovieDetail(movieId : String) async throws{
-        let url = baseUrl + movieId
-        guard let API_KEY = Bundle.main.object(forInfoDictionaryKey: "API_KEY") as? String else{
-            return
-        }
-        let queryString : Parameters = [
-            "api_key" : API_KEY,
-            "language" : "ko-KR"
-        ]
-        
-        guard let movieData = try? await
-                AppNetworking.shared.requestJSON(url, type: Movie.self, method: .get, parameters: queryString) else {
-            return
-        }
-        
-        movies.append(movieData.movieToInfo())
-      //  movies.append(value)
-
-        
-    }
 }
-    //    @IBAction func ButtonTouched(_ sender: Any) {
+    
+    //    @IBAction func buttonTapped(_ sender: Any) {
+    //       //ZButton Tappend
+    //        Task{
+    //            try? await getMovieDetail(movieId: "616037")
+    //            movieView.updateView(movie: movies[0])
+    //        }
+    //    }
+    
+  
+//    @IBAction func ButtonTouched(_ sender: Any) {
 ////        let url = URL(string: "https://image.tmdb.org/t/p/w500" + info.imagePath)
 ////        posterImage.image = await loadImage(url: url!)
 //
@@ -102,4 +75,16 @@ class ViewController: UIViewController {
 //
 //}
 
-
+extension ViewController : UICollectionViewDelegate, UICollectionViewDataSource{
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 10
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CustomCollectionViewCell
+        cell.label.text = "test"
+        return cell
+    }
+    
+    
+}
