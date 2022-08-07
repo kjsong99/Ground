@@ -47,6 +47,10 @@ struct Movie: Codable {
         case voteAverage = "vote_average"
         case voteCount = "vote_count"
     }
+    
+    func movieToInfo() -> MovieInfo {
+        return MovieInfo(title: self.title, overview: self.overview, imagePath: self.posterPath)
+    }
 }
 
 // MARK: - BelongsToCollection
@@ -101,3 +105,10 @@ struct SpokenLanguage: Codable {
         case name
     }
 }
+
+struct MovieInfo{
+    var title : String
+    var overview : String
+    var imagePath : String
+}
+
