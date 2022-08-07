@@ -5,7 +5,7 @@ import Alamofire
 class ViewController: UIViewController {
     
     private var movies : [MovieInfo] = []
-    
+  
     @IBOutlet weak var collectionView: UICollectionView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,14 +48,14 @@ class ViewController: UIViewController {
 //
 //
 //
-//    func loadImage(url: URL) async -> UIImage{
-//        if let data = try? Data(contentsOf: url){
-//            if let image = UIImage(data: data){
-//                return image
-//            }
-//        }
-//        return UIImage()
-//    }
+    func loadImage(url: URL) async -> UIImage{
+        if let data = try? Data(contentsOf: url){
+            if let image = UIImage(data: data){
+                return image
+            }
+        }
+        return UIImage()
+    }
 //
 //    private func fetch() async throws{
 //        let queryString : Parameters = [
@@ -76,15 +76,22 @@ class ViewController: UIViewController {
 //}
 
 extension ViewController : UICollectionViewDelegate, UICollectionViewDataSource{
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CustomMovieCell
+        //cell.label.text = array[indexPath.row]
+        let url = URL(string: "https://t1.daumcdn.net/movie/72cfc7293390c63db16779b67097d8703d2a5628")
+        let data = try? Data(contentsOf: url!)
+        cell.movieImage.image = UIImage(data: data!)
+        cell.movieTitle.text = "movie \(indexPath.row.description)"
+        return cell
+    }
+    
+  
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 10
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CustomCollectionViewCell
-        cell.label.text = "test"
-        return cell
-    }
+  
     
     
 }
