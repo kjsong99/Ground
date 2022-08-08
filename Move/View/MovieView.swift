@@ -14,14 +14,14 @@ final class MovieView : UIView{
     @IBOutlet weak var overviewLabel: UILabel!
     @IBOutlet weak var movieImage: UIImageView!
     
-    func updateView(movie: MovieInfo){
-        Task{
-            try? await movieImage.load(imagePath: movie.imagePath)
-            self.titleLabel.text = movie.title
-            self.overviewLabel.text = movie.overview
-            
-        }
-    }
+//    func updateView(movie: MovieInfo){
+//        Task{
+//            try? await movieImage.load(imagePath: movie.imagePath)
+//            self.titleLabel.text = movie.title
+//            self.overviewLabel.text = movie.overview
+//            
+//        }
+//    }
     
     
 }

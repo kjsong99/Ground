@@ -22,8 +22,7 @@ final class AppNetworking {
                                      method: method,
                                      parameters: parameters,
                                      encoding: URLEncoding.default)
-      .serializingDecodable()
-      .value
+    .serializingDecodable().value
   }
 }
 

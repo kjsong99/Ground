@@ -54,12 +54,14 @@
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     <constraints>
                                                         <constraint firstItem="Dfl-HF-d2l" firstAttribute="top" secondItem="RL0-En-LYv" secondAttribute="bottom" constant="15" id="8bH-Xt-quH"/>
+                                                        <constraint firstItem="Dfl-HF-d2l" firstAttribute="leading" secondItem="21N-4H-MPF" secondAttribute="leading" constant="35" id="Clp-DI-kLe"/>
                                                         <constraint firstItem="RL0-En-LYv" firstAttribute="top" secondItem="HBo-VJ-ODy" secondAttribute="top" id="Gnw-BH-18J"/>
                                                         <constraint firstItem="21N-4H-MPF" firstAttribute="bottom" secondItem="Dfl-HF-d2l" secondAttribute="bottom" constant="20" id="Nj5-NW-qJy"/>
                                                         <constraint firstItem="RL0-En-LYv" firstAttribute="leading" secondItem="21N-4H-MPF" secondAttribute="leading" constant="15" id="QwK-aC-qsd"/>
+                                                        <constraint firstItem="RL0-En-LYv" firstAttribute="centerX" secondItem="HBo-VJ-ODy" secondAttribute="centerX" id="YEP-MI-yQx"/>
                                                         <constraint firstItem="RL0-En-LYv" firstAttribute="centerX" secondItem="Dfl-HF-d2l" secondAttribute="centerX" id="aAl-gU-1kt"/>
-                                                        <constraint firstItem="Dfl-HF-d2l" firstAttribute="leading" secondItem="21N-4H-MPF" secondAttribute="leading" constant="35" id="abD-av-HTE"/>
-                                                        <constraint firstItem="21N-4H-MPF" firstAttribute="trailing" secondItem="Dfl-HF-d2l" secondAttribute="trailing" constant="35" id="miR-hg-CTr"/>
+                                                        <constraint firstItem="Dfl-HF-d2l" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="21N-4H-MPF" secondAttribute="leading" id="abD-av-HTE"/>
+                                                        <constraint firstItem="21N-4H-MPF" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Dfl-HF-d2l" secondAttribute="trailing" id="miR-hg-CTr"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
@@ -73,7 +75,7 @@
                                 </cells>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MOVIE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nxm-0s-MKk">
-                                <rect key="frame" x="20" y="60" width="374" height="34"/>
+                                <rect key="frame" x="166.5" y="64" width="81.5" height="30"/>
                                 <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="25"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -82,13 +84,11 @@
                         <viewLayoutGuide key="safeArea" id="0S3-f4-U1W"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="5Xb-ab-QXd" firstAttribute="top" secondItem="nxm-0s-MKk" secondAttribute="bottom" constant="10" id="3NL-OR-PYl"/>
-                            <constraint firstItem="nxm-0s-MKk" firstAttribute="top" secondItem="Fc3-I7-quk" secondAttribute="top" constant="60" id="EbA-yP-grX"/>
-                            <constraint firstItem="5Xb-ab-QXd" firstAttribute="trailing" secondItem="0S3-f4-U1W" secondAttribute="trailing" id="HDd-fC-7Xq"/>
-                            <constraint firstItem="5Xb-ab-QXd" firstAttribute="top" secondItem="0S3-f4-U1W" secondAttribute="top" constant="60" id="ddB-QU-Ncg"/>
-                            <constraint firstItem="0S3-f4-U1W" firstAttribute="trailing" secondItem="nxm-0s-MKk" secondAttribute="trailing" constant="20" id="hPI-ZE-hBC"/>
-                            <constraint firstItem="5Xb-ab-QXd" firstAttribute="leading" secondItem="0S3-f4-U1W" secondAttribute="leading" id="hlk-Kj-ZbQ"/>
-                            <constraint firstItem="nxm-0s-MKk" firstAttribute="leading" secondItem="0S3-f4-U1W" secondAttribute="leading" constant="20" id="k3T-gh-h3L"/>
+                            <constraint firstAttribute="trailing" secondItem="5Xb-ab-QXd" secondAttribute="trailing" id="GRt-zB-jcl"/>
+                            <constraint firstItem="5Xb-ab-QXd" firstAttribute="top" secondItem="nxm-0s-MKk" secondAttribute="bottom" constant="10" id="H6H-Ek-Kth"/>
+                            <constraint firstItem="0S3-f4-U1W" firstAttribute="bottom" secondItem="5Xb-ab-QXd" secondAttribute="bottom" constant="558" id="JrW-0a-AYt"/>
+                            <constraint firstItem="5Xb-ab-QXd" firstAttribute="leading" secondItem="Fc3-I7-quk" secondAttribute="leading" id="r5P-PA-6s6"/>
+                            <constraint firstItem="5Xb-ab-QXd" firstAttribute="centerX" secondItem="nxm-0s-MKk" secondAttribute="centerX" id="xPL-PY-S99"/>
                         </constraints>
                     </view>
                     <connections>
@@ -98,66 +98,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="20" y="94"/>
-        </scene>
-        <!--Movie View Controller-->
-        <scene sceneID="1Ej-Vj-1NY">
-            <objects>
-                <viewController id="b9c-km-Q8R" customClass="MovieViewController" customModule="Move" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="YWm-FB-UdR">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="KUl-dh-79d"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="VHe-9g-uSq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="945" y="-25"/>
-        </scene>
-        <!--Movie Detail View Controller-->
-        <scene sceneID="RnQ-gX-tHx">
-            <objects>
-                <viewController id="MbF-sK-hwb" customClass="MovieDetailViewController" customModule="Move" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="lkl-bP-4cx">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="5Ac-pG-HpE"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="XYF-7u-Akg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1850" y="11"/>
-        </scene>
-        <!--Tv Detail View Controller-->
-        <scene sceneID="MHt-oS-wLc">
-            <objects>
-                <viewController id="FxV-az-61r" customClass="TvDetailViewController" customModule="Move" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="TXH-TZ-7Od">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="GCZ-wD-O4X"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Ysi-Pd-LJf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1849" y="694"/>
-        </scene>
-        <!--Tv View Controller-->
-        <scene sceneID="8ze-Id-HpY">
-            <objects>
-                <viewController id="NmS-3Q-EDI" customClass="TvViewController" customModule="Move" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="X4J-xR-Lhz">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="Tak-xB-LMS"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="9HF-ZP-DBr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="977" y="646"/>
         </scene>
     </scenes>
     <resources>
