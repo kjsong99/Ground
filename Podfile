@@ -4,10 +4,19 @@
 target 'Move' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
+    pod 'Alamofire'
+    pod 'RealmSwift'
+
 
   # Pods for Move
-  pod 'Alamofire'
-  pod 'RealmSwift'
 
+  target 'MoveTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+  target 'MoveUITests' do
+    # Pods for testing
+  end
 
 end

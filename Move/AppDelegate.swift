@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  Move
 //
-//  Created by 송경진 on 2022/08/04.
+//  Created by 송경진 on 2022/08/09.
 //
 
 import UIKit
