@@ -12,6 +12,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("test")
         // Do any additional setup after loading the view.
     }
 
