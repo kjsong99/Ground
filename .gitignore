@@ -12,7 +12,7 @@ Pods/
 #API KEY
 Security.plist
 *.xcconfig
-
+Info.plist
 ### Database ###
 *.accdb
 *.db
