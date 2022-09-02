@@ -10,7 +10,7 @@
 Pods/
 
 #API KEY
-KeyInfo.plist
+Security.plist
 *.xcconfig
 
 ### Database ###

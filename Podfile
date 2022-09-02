@@ -6,7 +6,7 @@ target 'Move' do
   use_frameworks!
     pod 'Alamofire'
     pod 'RealmSwift'
-
+    pod 'SwiftKeychainWrapper'
 
   # Pods for Move
 
