@@ -18,7 +18,6 @@ class BoardViewController: UIViewController{
     
     
     override func viewDidLoad() {
-        print("url : \(Bundle.main.url)")
         Task{
             postsTableView.dataSource = self
             postsTableView.delegate = self
