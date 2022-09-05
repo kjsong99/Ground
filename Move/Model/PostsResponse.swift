@@ -16,6 +16,25 @@ struct WriteResponse: Decodable {
     let meta: Meta
 }
 
+// MARK: - UserClass
+struct UserClass: Codable {
+    let data: DataClass?
+}
+
+// MARK: - DataClass
+struct DataClass: Codable {
+    let id: Int
+    let attributes: DataAttributes
+}
+
+// MARK: - DataAttributes
+struct DataAttributes: Codable {
+    let username, email, provider: String
+    let confirmed, blocked: Bool
+    let createdAt, updatedAt: String
+    
+}
+
 
 
 // MARK: - Datum
@@ -28,13 +47,17 @@ struct Datum: Decodable {
 struct Attributes: Codable {
     let Title, Content, createdAt, updatedAt: String
     let publishedAt: String
+    let user: UserClass
 
     enum CodingKeys: String, CodingKey {
         case Title
         case Content
         case createdAt, updatedAt, publishedAt
+        case user
     }
 }
+
+
 
 // MARK: - Meta
 struct Meta: Codable {

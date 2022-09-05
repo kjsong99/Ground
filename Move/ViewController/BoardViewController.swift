@@ -52,10 +52,12 @@ class BoardViewController: UIViewController{
     
     
     func getData() async throws{
-        let url =  "\(Bundle.main.url)api/posts"
+        let url =  "\(Bundle.main.url)api/posts?populate=%2A"
         
         do{
             let data = try await AppNetworking.shared.requestJSON(url, type: PostsResponse.self, method: .get)
+            print("데이터")
+            print(data)
             
             if self.postsData.count > 0 {
                 self.postsData.removeAll()
