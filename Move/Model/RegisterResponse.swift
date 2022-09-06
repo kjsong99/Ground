@@ -3,13 +3,13 @@ import Foundation
 // MARK: - RegisterResponse
 struct RegisterResponse: Codable {
     let jwt: String
-    let user: User
+    let user: UserClass
 }
 
-// MARK: - User
-struct User: Codable {
-    let id: Int
-    let username, email, provider: String
-    let confirmed, blocked: Bool
-    let createdAt, updatedAt: String
-}
+//// MARK: - User
+//struct RegisterUserClass: Codable {
+//    let id: Int
+//    let username, email, provider: String
+//    let confirmed, blocked: Bool
+//    let createdAt, updatedAt: String
+//}

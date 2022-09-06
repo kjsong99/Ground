@@ -90,7 +90,9 @@ class SignInViewController: UIViewController {
             
             if (KeychainWrapper.standard.string(forKey: "auth") != nil){
                 KeychainWrapper.standard.removeObject(forKey: "auth")
+                UserDefaults.standard.removeObject(forKey: "id")
             }
+            UserDefaults.standard.set(data.user.id, forKey: "id")
             KeychainWrapper.standard.set(data.jwt, forKey: "auth")
             
             let main = UIStoryboard.init(name: "Main", bundle: nil)

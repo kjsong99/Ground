@@ -41,7 +41,7 @@ class BoardViewController: UIViewController{
     }
     
     func deletePost(id: String) async throws{
-        let url =  "\(Bundle.main.url)api/posts/\(id)"
+        let url =  "\(Bundle.main.url)posts/\(id)"
         
         do{
             _ = try await AppNetworking.shared.requestJSON(url, type: WriteResponse.self, method: .delete)
@@ -52,10 +52,11 @@ class BoardViewController: UIViewController{
     
     
     func getData() async throws{
-        let url =  "\(Bundle.main.url)api/posts?populate=%2A"
+        print("getdata")
+        let url =  "\(Bundle.main.url)posts"
         
         do{
-            let data = try await AppNetworking.shared.requestJSON(url, type: PostsResponse.self, method: .get)
+            let data = try await AppNetworking.shared.requestJSON(url, type: [PostsResponseElement].self, method: .get)
             print("데이터")
             print(data)
             
@@ -65,6 +66,7 @@ class BoardViewController: UIViewController{
             self.postsData.append(data)
             self.postsTableView.reloadData()
         }catch{
+            print(error)
             return
         }
     }
@@ -85,14 +87,19 @@ extension BoardViewController : UITableViewDelegate, UITableViewDataSource{
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return postsData.count != 0 ? postsData[0].data.count : 0
+        return postsData.count != 0 ? postsData[0].count : 0
         
     }
     
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//
+//        print(postsData[0][indexPath.row].attributes.Title)
+//    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = postsTableView.dequeueReusableCell(withIdentifier: "posts", for: indexPath) as! PostsTableViewCell
-        cell.titleLabel.text = postsData[0].data[indexPath.row].attributes.Title
-        cell.contentLabel.text = postsData[0].data[indexPath.row].attributes.Content
+        cell.titleLabel.text = postsData[0][indexPath.row].title
+        cell.contentLabel.text = postsData[0][indexPath.row].content
         
         
         return cell
@@ -104,7 +111,7 @@ extension BoardViewController : UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete{
             Task{
-                let id = postsData[0].data[indexPath.row].id.description
+                let id = postsData[0][indexPath.row].id.description
                 try? await deletePost(id: id)
                 try? await getData()
             }

@@ -37,13 +37,12 @@ class WriteViewController: UIViewController {
     }
     
     private func postData(title: String, content: String) async throws{
-        let url =  "\(Bundle.main.url)api/posts"
+        let url =  "\(Bundle.main.url)posts"
         
         let param : Parameters = [
-            "data" : [
-                "Title" : title,
-                "Content" : content
-            ]
+            "title" : title,
+            "content" : content,
+            "user": UserDefaults.standard.string(forKey: "id")
         ]
         
         do{

@@ -86,11 +86,62 @@
                     </navigationItem>
                     <connections>
                         <outlet property="postsTableView" destination="v7k-lg-dxd" id="Hi4-1c-2qx"/>
+                        <segue destination="uQO-7S-mh9" kind="show" id="sMK-7q-bOi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sdf-yZ-0YH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2806" y="74"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="Ogf-Tk-XQS">
+            <objects>
+                <viewController id="uQO-7S-mh9" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="00Q-RS-ZBY">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bVH-EO-6gp">
+                                <rect key="frame" x="0.0" y="118" width="414" height="36"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="date" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PVA-dx-eqD">
+                                <rect key="frame" x="0.0" y="184" width="394" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Content" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="none" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RVN-4n-98o">
+                                <rect key="frame" x="0.0" y="235" width="414" height="300"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="300" id="v10-L5-dXx"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="EsN-uZ-0hi"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="EsN-uZ-0hi" firstAttribute="trailing" secondItem="PVA-dx-eqD" secondAttribute="trailing" constant="20" id="4N4-1k-a75"/>
+                            <constraint firstItem="PVA-dx-eqD" firstAttribute="leading" secondItem="EsN-uZ-0hi" secondAttribute="leading" id="DNr-SY-267"/>
+                            <constraint firstItem="RVN-4n-98o" firstAttribute="top" secondItem="PVA-dx-eqD" secondAttribute="bottom" constant="30" id="GaA-Nd-QM7"/>
+                            <constraint firstItem="bVH-EO-6gp" firstAttribute="top" secondItem="EsN-uZ-0hi" secondAttribute="top" constant="30" id="HLO-2O-ysf"/>
+                            <constraint firstItem="bVH-EO-6gp" firstAttribute="leading" secondItem="EsN-uZ-0hi" secondAttribute="leading" id="K2u-O4-Dc1"/>
+                            <constraint firstItem="RVN-4n-98o" firstAttribute="leading" secondItem="EsN-uZ-0hi" secondAttribute="leading" id="V4c-S7-hXb"/>
+                            <constraint firstItem="EsN-uZ-0hi" firstAttribute="trailing" secondItem="bVH-EO-6gp" secondAttribute="trailing" id="ifg-Hy-kx5"/>
+                            <constraint firstItem="PVA-dx-eqD" firstAttribute="top" secondItem="bVH-EO-6gp" secondAttribute="bottom" constant="30" id="o6H-lv-ow7"/>
+                            <constraint firstItem="EsN-uZ-0hi" firstAttribute="trailing" secondItem="RVN-4n-98o" secondAttribute="trailing" id="wn7-Fm-YKO"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="se2-e1-Xbb"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="et2-jc-BH2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2824.6376811594205" y="791.51785714285711"/>
         </scene>
         <!--SettingViewController-->
         <scene sceneID="W9Q-Tq-v0a">
