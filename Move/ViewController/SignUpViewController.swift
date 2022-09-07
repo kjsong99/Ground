@@ -2,11 +2,12 @@
 import UIKit
 import SwiftKeychainWrapper
 
-class SignUpViewController: UIViewController {
+class SignUpViewController: UIViewController{
     @IBOutlet var emailText: UITextField!
     @IBOutlet var passwordText: UITextField!
     @IBOutlet var userNameText: UITextField!
     @IBOutlet var passwordConfirmText: UITextField!
+
     
     
     @IBOutlet var emailErrorText: UILabel!
@@ -14,7 +15,21 @@ class SignUpViewController: UIViewController {
     @IBOutlet var passwordConfirmErrorText: UILabel!
     @IBOutlet var usernameErrorText: UILabel!
     
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+    }
+    
+ 
+    
     override func viewDidLoad() {
+        
+       
+        
+        emailText.delegate = self
+        passwordText.delegate = self
+        userNameText.delegate = self
+        passwordConfirmText.delegate = self
         
         emailText.addTarget(self, action: #selector(emailDidChange(_:)), for: .editingChanged)
         passwordConfirmText.addTarget(self, action: #selector(passwordConfirmDidChange(_:)), for: .editingChanged)
@@ -22,6 +37,7 @@ class SignUpViewController: UIViewController {
         userNameText.addTarget(self, action: #selector(usernameDidChange(_:)), for: .editingChanged)
         
     }
+    
     
     @objc func emailDidChange(_ sender: Any){
         guard let email = emailText.text else {
@@ -148,6 +164,7 @@ class SignUpViewController: UIViewController {
             
             let main = UIStoryboard.init(name: "Main", bundle: nil)
             guard let vc = main.instantiateInitialViewController() else{
+            
                 return
             }
             vc.modalPresentationStyle = .fullScreen
@@ -157,4 +174,21 @@ class SignUpViewController: UIViewController {
         }
     }
     
+}
+
+extension SignUpViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == emailText {
+            passwordText.becomeFirstResponder()
+        }else if textField == passwordText{
+            passwordConfirmText.becomeFirstResponder()
+            
+        }else if textField == passwordConfirmText{
+            userNameText.becomeFirstResponder()
+        }else{
+            userNameText.resignFirstResponder()
+        }
+        
+        return true
+    }
 }

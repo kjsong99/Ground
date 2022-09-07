@@ -15,6 +15,10 @@ class SignInViewController: UIViewController {
     @IBOutlet var emailErrorText: UILabel!
     @IBOutlet var passwordErrorText: UILabel!
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+    }
+    
     override func viewDidLoad() {
         emailText.addTarget(self, action: #selector(self.emailTextChanged(_:)), for: .editingChanged)
         
@@ -78,7 +82,7 @@ class SignInViewController: UIViewController {
     
     func signIn(email: String, password: String) async throws{
         
-        let url = "\(Bundle.main.url)api/auth/local"
+        let url = "\(Bundle.main.url)auth/local"
         let param = [
             "identifier" : email,
             "password" : password
@@ -87,6 +91,8 @@ class SignInViewController: UIViewController {
         do{
             let data = try await
             AppNetworking.shared.requestJSON(url, type: RegisterResponse.self, method: .post, parameters: param)
+            
+            print(data)
             
             if (KeychainWrapper.standard.string(forKey: "auth") != nil){
                 KeychainWrapper.standard.removeObject(forKey: "auth")

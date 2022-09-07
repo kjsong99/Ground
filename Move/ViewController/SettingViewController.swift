@@ -4,6 +4,8 @@ import SwiftKeychainWrapper
 
 class SettingViewController: UIViewController {
     
+    
+    
     @IBAction func SignOutBtnTapped(_ sender: Any) {
         print("sign out")
         KeychainWrapper.standard.removeObject(forKey: "auth")

@@ -19,7 +19,14 @@ class WriteViewController: UIViewController {
     @IBOutlet var contentText: UITextField!
     weak var delegate: NotificationDelegate?
     
+    
+    
     // MARK - Method
+    
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+    }
     
     @IBAction func submitTouched(_ sender: Any) {
         print("touched")
@@ -38,11 +45,17 @@ class WriteViewController: UIViewController {
     
     private func postData(title: String, content: String) async throws{
         let url =  "\(Bundle.main.url)posts"
+        guard let id = UserDefaults.standard.string(forKey: "id") else {
+            return
+        }
+        
+        print(id)
+        
         
         let param : Parameters = [
             "title" : title,
             "content" : content,
-            "user": UserDefaults.standard.string(forKey: "id")
+            "user": id
         ]
         
         do{

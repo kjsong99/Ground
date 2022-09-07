@@ -92,14 +92,14 @@ struct PostsResponseElement: Codable {
 struct UserClass: Codable {
     let id: Int
     let username, email, provider: String
-    let confirmed, blocked: Bool
+    let confirmed, blocked: Bool?
     let role: Int
-    let createdAt, updatedAt: String
+    let created_at, updated_at: String
 
     enum CodingKeys: String, CodingKey {
         case id, username, email, provider, confirmed, blocked, role
-        case createdAt
-        case updatedAt
+        case created_at
+        case updated_at
     }
 }
 
