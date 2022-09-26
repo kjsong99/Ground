@@ -7,8 +7,15 @@
 
 import UIKit
 import Alamofire
+import Foundation
 
 class BoardViewController: UIViewController{
+    var current_year_string = Date().string(format: "yyyy")
+    var current_month_string = Date().string(format: "MM")
+    var current_day_string = Date().string(format: "dd")
+    var current_hour_string = Date().string(format: "HH")
+    
+    
     
     // MARK - Variable
     
@@ -50,14 +57,19 @@ class BoardViewController: UIViewController{
         }
     }
     
+    func getDifferenceDateAndCurrent(date: String) -> String{
+        var difference : String = ""
+        
+        return difference
+        
+    }
+    
     
     func getData() async throws{
-        print("getdata")
         let url =  "\(Bundle.main.url)posts"
         
         do{
             let data = try await AppNetworking.shared.requestJSON(url, type: [PostsResponseElement].self, method: .get)
-            print("데이터")
             print(data)
             
             if self.postsData.count > 0 {
@@ -99,7 +111,28 @@ extension BoardViewController : UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = postsTableView.dequeueReusableCell(withIdentifier: "posts", for: indexPath) as! PostsTableViewCell
         cell.titleLabel.text = postsData[0][indexPath.row].title
-        cell.contentLabel.text = postsData[0][indexPath.row].content
+        //postsData[0][indexPath.row].created_at.split("-")
+        var tempDate = String(Array(postsData[0][indexPath.row].created_at)[0 ... 9])
+        var dateArr = tempDate.split(separator: "-")
+        if dateArr[0] == current_year_string &&
+            dateArr[1] == current_month_string
+            && dateArr[2] == current_day_string {
+            
+            var tempHour = Int(String(Array(postsData[0][indexPath.row].created_at)[11 ... 12]))! + 9
+           
+            if String(tempHour) == current_hour_string{
+                cell.dateLabel.text = "방금전"
+            }else{
+                cell.dateLabel.text =  String(Int(current_hour_string)! - tempHour) + "시간 전"
+            }
+        }else{
+            cell.dateLabel.text = dateArr[1] + "월 " + dateArr[2] + "일"
+        }
+       
+        
+        
+       
+        
         
         
         return cell
@@ -123,4 +156,18 @@ extension BoardViewController : UITableViewDelegate, UITableViewDataSource{
 
 
 
+extension Date {
+    func string(format: String) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = format
+        return formatter.string(from: self)
+    }
+}
 
+extension String{
+    func date(format: String) -> Date? {
+            let formatter = DateFormatter()
+            formatter.dateFormat = format
+        return formatter.date(from: self)
+    }
+}

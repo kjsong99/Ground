@@ -7,7 +7,7 @@ target 'Move' do
     pod 'Alamofire'
     pod 'RealmSwift'
     pod 'SwiftKeychainWrapper'
-
+    pod 'Kingfisher'
   # Pods for Move
 
   target 'MoveTests' do
