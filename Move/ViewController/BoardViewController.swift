@@ -26,6 +26,7 @@ class BoardViewController: UIViewController{
 //        var current_day_string = Date().string(format: "dd")
 //        var current_hour_string = Date().string(format: "HH")
         
+        
         Task{
             postsTableView.dataSource = self
             postsTableView.delegate = self
@@ -65,7 +66,7 @@ class BoardViewController: UIViewController{
         
         do{
             let data = try await AppNetworking.shared.requestJSON(url, type: [PostsResponseElement].self, method: .get)
-            print(data)
+       
             
             if self.postsData.count > 0 {
                 self.postsData.removeAll()
@@ -98,27 +99,32 @@ extension BoardViewController : UITableViewDelegate, UITableViewDataSource{
         
     }
     
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//
-//        print(postsData[0][indexPath.row].attributes.Title)
-//    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+         let postVC = self.storyboard?.instantiateViewController(withIdentifier: "PostVC") as! PostViewController
+        postVC.id = postsData[0][indexPath.row].id
+        
+        self.navigationController?.pushViewController(postVC, animated: true)
+//        postVC.modalPresentationStyle = .fullScreen
+//        self.present(postVC, animated: true, completion: nil)
+    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var current_year_string = Date().string(format: "yyyy")
-        var current_month_string = Date().string(format: "MM")
-        var current_day_string = Date().string(format: "dd")
-        var current_hour_string = Date().string(format: "HH")
+        let current_year_string = Date().string(format: "yyyy")
+        let current_month_string = Date().string(format: "MM")
+        let current_day_string = Date().string(format: "dd")
+        let current_hour_string = Date().string(format: "HH")
         
         let cell = postsTableView.dequeueReusableCell(withIdentifier: "posts", for: indexPath) as! PostsTableViewCell
         cell.titleLabel.text = postsData[0][indexPath.row].title
         //postsData[0][indexPath.row].created_at.split("-")
-        var tempDate = String(Array(postsData[0][indexPath.row].created_at)[0 ... 9])
-        var dateArr = tempDate.split(separator: "-")
+        let tempDate = String(Array(postsData[0][indexPath.row].created_at)[0 ... 9])
+        let dateArr = tempDate.split(separator: "-")
         if dateArr[0] == current_year_string &&
             dateArr[1] == current_month_string
             && dateArr[2] == current_day_string {
             
-            var tempHour = Int(String(Array(postsData[0][indexPath.row].created_at)[11 ... 12]))! + 9
+            let tempHour = Int(String(Array(postsData[0][indexPath.row].created_at)[11 ... 12]))! + 9
            
             if String(tempHour) == current_hour_string{
                 cell.dateLabel.text = "방금전"

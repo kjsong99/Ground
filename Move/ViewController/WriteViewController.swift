@@ -11,17 +11,29 @@ protocol NotificationDelegate : AnyObject{
     func refresh()
 }
 
-class WriteViewController: UIViewController {
+class WriteViewController: UIViewController{
     
     // MARK - Variable
     
     @IBOutlet var titleText: UITextField!
-    @IBOutlet var contentText: UITextField!
+    @IBOutlet var contentText: UITextView!
     weak var delegate: NotificationDelegate?
     
     
     
+    
+    
     // MARK - Method
+    
+    override func viewDidLoad() {
+        contentText.delegate = self
+        contentText.layer.borderWidth = 0.2
+        contentText.layer.cornerRadius = 5.0
+    
+        contentText.layer.borderColor = UIColor.systemGray.cgColor
+        contentText.text = "Content"
+        contentText.textColor = UIColor.systemGray3
+    }
     
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -49,7 +61,6 @@ class WriteViewController: UIViewController {
             return
         }
         
-        print(id)
         
         
         let param : Parameters = [
@@ -65,5 +76,22 @@ class WriteViewController: UIViewController {
             return
         }
     }
+}
+
+extension WriteViewController : UITextViewDelegate{
+    //MARK: - TextView Delegate
+       func textViewDidBeginEditing(_ textView: UITextView) {
+           if textView.text == "Content" {
+               textView.text = ""
+               textView.textColor = UIColor.black
+           }
+       }
+       
+       func textViewDidEndEditing(_ textView: UITextView) {
+           if textView.text.isEmpty {
+               textView.text = "Content"
+               textView.textColor = UIColor.systemGray3
+           }
+       }
 }
 
