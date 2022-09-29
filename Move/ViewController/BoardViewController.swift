@@ -10,11 +10,7 @@ import Alamofire
 import Foundation
 
 class BoardViewController: UIViewController{
-    var current_year_string = Date().string(format: "yyyy")
-    var current_month_string = Date().string(format: "MM")
-    var current_day_string = Date().string(format: "dd")
-    var current_hour_string = Date().string(format: "HH")
-    
+
     
     
     // MARK - Variable
@@ -25,6 +21,11 @@ class BoardViewController: UIViewController{
     
     
     override func viewDidLoad() {
+//        var current_year_string = Date().string(format: "yyyy")
+//        var current_month_string = Date().string(format: "MM")
+//        var current_day_string = Date().string(format: "dd")
+//        var current_hour_string = Date().string(format: "HH")
+        
         Task{
             postsTableView.dataSource = self
             postsTableView.delegate = self
@@ -57,12 +58,6 @@ class BoardViewController: UIViewController{
         }
     }
     
-    func getDifferenceDateAndCurrent(date: String) -> String{
-        var difference : String = ""
-        
-        return difference
-        
-    }
     
     
     func getData() async throws{
@@ -109,6 +104,11 @@ extension BoardViewController : UITableViewDelegate, UITableViewDataSource{
 //    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var current_year_string = Date().string(format: "yyyy")
+        var current_month_string = Date().string(format: "MM")
+        var current_day_string = Date().string(format: "dd")
+        var current_hour_string = Date().string(format: "HH")
+        
         let cell = postsTableView.dequeueReusableCell(withIdentifier: "posts", for: indexPath) as! PostsTableViewCell
         cell.titleLabel.text = postsData[0][indexPath.row].title
         //postsData[0][indexPath.row].created_at.split("-")
