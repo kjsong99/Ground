@@ -10,7 +10,7 @@ import Alamofire
 import Foundation
 
 class BoardViewController: UIViewController{
-
+    
     
     
     // MARK - Variable
@@ -21,10 +21,10 @@ class BoardViewController: UIViewController{
     
     
     override func viewDidLoad() {
-//        var current_year_string = Date().string(format: "yyyy")
-//        var current_month_string = Date().string(format: "MM")
-//        var current_day_string = Date().string(format: "dd")
-//        var current_hour_string = Date().string(format: "HH")
+        //        var current_year_string = Date().string(format: "yyyy")
+        //        var current_month_string = Date().string(format: "MM")
+        //        var current_day_string = Date().string(format: "dd")
+        //        var current_hour_string = Date().string(format: "HH")
         
         
         Task{
@@ -32,12 +32,12 @@ class BoardViewController: UIViewController{
             postsTableView.delegate = self
             try? await getData()
         }
-       
+        
         
         
         
     }
-
+    
     
     // MARK - Method
     
@@ -46,7 +46,7 @@ class BoardViewController: UIViewController{
             let vc : WriteViewController = segue.destination as! WriteViewController
             vc.delegate = self
         }
-      
+        
     }
     
     func deletePost(id: String) async throws{
@@ -66,7 +66,7 @@ class BoardViewController: UIViewController{
         
         do{
             let data = try await AppNetworking.shared.requestJSON(url, type: [PostsResponseElement].self, method: .get)
-       
+            
             
             if self.postsData.count > 0 {
                 self.postsData.removeAll()
@@ -87,7 +87,7 @@ extension BoardViewController : NotificationDelegate{
         Task{
             try? await  getData()
         }
-     
+        
     }
 }
 
@@ -100,13 +100,13 @@ extension BoardViewController : UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
-         let postVC = self.storyboard?.instantiateViewController(withIdentifier: "PostVC") as! PostViewController
+        
+        let postVC = self.storyboard?.instantiateViewController(withIdentifier: "PostVC") as! PostViewController
         postVC.id = postsData[0][indexPath.row].id
         
         self.navigationController?.pushViewController(postVC, animated: true)
-//        postVC.modalPresentationStyle = .fullScreen
-//        self.present(postVC, animated: true, completion: nil)
+        //        postVC.modalPresentationStyle = .fullScreen
+        //        self.present(postVC, animated: true, completion: nil)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -125,7 +125,7 @@ extension BoardViewController : UITableViewDelegate, UITableViewDataSource{
             && dateArr[2] == current_day_string {
             
             let tempHour = Int(String(Array(postsData[0][indexPath.row].created_at)[11 ... 12]))! + 9
-           
+            
             if String(tempHour) == current_hour_string{
                 cell.dateLabel.text = "방금전"
             }else{
@@ -134,10 +134,10 @@ extension BoardViewController : UITableViewDelegate, UITableViewDataSource{
         }else{
             cell.dateLabel.text = dateArr[1] + "월 " + dateArr[2] + "일"
         }
-       
         
         
-       
+        
+        
         
         
         
@@ -172,8 +172,8 @@ extension Date {
 
 extension String{
     func date(format: String) -> Date? {
-            let formatter = DateFormatter()
-            formatter.dateFormat = format
+        let formatter = DateFormatter()
+        formatter.dateFormat = format
         return formatter.date(from: self)
     }
 }

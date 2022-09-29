@@ -34,6 +34,13 @@ class PostViewController: UIViewController {
             titleLabel.text = data.title
             contentLabel.text = data.content
             userLabel.text = data.user?.username
+            
+            
+            guard let date = data.created_at.dateUTC(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'") else{
+                return
+            }
+             let str = date.string(format: "MM/dd HH:mm")
+            dateLabel.text = str
            
             
         }
@@ -43,4 +50,27 @@ class PostViewController: UIViewController {
         
         
     }
+    
+    
 }
+
+extension Date {
+    func stringUTC(format: String) -> String {
+        let formatter = DateFormatter()
+        formatter.timeZone = TimeZone(abbreviation: "UTC")
+        formatter.dateFormat = format
+        return formatter.string(from: self)
+    }
+}
+
+extension String{
+    func dateUTC(format: String) -> Date? {
+        let formatter = DateFormatter()
+        formatter.timeZone = TimeZone(abbreviation: "UTC")
+        formatter.dateFormat = format
+        return formatter.date(from: self)
+    }
+}
+
+
+
