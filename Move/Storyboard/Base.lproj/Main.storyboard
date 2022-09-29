@@ -94,19 +94,19 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="09/29 20:06" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PVA-dx-eqD">
-                                <rect key="frame" x="50" y="208.5" width="66" height="14"/>
+                                <rect key="frame" x="50" y="198.5" width="66" height="14"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
                                 <color key="textColor" systemColor="secondaryLabelColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="test12" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WXp-qB-FXr">
-                                <rect key="frame" x="53" y="183.5" width="35" height="15"/>
+                                <rect key="frame" x="53" y="173.5" width="35" height="15"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="내용입니다." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="none" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RVN-4n-98o">
-                                <rect key="frame" x="50" y="242.5" width="300" height="17"/>
+                                <rect key="frame" x="50" y="232.5" width="300" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="300" id="6pU-Lq-jUL"/>
                                 </constraints>
@@ -121,14 +121,20 @@
                             <constraint firstItem="RVN-4n-98o" firstAttribute="top" secondItem="PVA-dx-eqD" secondAttribute="bottom" constant="20" id="2uG-j2-WtX"/>
                             <constraint firstItem="RVN-4n-98o" firstAttribute="leading" secondItem="EsN-uZ-0hi" secondAttribute="leading" constant="50" id="9WK-3u-GK6"/>
                             <constraint firstItem="bVH-EO-6gp" firstAttribute="leading" secondItem="EsN-uZ-0hi" secondAttribute="leading" constant="50" id="PJk-aH-MYg"/>
-                            <constraint firstItem="WXp-qB-FXr" firstAttribute="top" secondItem="bVH-EO-6gp" secondAttribute="bottom" constant="20" id="PMk-Il-Pyj"/>
+                            <constraint firstItem="WXp-qB-FXr" firstAttribute="top" secondItem="bVH-EO-6gp" secondAttribute="bottom" constant="10" id="PMk-Il-Pyj"/>
                             <constraint firstItem="WXp-qB-FXr" firstAttribute="leading" secondItem="EsN-uZ-0hi" secondAttribute="leading" constant="53" id="kp0-yV-Dg3"/>
                             <constraint firstItem="PVA-dx-eqD" firstAttribute="leading" secondItem="EsN-uZ-0hi" secondAttribute="leading" constant="50" id="nYS-l3-PeM"/>
                             <constraint firstItem="PVA-dx-eqD" firstAttribute="top" secondItem="WXp-qB-FXr" secondAttribute="bottom" constant="10" id="qpk-g8-wWp"/>
                             <constraint firstItem="bVH-EO-6gp" firstAttribute="top" secondItem="EsN-uZ-0hi" secondAttribute="top" constant="50" id="vjJ-vJ-ZSR"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="se2-e1-Xbb"/>
+                    <navigationItem key="navigationItem" id="se2-e1-Xbb">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="ellipsis" catalog="system" id="pgO-YR-VnY">
+                            <connections>
+                                <action selector="showMoreButton:" destination="uQO-7S-mh9" id="dPD-zh-Tqp"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="contentLabel" destination="RVN-4n-98o" id="RZR-Jl-hLS"/>
                         <outlet property="dateLabel" destination="PVA-dx-eqD" id="mji-GN-2Xr"/>
@@ -278,6 +284,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="ellipsis" catalog="system" width="128" height="37"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
