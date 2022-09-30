@@ -11,8 +11,6 @@ import Foundation
 
 class BoardViewController: UIViewController{
     
-    
-    
     // MARK - Variable
     
     var postsData = [PostsResponse]()
@@ -20,26 +18,15 @@ class BoardViewController: UIViewController{
     
     
     
+    // MARK - Override
     override func viewDidLoad() {
-        //        var current_year_string = Date().string(format: "yyyy")
-        //        var current_month_string = Date().string(format: "MM")
-        //        var current_day_string = Date().string(format: "dd")
-        //        var current_hour_string = Date().string(format: "HH")
-        
         
         Task{
             postsTableView.dataSource = self
             postsTableView.delegate = self
             try? await getData()
         }
-        
-        
-        
-        
     }
-    
-    
-    // MARK - Method
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "show"{
@@ -48,6 +35,10 @@ class BoardViewController: UIViewController{
         }
         
     }
+   
+    
+    // MARK - Method
+    
     
     func deletePost(id: String) async throws{
         let url =  "\(Bundle.main.url)posts/\(id)"
@@ -59,12 +50,27 @@ class BoardViewController: UIViewController{
         }
     }
     
-    func getDate(str: String) throws -> Date{
-        guard let result = str.dateUTC(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")else{
-            throw ErrorMessage.typeError
-        }
-        return result
+    func setDate(row: Int) -> String? {
+        let current_year_string = Date().year()
+        let current_month_string = Date().month()
+        let current_day_string = Date().day()
+        let current_hour_string = Date().hour()
         
+        guard let date = postsData[0][row].created_at.dateUTC(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")else{
+            return nil
+        }
+        if date.year() == current_year_string &&
+            date.month() == current_month_string &&
+            date.day() == current_day_string{
+            if date.hour() == current_hour_string {
+                return "방금전"
+            }else{
+                return String(Int(current_hour_string)! - Int(date.hour())!) + "시간 전"
+            }
+        }else{
+            return date.month() + "월" + date.day() + "일"
+        }
+       
     }
     
     
@@ -90,10 +96,17 @@ class BoardViewController: UIViewController{
     
 }
 
+// MARK - EXTENSION
+
 extension BoardViewController : NotificationDelegate{
     func refresh() {
         Task{
-            try? await  getData()
+            do{
+                try await  getData()
+                
+            }catch{
+                print(error)
+            }
         }
         
     }
@@ -101,9 +114,6 @@ extension BoardViewController : NotificationDelegate{
 
 extension BoardViewController : UITableViewDelegate, UITableViewDataSource{
  
-    
-    
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return postsData.count != 0 ? postsData[0].count : 0
         
@@ -115,42 +125,13 @@ extension BoardViewController : UITableViewDelegate, UITableViewDataSource{
         postVC.id = postsData[0][indexPath.row].id
         
         self.navigationController?.pushViewController(postVC, animated: true)
-        //        postVC.modalPresentationStyle = .fullScreen
-        //        self.present(postVC, animated: true, completion: nil)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let current_year_string = Date().year()
-        let current_month_string = Date().month()
-        let current_day_string = Date().day()
-        let current_hour_string = Date().hour()
         
         let cell = postsTableView.dequeueReusableCell(withIdentifier: "posts", for: indexPath) as! PostsTableViewCell
         cell.titleLabel.text = postsData[0][indexPath.row].title
-        
-        do{
-            let date = try getDate(str: postsData[0][indexPath.row].created_at)
-            if date.year() == current_year_string &&
-                date.month() == current_month_string &&
-                date.day() == current_day_string{
-                if date.hour() == current_hour_string {
-                    cell.dateLabel.text = "방금전"
-                }else{
-                    cell.dateLabel.text = String(Int(current_hour_string)! - Int(date.hour())!) + "시간 전"
-                }
-            }else{
-                cell.dateLabel.text = date.month() + "월" + date.day() + "일"
-            }
-        }catch{
-            print(error)
-        }
-        
-        
-        
-        
-        
-        
-        
+        cell.dateLabel.text = setDate(row: indexPath.row)
         
         return cell
     }
@@ -210,12 +191,25 @@ extension Date {
         return formatter.string(from: self)
     }
     
+    func stringUTC(format: String) -> String {
+        let formatter = DateFormatter()
+        formatter.timeZone = TimeZone(abbreviation: "UTC")
+        formatter.dateFormat = format
+        return formatter.string(from: self)
+    }
     
 }
 
 extension String{
     func date(format: String) -> Date? {
         let formatter = DateFormatter()
+        formatter.dateFormat = format
+        return formatter.date(from: self)
+    }
+    
+    func dateUTC(format: String) -> Date? {
+        let formatter = DateFormatter()
+        formatter.timeZone = TimeZone(abbreviation: "UTC")
         formatter.dateFormat = format
         return formatter.date(from: self)
     }

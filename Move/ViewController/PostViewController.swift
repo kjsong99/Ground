@@ -21,8 +21,6 @@ class PostViewController: UIViewController {
             try? await getPost(id: id)
             contentLabel.sizeToFit()
         }
-        
-        //        contentLabel.text = String(id)
     }
     
     
@@ -79,24 +77,3 @@ func modifyPost(){
 func deletePost(){
     
 }
-
-extension Date {
-    func stringUTC(format: String) -> String {
-        let formatter = DateFormatter()
-        formatter.timeZone = TimeZone(abbreviation: "UTC")
-        formatter.dateFormat = format
-        return formatter.string(from: self)
-    }
-}
-
-extension String{
-    func dateUTC(format: String) -> Date? {
-        let formatter = DateFormatter()
-        formatter.timeZone = TimeZone(abbreviation: "UTC")
-        formatter.dateFormat = format
-        return formatter.date(from: self)
-    }
-}
-
-
-
