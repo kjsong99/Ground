@@ -59,6 +59,14 @@ class BoardViewController: UIViewController{
         }
     }
     
+    func getDate(str: String) throws -> Date{
+        guard let result = str.dateUTC(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")else{
+            throw ErrorMessage.typeError
+        }
+        return result
+        
+    }
+    
     
     
     func getData() async throws{
@@ -92,6 +100,8 @@ extension BoardViewController : NotificationDelegate{
 }
 
 extension BoardViewController : UITableViewDelegate, UITableViewDataSource{
+ 
+    
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -110,30 +120,31 @@ extension BoardViewController : UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let current_year_string = Date().string(format: "yyyy")
-        let current_month_string = Date().string(format: "MM")
-        let current_day_string = Date().string(format: "dd")
-        let current_hour_string = Date().string(format: "HH")
+        let current_year_string = Date().year()
+        let current_month_string = Date().month()
+        let current_day_string = Date().day()
+        let current_hour_string = Date().hour()
         
         let cell = postsTableView.dequeueReusableCell(withIdentifier: "posts", for: indexPath) as! PostsTableViewCell
         cell.titleLabel.text = postsData[0][indexPath.row].title
-        //postsData[0][indexPath.row].created_at.split("-")
-        let tempDate = String(Array(postsData[0][indexPath.row].created_at)[0 ... 9])
-        let dateArr = tempDate.split(separator: "-")
-        if dateArr[0] == current_year_string &&
-            dateArr[1] == current_month_string
-            && dateArr[2] == current_day_string {
-            
-            let tempHour = Int(String(Array(postsData[0][indexPath.row].created_at)[11 ... 12]))! + 9
-            
-            if String(tempHour) == current_hour_string{
-                cell.dateLabel.text = "방금전"
+        
+        do{
+            let date = try getDate(str: postsData[0][indexPath.row].created_at)
+            if date.year() == current_year_string &&
+                date.month() == current_month_string &&
+                date.day() == current_day_string{
+                if date.hour() == current_hour_string {
+                    cell.dateLabel.text = "방금전"
+                }else{
+                    cell.dateLabel.text = String(Int(current_hour_string)! - Int(date.hour())!) + "시간 전"
+                }
             }else{
-                cell.dateLabel.text =  String(Int(current_hour_string)! - tempHour) + "시간 전"
+                cell.dateLabel.text = date.month() + "월" + date.day() + "일"
             }
-        }else{
-            cell.dateLabel.text = dateArr[1] + "월 " + dateArr[2] + "일"
+        }catch{
+            print(error)
         }
+        
         
         
         
@@ -168,6 +179,38 @@ extension Date {
         formatter.dateFormat = format
         return formatter.string(from: self)
     }
+    
+    func year() -> String{
+        let formatter = DateFormatter()
+        formatter.dateFormat = "YYYY"
+        return formatter.string(from: self)
+    }
+    
+    func month() -> String{
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM"
+        return formatter.string(from: self)
+    }
+    
+    func day() -> String{
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd"
+        return formatter.string(from: self)
+    }
+    
+    func hour() -> String{
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH"
+        return formatter.string(from: self)
+    }
+    
+    func min() -> String{
+        let formatter = DateFormatter()
+        formatter.dateFormat = "mm"
+        return formatter.string(from: self)
+    }
+    
+    
 }
 
 extension String{
