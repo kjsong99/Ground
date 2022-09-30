@@ -43,8 +43,11 @@
                                                     <color key="textColor" systemColor="secondaryLabelColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wxQ-Kd-NZR">
-                                                    <rect key="frame" x="30" y="35.5" width="28.5" height="14"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="contentLabel" text="Content" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wxQ-Kd-NZR">
+                                                    <rect key="frame" x="30" y="35.5" width="275" height="14"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="275" id="KvA-iM-MVd"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -60,6 +63,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="contentLabel" destination="wxQ-Kd-NZR" id="KUx-Wy-c9S"/>
                                             <outlet property="dateLabel" destination="RIE-bw-dvF" id="Uhw-Kw-7ga"/>
                                             <outlet property="titleLabel" destination="5B7-gq-7Gb" id="gCg-UM-ggj"/>
                                         </connections>
@@ -173,29 +177,16 @@
                                     <action selector="SignOutBtnTapped:" destination="d8c-0J-yOe" eventType="touchUpInside" id="qpr-me-Q3Y"/>
                                 </connections>
                             </button>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6C7-Ck-o3Q">
-                                <rect key="frame" x="100" y="405" width="200" height="208"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="208" id="grh-75-evv"/>
-                                </constraints>
-                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="g7y-DB-W5E"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="wqm-3q-irj" firstAttribute="leading" secondItem="g7y-DB-W5E" secondAttribute="leading" constant="132" id="0MZ-xF-G50"/>
                             <constraint firstItem="g7y-DB-W5E" firstAttribute="trailing" secondItem="wqm-3q-irj" secondAttribute="trailing" constant="132" id="JwU-2X-ddY"/>
-                            <constraint firstItem="6C7-Ck-o3Q" firstAttribute="top" secondItem="wqm-3q-irj" secondAttribute="bottom" constant="30" id="N7u-fI-ywQ"/>
                             <constraint firstItem="wqm-3q-irj" firstAttribute="top" secondItem="g7y-DB-W5E" secondAttribute="top" constant="300" id="XFt-uC-lYZ"/>
-                            <constraint firstItem="6C7-Ck-o3Q" firstAttribute="leading" secondItem="g7y-DB-W5E" secondAttribute="leading" constant="100" id="bl6-ne-jZu"/>
-                            <constraint firstItem="g7y-DB-W5E" firstAttribute="trailing" secondItem="6C7-Ck-o3Q" secondAttribute="trailing" constant="114" id="fyB-iF-XPK"/>
-                            <constraint firstItem="g7y-DB-W5E" firstAttribute="bottom" secondItem="6C7-Ck-o3Q" secondAttribute="bottom" constant="200" id="xjL-wL-8XB"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Setting" id="YSo-ke-VPA"/>
-                    <connections>
-                        <outlet property="imageView" destination="6C7-Ck-o3Q" id="9gn-ru-1jo"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YDV-S1-uFW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

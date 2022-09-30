@@ -6,15 +6,14 @@ import Kingfisher
 class SettingViewController: UIViewController {
     
     override func viewWillLayoutSubviews() {
-       createCircleImageView(imageView: imageView)
+      // createCircleImageView(imageView: imageView)
     }
     
-    @IBOutlet var imageView: UIImageView!
     override func viewDidLoad() {
-        let image = UIImage(systemName:"circle.dashed")
-        let url = URL(string: Bundle.main.url+"uploads/astronaut_outer_open_space_planet_earth_stars_provide_background_erforming_space_planet_earth_sunrise_sunset_our_home_iss_elements_this_image_furnished_by_nasa_150455_16829_7b571df095.jpeg")
+//        let image = UIImage(systemName:"circle.dashed")
+//        let url = URL(string: Bundle.main.url+"uploads/astronaut_outer_open_space_planet_earth_stars_provide_background_erforming_space_planet_earth_sunrise_sunset_our_home_iss_elements_this_image_furnished_by_nasa_150455_16829_7b571df095.jpeg")
         
-        imageView.kf.setImage(with: url, placeholder: image)
+       // imageView.kf.setImage(with: url, placeholder: image)
     }
     
     func createCircleImageView(imageView: UIImageView){

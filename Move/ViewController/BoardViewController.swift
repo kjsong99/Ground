@@ -40,15 +40,7 @@ class BoardViewController: UIViewController{
     // MARK - Method
     
     
-    func deletePost(id: String) async throws{
-        let url =  "\(Bundle.main.url)posts/\(id)"
-        
-        do{
-            _ = try await AppNetworking.shared.requestJSON(url, type: WriteResponse.self, method: .delete)
-        }catch{
-            return
-        }
-    }
+
     
     func setDate(row: Int) -> String? {
         let current_year_string = Date().year()
@@ -76,6 +68,7 @@ class BoardViewController: UIViewController{
     
     
     func getData() async throws{
+        print("get data 호출")
         let url =  "\(Bundle.main.url)posts"
         
         do{
@@ -98,10 +91,11 @@ class BoardViewController: UIViewController{
 
 // MARK - EXTENSION
 
-extension BoardViewController : NotificationDelegate{
-    func refresh() {
+extension BoardViewController : WriteDelegate{
+    func refreshBoard() {
         Task{
             do{
+                print("refresh")
                 try await  getData()
                 
             }catch{
@@ -111,6 +105,21 @@ extension BoardViewController : NotificationDelegate{
         
     }
 }
+
+//extension BoardViewController : DeleteDelegate{
+//    func refreshDelete() {
+//        Task{
+//            do{
+//                print("delete")
+//                try await  getData()
+//                
+//            }catch{
+//                print(error)
+//            }
+//        }
+//        
+//    }
+//}
 
 extension BoardViewController : UITableViewDelegate, UITableViewDataSource{
  
@@ -123,6 +132,7 @@ extension BoardViewController : UITableViewDelegate, UITableViewDataSource{
         
         let postVC = self.storyboard?.instantiateViewController(withIdentifier: "PostVC") as! PostViewController
         postVC.id = postsData[0][indexPath.row].id
+        postVC.delegate = self
         
         self.navigationController?.pushViewController(postVC, animated: true)
     }
@@ -132,6 +142,7 @@ extension BoardViewController : UITableViewDelegate, UITableViewDataSource{
         let cell = postsTableView.dequeueReusableCell(withIdentifier: "posts", for: indexPath) as! PostsTableViewCell
         cell.titleLabel.text = postsData[0][indexPath.row].title
         cell.dateLabel.text = setDate(row: indexPath.row)
+        cell.contentLabel.text = postsData[0][indexPath.row].content
         
         return cell
     }

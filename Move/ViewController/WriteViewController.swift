@@ -7,8 +7,8 @@
 import Alamofire
 import UIKit
 
-protocol NotificationDelegate : AnyObject{
-    func refresh()
+protocol WriteDelegate : AnyObject{
+    func refreshBoard()
 }
 
 class WriteViewController: UIViewController{
@@ -17,7 +17,7 @@ class WriteViewController: UIViewController{
     
     @IBOutlet var titleText: UITextField!
     @IBOutlet var contentText: UITextView!
-    weak var delegate: NotificationDelegate?
+    weak var delegate: WriteDelegate?
     
     
     
@@ -50,7 +50,7 @@ class WriteViewController: UIViewController{
         }
         Task{
             try? await postData(title: title, content: content)
-            delegate?.refresh()
+            delegate?.refreshBoard()
             navigationController?.popViewController(animated: true)
         }
     }

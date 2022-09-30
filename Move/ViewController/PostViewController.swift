@@ -8,23 +8,49 @@
 import UIKit
 import Alamofire
 
-class PostViewController: UIViewController {
+class PostViewController: UIViewController{
+    
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var dateLabel: UILabel!
     @IBOutlet var contentLabel: UILabel!
     @IBOutlet var userLabel: UILabel!
+
     var id : Int = 0
+    var temp = [PostsResponseElement]()
+    weak var delegate : WriteDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         Task{
-            try? await getPost(id: id)
+            do{
+               try await getPost(id: id)
+                setData()
+                
+            }catch{
+                print(error)
+            }
             contentLabel.sizeToFit()
         }
     }
     
+    func setData(){
+        
+            titleLabel.text = temp[0].title
+            contentLabel.text = temp[0].content
+            userLabel.text = temp[0].user?.username
+
+
+            guard let date = temp[0].created_at.dateUTC(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'") else{
+                return
+            }
+            let str = date.string(format: "MM/dd HH:mm")
+            dateLabel.text = str
+    }
     
-    @IBAction func showMoreButton(_ sender: Any) {
+    
+    @IBAction func showMoreButton(_ sender: Any){
+        var delegate = self.delegate
+   
         let actionSheet = UIAlertController(title: "글메뉴", message: nil, preferredStyle: .actionSheet)
         
         actionSheet.addAction(UIAlertAction(title: "수정", style: .default, handler: {(ACTION:UIAlertAction) in
@@ -33,8 +59,13 @@ class PostViewController: UIViewController {
         }))
         
         actionSheet.addAction(UIAlertAction(title: "삭제", style: .default, handler: {(ACTION:UIAlertAction) in
-            deletePost()
-            print("삭제되었습니다.")
+            Task{
+                try? await deletePost(id: String(self.id))
+                    //refresh
+                self.delegate?.refreshBoard()
+                self.navigationController?.popViewController(animated: true)
+            }
+            
         }))
         
         //취소 버튼 - 스타일(cancel)
@@ -47,23 +78,24 @@ class PostViewController: UIViewController {
         
     }
     
-    func getPost(id: Int) async throws{
+    func getPost(id: Int) async throws {
         let url =  "\(Bundle.main.url)posts/"+String(id)
         
         do{
             let data = try await AppNetworking.shared.requestJSON(url, type: PostsResponseElement.self, method: .get)
             
-            titleLabel.text = data.title
-            contentLabel.text = data.content
-            userLabel.text = data.user?.username
+//            titleLabel.text = data.title
+//            contentLabel.text = data.content
+//            userLabel.text = data.user?.username
+//
+//
+//            guard let date = data.created_at.dateUTC(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'") else{
+//                return
+//            }
+//            let str = date.string(format: "MM/dd HH:mm")
+//            dateLabel.text = str
             
-            
-            guard let date = data.created_at.dateUTC(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'") else{
-                return
-            }
-            let str = date.string(format: "MM/dd HH:mm")
-            dateLabel.text = str
-            
+            temp.append(data)
             
         }
     }
@@ -74,6 +106,14 @@ func modifyPost(){
     
 }
 
-func deletePost(){
+func deletePost(id: String) async throws{
+    let url =  "\(Bundle.main.url)posts/\(id)"
+    
+    do{
+        _ = try await AppNetworking.shared.requestJSON(url, type: WriteResponse.self, method: .delete)
+    }catch{
+        return
+    }
+    
     
 }
