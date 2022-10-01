@@ -81,6 +81,7 @@
                                         <connections>
                                             <outlet property="contentLabel" destination="wxQ-Kd-NZR" id="KUx-Wy-c9S"/>
                                             <outlet property="dateLabel" destination="RIE-bw-dvF" id="Uhw-Kw-7ga"/>
+                                            <outlet property="nameLabel" destination="5dV-8S-25a" id="FKV-Et-E1v"/>
                                             <outlet property="titleLabel" destination="5B7-gq-7Gb" id="gCg-UM-ggj"/>
                                         </connections>
                                     </tableViewCell>
@@ -90,7 +91,7 @@
                         <viewLayoutGuide key="safeArea" id="klv-SZ-rML"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Board" id="rsv-Qy-VMj"/>
+                    <tabBarItem key="tabBarItem" title="Board" image="list.bullet.rectangle.portrait" catalog="system" id="rsv-Qy-VMj"/>
                     <navigationItem key="navigationItem" id="tdG-pp-0WS">
                         <rightBarButtonItems>
                             <barButtonItem title="Item" image="square.and.pencil" catalog="system" id="bE9-WD-24n">
@@ -202,7 +203,7 @@
                             <constraint firstItem="wqm-3q-irj" firstAttribute="top" secondItem="g7y-DB-W5E" secondAttribute="top" constant="300" id="XFt-uC-lYZ"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Setting" id="YSo-ke-VPA"/>
+                    <tabBarItem key="tabBarItem" title="Setting" image="gear" catalog="system" id="YSo-ke-VPA"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YDV-S1-uFW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -303,6 +304,8 @@
     </scenes>
     <resources>
         <image name="ellipsis" catalog="system" width="128" height="37"/>
+        <image name="gear" catalog="system" width="128" height="119"/>
+        <image name="list.bullet.rectangle.portrait" catalog="system" width="115" height="128"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="square.and.pencil" catalog="system" width="128" height="115"/>
         <systemColor name="labelColor">

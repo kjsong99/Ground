@@ -129,6 +129,7 @@ extension BoardViewController : UITableViewDelegate, UITableViewDataSource{
         cell.titleLabel.text = postsData[0][indexPath.row].title
         cell.dateLabel.text = setDate(row: indexPath.row)
         cell.contentLabel.text = postsData[0][indexPath.row].content
+        cell.nameLabel.text = postsData[0][indexPath.row].user?.username
         
         return cell
     }
