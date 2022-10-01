@@ -7,8 +7,12 @@
 import Alamofire
 import UIKit
 
-protocol WriteDelegate : AnyObject{
+protocol BoardDelegate : AnyObject{
     func refreshBoard()
+}
+
+protocol PostDelegate : AnyObject{
+    func refreshPost() async
 }
 
 class WriteViewController: UIViewController{
@@ -17,7 +21,9 @@ class WriteViewController: UIViewController{
     
     @IBOutlet var titleText: UITextField!
     @IBOutlet var contentText: UITextView!
-    weak var delegate: WriteDelegate?
+    var modifyPost : PostsResponseElement?
+    weak var delegate: BoardDelegate?
+    weak var postDelegate: PostDelegate?
     
     
     
@@ -29,10 +35,20 @@ class WriteViewController: UIViewController{
         contentText.delegate = self
         contentText.layer.borderWidth = 0.2
         contentText.layer.cornerRadius = 5.0
-    
         contentText.layer.borderColor = UIColor.systemGray.cgColor
-        contentText.text = "Content"
-        contentText.textColor = UIColor.systemGray3
+    
+      
+        
+        if modifyPost != nil {
+            titleText.text = modifyPost?.title
+            contentText.text = modifyPost?.content
+        }else{
+           
+            contentText.text = "내용을 입력하세요."
+            contentText.textColor = UIColor.systemGray3
+        }
+        
+        
     }
     
     
@@ -41,18 +57,43 @@ class WriteViewController: UIViewController{
     }
     
     @IBAction func submitTouched(_ sender: Any) {
-        print("touched")
+        
         guard let title = titleText.text else {
             return
         }
         guard let content = contentText.text else{
             return
         }
+            
+        print(modifyPost)
         Task{
-            try? await postData(title: title, content: content)
+            if modifyPost == nil{
+                try? await postData(title: title, content: content)
+            }else{
+                try? await modify(title: title, content: content)
+                //board가 아니라 post delegate 위임해서 데이터 업데이트 해야함.
+                 await postDelegate?.refreshPost()
+            }
+            
             delegate?.refreshBoard()
             navigationController?.popViewController(animated: true)
         }
+//        if modifyPost == nil {
+//            //글쓰기
+//            Task{
+//               
+////                delegate?.refreshBoard()
+////                navigationController?.popViewController(animated: true)
+//            }
+//        }else{
+//            //수정
+//            Task{
+//              
+//            }
+//        }
+    
+      
+       
     }
     
     private func postData(title: String, content: String) async throws{
@@ -60,9 +101,6 @@ class WriteViewController: UIViewController{
         guard let id = UserDefaults.standard.string(forKey: "id") else {
             return
         }
-        
-        
-        
         let param : Parameters = [
             "title" : title,
             "content" : content,
@@ -76,12 +114,30 @@ class WriteViewController: UIViewController{
             return
         }
     }
+    
+    private func modify(title: String, content: String) async throws{
+        let url =  "\(Bundle.main.url)posts/" + (modifyPost?.id.description)!
+        guard let id = UserDefaults.standard.string(forKey: "id") else {
+            return
+        }
+        let param : Parameters = [
+            "title" : title,
+            "content" : content
+        ]
+        
+        do{
+            _ = try await
+            AppNetworking.shared.requestJSON(url, type: WriteResponse.self, method: .put, parameters: param)
+        }catch{
+            return
+        }
+    }
 }
 
 extension WriteViewController : UITextViewDelegate{
     //MARK: - TextView Delegate
        func textViewDidBeginEditing(_ textView: UITextView) {
-           if textView.text == "Content" {
+           if textView.text == "내용을 입력하세요." {
                textView.text = ""
                textView.textColor = UIColor.black
            }
@@ -89,7 +145,7 @@ extension WriteViewController : UITextViewDelegate{
        
        func textViewDidEndEditing(_ textView: UITextView) {
            if textView.text.isEmpty {
-               textView.text = "Content"
+               textView.text = "내용을 입력하세요."
                textView.textColor = UIColor.systemGray3
            }
        }

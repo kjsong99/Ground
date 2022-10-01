@@ -8,7 +8,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--List-->
+        <!--Board-->
         <scene sceneID="mRR-uA-DTF">
             <objects>
                 <viewController storyboardIdentifier="BoardViewController" id="m1g-gr-8dS" customClass="BoardViewController" customModule="Move" customModuleProvider="target" sceneMemberID="viewController">
@@ -52,14 +52,30 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5dV-8S-25a">
+                                                    <rect key="frame" x="66.5" y="54.5" width="52" height="14"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
+                                                    <color key="textColor" systemColor="secondaryLabelColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="|" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="li1-CP-s1P">
+                                                    <rect key="frame" x="58.5" y="54" width="3" height="14"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
+                                                    <color key="textColor" systemColor="systemGray3Color"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="wxQ-Kd-NZR" firstAttribute="leading" secondItem="W04-M7-tvt" secondAttribute="leadingMargin" constant="10" id="3Vh-TM-FvV"/>
                                                 <constraint firstItem="5B7-gq-7Gb" firstAttribute="leading" secondItem="W04-M7-tvt" secondAttribute="leading" constant="30" id="75k-h1-WzB"/>
                                                 <constraint firstItem="wxQ-Kd-NZR" firstAttribute="top" secondItem="5B7-gq-7Gb" secondAttribute="bottom" constant="5" id="HAu-Fc-Po5"/>
                                                 <constraint firstItem="RIE-bw-dvF" firstAttribute="top" secondItem="wxQ-Kd-NZR" secondAttribute="bottom" constant="5" id="O41-69-o5w"/>
+                                                <constraint firstItem="5dV-8S-25a" firstAttribute="top" secondItem="wxQ-Kd-NZR" secondAttribute="bottom" constant="5" id="Sgg-1M-Qod"/>
+                                                <constraint firstItem="5dV-8S-25a" firstAttribute="leading" secondItem="li1-CP-s1P" secondAttribute="trailing" constant="5" id="ZXC-QV-BWl"/>
                                                 <constraint firstItem="RIE-bw-dvF" firstAttribute="leading" secondItem="W04-M7-tvt" secondAttribute="leadingMargin" constant="10" id="b7C-TF-fDx"/>
                                                 <constraint firstItem="5B7-gq-7Gb" firstAttribute="top" secondItem="W04-M7-tvt" secondAttribute="top" constant="10" id="bDd-gj-c8g"/>
+                                                <constraint firstItem="li1-CP-s1P" firstAttribute="top" secondItem="wxQ-Kd-NZR" secondAttribute="bottom" constant="4.5" id="iuh-sg-HzX"/>
+                                                <constraint firstItem="li1-CP-s1P" firstAttribute="leading" secondItem="RIE-bw-dvF" secondAttribute="trailing" constant="5" id="nem-dG-A7e"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -75,7 +91,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Board" id="rsv-Qy-VMj"/>
-                    <navigationItem key="navigationItem" title="List" id="tdG-pp-0WS">
+                    <navigationItem key="navigationItem" id="tdG-pp-0WS">
                         <rightBarButtonItems>
                             <barButtonItem title="Item" image="square.and.pencil" catalog="system" id="bE9-WD-24n">
                                 <connections>
@@ -192,15 +208,15 @@
             </objects>
             <point key="canvasLocation" x="398.55072463768118" y="903.34821428571422"/>
         </scene>
-        <!--Write-->
+        <!--Write View Controller-->
         <scene sceneID="Spt-t4-Wz1">
             <objects>
-                <viewController hidesBottomBarWhenPushed="YES" id="FpX-QS-WlN" customClass="WriteViewController" customModule="Move" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WriteVC" hidesBottomBarWhenPushed="YES" id="FpX-QS-WlN" customClass="WriteViewController" customModule="Move" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jFW-i2-a2M">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sjv-mX-CCV">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="제목" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sjv-mX-CCV">
                                 <rect key="frame" x="30" y="128" width="354" height="34"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -236,7 +252,7 @@
                             <constraint firstItem="HH2-GO-sBf" firstAttribute="trailing" secondItem="sjv-mX-CCV" secondAttribute="trailing" constant="30" id="yLP-09-uWG"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Write" id="oUK-eg-1K4"/>
+                    <navigationItem key="navigationItem" id="oUK-eg-1K4"/>
                     <connections>
                         <outlet property="contentText" destination="6gn-GI-VFR" id="Vq6-HE-dCI"/>
                         <outlet property="titleText" destination="sjv-mX-CCV" id="8ol-RP-rCI"/>
@@ -297,6 +313,9 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray3Color">
+            <color red="0.7803921568627451" green="0.7803921568627451" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

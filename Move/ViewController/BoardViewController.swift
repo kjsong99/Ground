@@ -91,7 +91,7 @@ class BoardViewController: UIViewController{
 
 // MARK - EXTENSION
 
-extension BoardViewController : WriteDelegate{
+extension BoardViewController : BoardDelegate{
     func refreshBoard() {
         Task{
             do{
@@ -106,20 +106,6 @@ extension BoardViewController : WriteDelegate{
     }
 }
 
-//extension BoardViewController : DeleteDelegate{
-//    func refreshDelete() {
-//        Task{
-//            do{
-//                print("delete")
-//                try await  getData()
-//                
-//            }catch{
-//                print(error)
-//            }
-//        }
-//        
-//    }
-//}
 
 extension BoardViewController : UITableViewDelegate, UITableViewDataSource{
  

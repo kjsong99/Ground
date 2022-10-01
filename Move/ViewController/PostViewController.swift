@@ -17,7 +17,7 @@ class PostViewController: UIViewController{
 
     var id : Int = 0
     var temp = [PostsResponseElement]()
-    weak var delegate : WriteDelegate?
+    weak var delegate : BoardDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,13 +49,15 @@ class PostViewController: UIViewController{
     
     
     @IBAction func showMoreButton(_ sender: Any){
-        var delegate = self.delegate
    
         let actionSheet = UIAlertController(title: "글메뉴", message: nil, preferredStyle: .actionSheet)
         
         actionSheet.addAction(UIAlertAction(title: "수정", style: .default, handler: {(ACTION:UIAlertAction) in
-            modifyPost()
-            print("수정되었습니다.")
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "WriteVC") as? WriteViewController
+            vc?.postDelegate = self
+            vc?.delegate = self.delegate
+            vc?.modifyPost = self.temp[0]
+            self.show(vc!, sender: self)
         }))
         
         actionSheet.addAction(UIAlertAction(title: "삭제", style: .default, handler: {(ACTION:UIAlertAction) in
@@ -94,8 +96,12 @@ class PostViewController: UIViewController{
 //            }
 //            let str = date.string(format: "MM/dd HH:mm")
 //            dateLabel.text = str
-            
+            if !temp.isEmpty{
+                temp.removeAll()
+            }
             temp.append(data)
+            
+           
             
         }
     }
@@ -113,6 +119,16 @@ func deletePost(id: String) async throws{
         _ = try await AppNetworking.shared.requestJSON(url, type: WriteResponse.self, method: .delete)
     }catch{
         return
+    }
+    
+    
+}
+
+extension PostViewController : PostDelegate{
+    func refreshPost() async{
+        try? await getPost(id: self.id)
+        titleLabel.text = self.temp[0].title
+        contentLabel.text = self.temp[0].content
     }
     
     
