@@ -75,14 +75,14 @@ struct PostsResponseElement: Codable {
     let id: Int
     let title, content: String?
     let user: UserClass?
-    let published_at, created_at, updated_at: String
+    let created_at, updated_at: String
 
     enum CodingKeys: String, CodingKey {
         case id
         case title
         case content
         case user
-        case published_at
+//        case published_at
         case created_at
         case updated_at
     }

@@ -42,33 +42,11 @@ class BoardViewController: UIViewController{
     
 
     
-    func setDate(row: Int) -> String? {
-        let current_year_string = Date().year()
-        let current_month_string = Date().month()
-        let current_day_string = Date().day()
-        let current_hour_string = Date().hour()
-        
-        guard let date = postsData[0][row].created_at.dateUTC(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")else{
-            return nil
-        }
-        if date.year() == current_year_string &&
-            date.month() == current_month_string &&
-            date.day() == current_day_string{
-            if date.hour() == current_hour_string {
-                return "방금전"
-            }else{
-                return String(Int(current_hour_string)! - Int(date.hour())!) + "시간 전"
-            }
-        }else{
-            return date.month() + "월" + date.day() + "일"
-        }
-       
-    }
+    
     
     
     
     func getData() async throws{
-        print("get data 호출")
         let url =  "\(Bundle.main.url)posts"
         
         do{
@@ -114,6 +92,17 @@ extension BoardViewController : UITableViewDelegate, UITableViewDataSource{
         
     }
     
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = postsTableView.dequeueReusableCell(withIdentifier: "posts", for: indexPath) as! PostsTableViewCell
+        cell.titleLabel.text = postsData[0][indexPath.row].title
+        cell.dateLabel.text = Util.setDate(row: indexPath.row, inputDate: postsData[0][indexPath.row].created_at)
+        cell.contentLabel.text = postsData[0][indexPath.row].content
+        cell.nameLabel.text = postsData[0][indexPath.row].user?.username
+        
+        return cell
+    }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let postVC = self.storyboard?.instantiateViewController(withIdentifier: "PostVC") as! PostViewController
@@ -121,17 +110,6 @@ extension BoardViewController : UITableViewDelegate, UITableViewDataSource{
         postVC.delegate = self
         
         self.navigationController?.pushViewController(postVC, animated: true)
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell = postsTableView.dequeueReusableCell(withIdentifier: "posts", for: indexPath) as! PostsTableViewCell
-        cell.titleLabel.text = postsData[0][indexPath.row].title
-        cell.dateLabel.text = setDate(row: indexPath.row)
-        cell.contentLabel.text = postsData[0][indexPath.row].content
-        cell.nameLabel.text = postsData[0][indexPath.row].user?.username
-        
-        return cell
     }
     
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
