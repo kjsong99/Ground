@@ -65,13 +65,24 @@ class PostViewController: UIViewController{
         }))
         
         actionSheet.addAction(UIAlertAction(title: "삭제", style: .default, handler: {(ACTION:UIAlertAction) in
-            Task{
-                try? await deletePost(id: String(self.id))
-                    //refresh
-                self.delegate?.refreshBoard()
-                self.searchDelegate?.refreshSearch()
-                self.navigationController?.popViewController(animated: true)
-            }
+            let sheet = UIAlertController(title: nil, message: "정말 삭제하겠습니까?", preferredStyle: .alert)
+            sheet.addAction(UIAlertAction(title: "확인", style: .default, handler: {_ in
+                Task{
+                    try? await deletePost(id: String(self.id))
+                    self.delegate?.refreshBoard()
+                    self.searchDelegate?.refreshSearch()
+                    self.navigationController?.popViewController(animated: true)
+                    
+                }
+                
+            }))
+            sheet.addAction(UIAlertAction(title: "취소", style: .cancel, handler: {_ in
+                actionSheet.dismiss(animated: true)
+            }))
+            self.present(sheet,animated: true)
+            
+            //                try? await deletePost(id: String(self.id))
+            //refresh
             
         }))
         
@@ -81,8 +92,6 @@ class PostViewController: UIViewController{
         self.present(actionSheet, animated: true, completion: nil)
         
         
-        
-        
     }
     
     func getPost(id: Int) async throws {
@@ -90,17 +99,6 @@ class PostViewController: UIViewController{
         
         do{
             let data = try await AppNetworking.shared.requestJSON(url, type: PostsResponseElement.self, method: .get)
-            
-//            titleLabel.text = data.title
-//            contentLabel.text = data.content
-//            userLabel.text = data.user?.username
-//
-//
-//            guard let date = data.created_at.dateUTC(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'") else{
-//                return
-//            }
-//            let str = date.string(format: "MM/dd HH:mm")
-//            dateLabel.text = str
             if !temp.isEmpty{
                 temp.removeAll()
             }
