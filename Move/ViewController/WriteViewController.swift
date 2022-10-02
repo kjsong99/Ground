@@ -7,12 +7,14 @@
 import Alamofire
 import UIKit
 
+// MARK - protocol
+
 protocol BoardDelegate : AnyObject{
     func refreshBoard()
 }
 
 protocol PostDelegate : AnyObject{
-    func refreshPost() async
+    func refreshPost() async throws
 }
 
 class WriteViewController: UIViewController{
@@ -30,7 +32,8 @@ class WriteViewController: UIViewController{
     
     
     
-    // MARK - Method
+
+    // MARK - override
     
     override func viewDidLoad() {
         contentText.delegate = self
@@ -57,7 +60,10 @@ class WriteViewController: UIViewController{
         view.endEditing(true)
     }
     
+    // MARK - Method
+    
     @IBAction func submitTouched(_ sender: Any) {
+        print("touched")
         
         guard let title = titleText.text else {
             return
@@ -67,60 +73,34 @@ class WriteViewController: UIViewController{
         }
             
         Task{
-            if modifyPost == nil{
-                try? await postData(title: title, content: content)
-            }else{
-                try? await modify(title: title, content: content)
-                //board가 아니라 post delegate 위임해서 데이터 업데이트 해야함.
-                 await postDelegate?.refreshPost()
+            do{
+                
+                if modifyPost == nil{
+                    try await API.createPost(title: title, content: content)
+                }else{
+                    try await API.modify(title: title, content: content, id: self.modifyPost!.id)
+                    //board가 아니라 post delegate 위임해서 데이터 업데이트 해야함.
+                    try await postDelegate?.refreshPost()
+                }
+                
+                delegate?.refreshBoard()
+                searchDelegate?.refreshSearch()
+                navigationController?.popViewController(animated: true)
+                
+            }catch{
+                throw error
             }
-            
-            delegate?.refreshBoard()
-            searchDelegate?.refreshSearch()
-            navigationController?.popViewController(animated: true)
         }
     }
     
-    private func postData(title: String, content: String) async throws{
-        let url =  "\(Bundle.main.url)posts"
-        guard let id = UserDefaults.standard.string(forKey: "id") else {
-            return
-        }
-        let param : Parameters = [
-            "title" : title,
-            "content" : content,
-            "user": id
-        ]
-        
-        do{
-            _ = try await
-            AppNetworking.shared.requestJSON(url, type: WriteResponse.self, method: .post, parameters: param)
-        }catch{
-            return
-        }
-    }
+ 
     
-    private func modify(title: String, content: String) async throws{
-        let url =  "\(Bundle.main.url)posts/" + (modifyPost?.id.description)!
-//        guard let id = UserDefaults.standard.string(forKey: "id") else {
-//            return
-//        }
-        let param : Parameters = [
-            "title" : title,
-            "content" : content
-        ]
-        
-        do{
-            _ = try await
-            AppNetworking.shared.requestJSON(url, type: WriteResponse.self, method: .put, parameters: param)
-        }catch{
-            return
-        }
-    }
+
 }
 
+// MARK - extension
 extension WriteViewController : UITextViewDelegate{
-    //MARK: - TextView Delegate
+   
        func textViewDidBeginEditing(_ textView: UITextView) {
            if textView.text == "내용을 입력하세요." {
                textView.text = ""

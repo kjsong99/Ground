@@ -12,7 +12,7 @@
 //    let id: Int
 //    let title, content: String?
 //    let user: UserClass?
-//    let publishedAt, createdAt, updatedAt: String
+//    let publishedAt, created_at, updated_at: String
 //
 //    enum CodingKeys: String, CodingKey {
 //        case id
@@ -20,8 +20,8 @@
 //        case content
 //        case user
 //        case publishedAt
-//        case createdAt
-//        case updatedAt
+//        case created_at
+//        case updated_at
 //    }
 //}
 //
@@ -31,12 +31,12 @@
 //    let username, email, provider: String
 //    let confirmed, blocked: Bool
 //    let role: Int
-//    let createdAt, updatedAt: String
+//    let created_at, updated_at: String
 //
 //    enum CodingKeys: String, CodingKey {
 //        case id, username, email, provider, confirmed, blocked, role
-//        case createdAt
-//        case updatedAt
+//        case created_at
+//        case updated_at
 //    }
 //}
 //
@@ -49,16 +49,15 @@ struct WriteResponse: Codable {
     let id: Int
     let title, content: String
     let user: UserClass
-    let publishedAt, createdAt, updatedAt: String
+    let created_at, updated_at: String
 
     enum CodingKeys: String, CodingKey {
         case id
         case title
         case content
         case user
-        case publishedAt
-        case createdAt
-        case updatedAt
+        case created_at
+        case updated_at
     }
 }
 
@@ -82,7 +81,6 @@ struct PostsResponseElement: Codable {
         case title
         case content
         case user
-//        case published_at
         case created_at
         case updated_at
     }

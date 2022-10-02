@@ -9,60 +9,51 @@ import UIKit
 import Alamofire
 
 class SearchViewController: UIViewController {
-    var data = [PostsResponse]()
-    weak var delegate : BoardDelegate?
     
+    // MARK - Variable
+    
+    var postsData : PostsResponse?
+    weak var delegate : BoardDelegate?
     @IBOutlet var searchTableView: UITableView!
     @IBOutlet var keyword: UITextField!
+    
+    // MARK - override
     
     override func viewDidLoad() {
         searchTableView.delegate = self
         searchTableView.dataSource = self
     }
+    
+    // MARK - method
+    
     @IBAction func searchBtnTapped(_ sender: UIButton) {
         if keyword.text == ""{
+            //alert 추가
             print("검색어를 입력해주세요!")
         }else{
             Task{
-                try? await getData(keyword: keyword.text!)
+                do{
+                    postsData = try await API.getSearchPosts(keyword: keyword.text ?? "")
+                    self.searchTableView.reloadData()
+                }catch{
+                    throw error
+                }
+             
             }
             
         }
     }
     
-    func getData(keyword: String) async throws{
-        let url =  "\(Bundle.main.url)posts"
-        let parameter : Parameters = [
-            "_where[_or][0][title_contains]" : keyword,
-            "_where[_or][1][content_contains]" : keyword,
-            "_where[_or][2][user.username_eq]" : keyword
-        ]
-        
-        do{
-            let data = try await AppNetworking.shared.requestJSON(url, type: [PostsResponseElement].self, method: .get, parameters: parameter)
-
-            
-
-            if self.data.count > 0 {
-                self.data.removeAll()
-            }
-
-            self.data.append(data)
-            self.searchTableView.reloadData()
-        }catch{
-            print(error)
-            return
-        }
-    }
+ 
     
 }
 
-
+// MARK - extension
 
 extension SearchViewController : UITableViewDelegate,  UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.count != 0 ? data[0].count : 0
+        return postsData?.count ?? 0
         
     }
     
@@ -70,10 +61,13 @@ extension SearchViewController : UITableViewDelegate,  UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = searchTableView.dequeueReusableCell(withIdentifier: "posts", for: indexPath) as! PostsTableViewCell
-        cell.titleLabel.text = data[0][indexPath.row].title
-        cell.dateLabel.text = Util.setDate(row: indexPath.row, inputDate: data[0][indexPath.row].created_at)
-        cell.contentLabel.text = data[0][indexPath.row].content
-        cell.nameLabel.text = data[0][indexPath.row].user?.username
+        if let data = postsData{
+            
+            cell.titleLabel.text = data[indexPath.row].title
+            cell.dateLabel.text = Util.setDate(row: indexPath.row, inputDate: data[indexPath.row].created_at)
+            cell.contentLabel.text = data[indexPath.row].content
+            cell.nameLabel.text = data[indexPath.row].user?.username
+        }
         
         return cell
     }
@@ -82,10 +76,13 @@ extension SearchViewController : UITableViewDelegate,  UITableViewDataSource{
         
         let postVC = self.storyboard?.instantiateViewController(withIdentifier: "PostVC") as! PostViewController
         postVC.searchDelegate = self
-        postVC.id = data[0][indexPath.row].id
-        postVC.delegate = self.delegate
-        
-        self.navigationController?.pushViewController(postVC, animated: true)
+        if let data = postsData{
+            
+            postVC.id = data[indexPath.row].id
+            postVC.delegate = self.delegate
+            
+            self.navigationController?.pushViewController(postVC, animated: true)
+        }
     }
     
     
@@ -94,8 +91,13 @@ extension SearchViewController : UITableViewDelegate,  UITableViewDataSource{
 extension SearchViewController : SearchDelegate{
     func refreshSearch() {
         Task{
-            try? await getData(keyword: keyword.text!)
-            searchTableView.reloadData()
+            do{
+                postsData = try await API.getSearchPosts(keyword: keyword.text ?? "")
+                searchTableView.reloadData()
+            }catch{
+                throw error
+            }
+         
         }
     }
     

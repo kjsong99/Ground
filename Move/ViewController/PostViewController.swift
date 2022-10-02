@@ -7,47 +7,55 @@
 
 import UIKit
 import Alamofire
+
+// MARK - protocol
 protocol SearchDelegate : AnyObject{
     func refreshSearch()
 }
+
 class PostViewController: UIViewController{
     
+    
+    // MARK - variable
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var dateLabel: UILabel!
     @IBOutlet var contentLabel: UILabel!
     @IBOutlet var userLabel: UILabel!
-
     var id : Int = 0
-    var temp = [PostsResponseElement]()
+    var postData : PostsResponseElement?
     weak var delegate : BoardDelegate?
     weak var searchDelegate : SearchDelegate?
     
+    
+    // MARK - override
     override func viewDidLoad() {
         super.viewDidLoad()
         Task{
             do{
-               try await getPost(id: id)
+                postData = try await API.getPost(id: id)
                 setData()
+                contentLabel.sizeToFit()
                 
             }catch{
-                print(error)
+               throw error
             }
-            contentLabel.sizeToFit()
         }
     }
     
+    // MARK - method
     func setData(){
-        
-            titleLabel.text = temp[0].title
-            contentLabel.text = temp[0].content
-            userLabel.text = temp[0].user?.username
-
-
-            guard let date = temp[0].created_at.dateUTC(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'") else{
-                return
+        if let post = postData {
+            
+            titleLabel.text = post.title
+            contentLabel.text = post.content
+            userLabel.text = post.user?.username
+            
+            
+            if let date = post.created_at.dateUTC(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"){
+                let str = date.string(format: "MM/dd HH:mm")
+                dateLabel.text = str
             }
-            let str = date.string(format: "MM/dd HH:mm")
-            dateLabel.text = str
+        }
     }
     
     
@@ -61,14 +69,16 @@ class PostViewController: UIViewController{
         //취소 버튼 - 스타일(cancel)
         actionSheet.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
         //여기서 글쓴이인지 확인
-        if user == temp[0].user?.id.description{
+       
+        if user == postData!.user?.id.description{
             actionSheet.addAction(UIAlertAction(title: "수정", style: .default, handler: {(ACTION:UIAlertAction) in
-                let vc = self.storyboard?.instantiateViewController(withIdentifier: "WriteVC") as? WriteViewController
-                vc?.postDelegate = self
-                vc?.delegate = self.delegate
-                vc?.modifyPost = self.temp[0]
-                vc?.searchDelegate = self.searchDelegate
-                self.show(vc!, sender: self)
+                if let vc = self.storyboard?.instantiateViewController(withIdentifier: "WriteVC") as? WriteViewController{
+                    vc.postDelegate = self
+                    vc.delegate = self.delegate
+                    vc.modifyPost = self.postData!
+                    vc.searchDelegate = self.searchDelegate
+                    self.show(vc, sender: self)
+                }
             }))
        
           
@@ -77,10 +87,14 @@ class PostViewController: UIViewController{
                 let sheet = UIAlertController(title: nil, message: "정말 삭제하겠습니까?", preferredStyle: .alert)
                 sheet.addAction(UIAlertAction(title: "확인", style: .default, handler: {_ in
                     Task{
-                        try? await deletePost(id: String(self.id))
-                        self.delegate?.refreshBoard()
-                        self.searchDelegate?.refreshSearch()
-                        self.navigationController?.popViewController(animated: true)
+                        do{
+                            try await API.deletePost(id: self.id.description)
+                            self.delegate?.refreshBoard()
+                            self.searchDelegate?.refreshSearch()
+                            self.navigationController?.popViewController(animated: true)
+                        }catch{
+                            throw error
+                        }
                         
                     }
                     
@@ -108,44 +122,27 @@ class PostViewController: UIViewController{
         
     }
     
-    func getPost(id: Int) async throws {
-        let url =  "\(Bundle.main.url)posts/"+String(id)
-        
-        do{
-            let data = try await AppNetworking.shared.requestJSON(url, type: PostsResponseElement.self, method: .get)
-            if !temp.isEmpty{
-                temp.removeAll()
-            }
-            temp.append(data)
-            
-           
-            
-        }
-    }
+  
     
 }
 
-func modifyPost(){
-    
-}
 
-func deletePost(id: String) async throws{
-    let url =  "\(Bundle.main.url)posts/\(id)"
-    
-    do{
-        _ = try await AppNetworking.shared.requestJSON(url, type: WriteResponse.self, method: .delete)
-    }catch{
-        return
-    }
-    
-    
-}
 
 extension PostViewController : PostDelegate{
-    func refreshPost() async{
-        try? await getPost(id: self.id)
-        titleLabel.text = self.temp[0].title
-        contentLabel.text = self.temp[0].content
+    func refreshPost() async throws{
+        Task{
+            do{
+                print("refreshPost")
+                postData = try await API.getPost(id: self.id)
+                titleLabel.text = self.postData!.title
+                contentLabel.text = self.postData!.content
+                
+            }catch{
+                throw error
+            }
+            
+        }
+       
     }
     
     
