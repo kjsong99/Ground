@@ -24,6 +24,7 @@ class WriteViewController: UIViewController{
     var modifyPost : PostsResponseElement?
     weak var delegate: BoardDelegate?
     weak var postDelegate: PostDelegate?
+    weak var searchDelegate: SearchDelegate?
     
     
     
@@ -76,6 +77,7 @@ class WriteViewController: UIViewController{
             }
             
             delegate?.refreshBoard()
+            searchDelegate?.refreshSearch()
             navigationController?.popViewController(animated: true)
         }
 //        if modifyPost == nil {

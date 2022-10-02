@@ -10,6 +10,7 @@ import Alamofire
 
 class SearchViewController: UIViewController {
     var data = [PostsResponse]()
+    weak var delegate : BoardDelegate?
     
     @IBOutlet var searchTableView: UITableView!
     @IBOutlet var keyword: UITextField!
@@ -77,5 +78,27 @@ extension SearchViewController : UITableViewDelegate,  UITableViewDataSource{
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let postVC = self.storyboard?.instantiateViewController(withIdentifier: "PostVC") as! PostViewController
+        postVC.searchDelegate = self
+        postVC.id = data[0][indexPath.row].id
+        postVC.delegate = self.delegate
+        
+        self.navigationController?.pushViewController(postVC, animated: true)
+    }
     
+    
+}
+
+extension SearchViewController : SearchDelegate{
+    func refreshSearch() {
+        Task{
+            try? await getData(keyword: keyword.text!)
+            searchTableView.reloadData()
+        }
+    }
+    
+    
+
 }

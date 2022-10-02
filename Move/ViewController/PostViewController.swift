@@ -7,7 +7,9 @@
 
 import UIKit
 import Alamofire
-
+protocol SearchDelegate : AnyObject{
+    func refreshSearch()
+}
 class PostViewController: UIViewController{
     
     @IBOutlet var titleLabel: UILabel!
@@ -18,6 +20,7 @@ class PostViewController: UIViewController{
     var id : Int = 0
     var temp = [PostsResponseElement]()
     weak var delegate : BoardDelegate?
+    weak var searchDelegate : SearchDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,6 +60,7 @@ class PostViewController: UIViewController{
             vc?.postDelegate = self
             vc?.delegate = self.delegate
             vc?.modifyPost = self.temp[0]
+            vc?.searchDelegate = self.searchDelegate
             self.show(vc!, sender: self)
         }))
         
@@ -65,6 +69,7 @@ class PostViewController: UIViewController{
                 try? await deletePost(id: String(self.id))
                     //refresh
                 self.delegate?.refreshBoard()
+                self.searchDelegate?.refreshSearch()
                 self.navigationController?.popViewController(animated: true)
             }
             

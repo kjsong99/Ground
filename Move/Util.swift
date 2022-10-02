@@ -31,3 +31,66 @@ class Util{
        
     }
 }
+
+
+
+extension Date {
+    func string(format: String) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = format
+        return formatter.string(from: self)
+    }
+    
+    func year() -> String{
+        let formatter = DateFormatter()
+        formatter.dateFormat = "YYYY"
+        return formatter.string(from: self)
+    }
+    
+    func month() -> String{
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM"
+        return formatter.string(from: self)
+    }
+    
+    func day() -> String{
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd"
+        return formatter.string(from: self)
+    }
+    
+    func hour() -> String{
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH"
+        return formatter.string(from: self)
+    }
+    
+    func min() -> String{
+        let formatter = DateFormatter()
+        formatter.dateFormat = "mm"
+        return formatter.string(from: self)
+    }
+    
+    func stringUTC(format: String) -> String {
+        let formatter = DateFormatter()
+        formatter.timeZone = TimeZone(abbreviation: "UTC")
+        formatter.dateFormat = format
+        return formatter.string(from: self)
+    }
+    
+}
+
+extension String{
+    func date(format: String) -> Date? {
+        let formatter = DateFormatter()
+        formatter.dateFormat = format
+        return formatter.date(from: self)
+    }
+    
+    func dateUTC(format: String) -> Date? {
+        let formatter = DateFormatter()
+        formatter.timeZone = TimeZone(abbreviation: "UTC")
+        formatter.dateFormat = format
+        return formatter.date(from: self)
+    }
+}

@@ -41,6 +41,12 @@ class BoardViewController: UIViewController{
     
     
 
+    @IBAction func searchBtnTapped(_ sender: Any) {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "SearchVC") as? SearchViewController
+        vc?.delegate = self
+        self.navigationController?.show(vc!, sender: self)
+        
+    }
     
     
     
@@ -112,81 +118,21 @@ extension BoardViewController : UITableViewDelegate, UITableViewDataSource{
         self.navigationController?.pushViewController(postVC, animated: true)
     }
     
-    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-        return .delete
-    }
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete{
-            Task{
-                let id = postsData[0][indexPath.row].id.description
-                try? await deletePost(id: id)
-                try? await getData()
-            }
-            
-        }
-    }
+    //삭제는 들어가서 하기!
+//    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+//        return .delete
+//    }
+//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+//        if editingStyle == .delete{
+//            Task{
+//                let id = postsData[0][indexPath.row].id.description
+//                try? await deletePost(id: id)
+//                try? await getData()
+//            }
+//
+//        }
+
+//    }
     
 }
 
-
-
-extension Date {
-    func string(format: String) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = format
-        return formatter.string(from: self)
-    }
-    
-    func year() -> String{
-        let formatter = DateFormatter()
-        formatter.dateFormat = "YYYY"
-        return formatter.string(from: self)
-    }
-    
-    func month() -> String{
-        let formatter = DateFormatter()
-        formatter.dateFormat = "MM"
-        return formatter.string(from: self)
-    }
-    
-    func day() -> String{
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd"
-        return formatter.string(from: self)
-    }
-    
-    func hour() -> String{
-        let formatter = DateFormatter()
-        formatter.dateFormat = "HH"
-        return formatter.string(from: self)
-    }
-    
-    func min() -> String{
-        let formatter = DateFormatter()
-        formatter.dateFormat = "mm"
-        return formatter.string(from: self)
-    }
-    
-    func stringUTC(format: String) -> String {
-        let formatter = DateFormatter()
-        formatter.timeZone = TimeZone(abbreviation: "UTC")
-        formatter.dateFormat = format
-        return formatter.string(from: self)
-    }
-    
-}
-
-extension String{
-    func date(format: String) -> Date? {
-        let formatter = DateFormatter()
-        formatter.dateFormat = format
-        return formatter.date(from: self)
-    }
-    
-    func dateUTC(format: String) -> Date? {
-        let formatter = DateFormatter()
-        formatter.timeZone = TimeZone(abbreviation: "UTC")
-        formatter.dateFormat = format
-        return formatter.date(from: self)
-    }
-}
