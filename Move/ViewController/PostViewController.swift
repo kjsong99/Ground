@@ -53,41 +53,55 @@ class PostViewController: UIViewController{
     
     @IBAction func showMoreButton(_ sender: Any){
    
+        guard let user = UserDefaults.standard.string(forKey: "id") else{
+            return
+        }
+        
         let actionSheet = UIAlertController(title: "글메뉴", message: nil, preferredStyle: .actionSheet)
-        
-        actionSheet.addAction(UIAlertAction(title: "수정", style: .default, handler: {(ACTION:UIAlertAction) in
-            let vc = self.storyboard?.instantiateViewController(withIdentifier: "WriteVC") as? WriteViewController
-            vc?.postDelegate = self
-            vc?.delegate = self.delegate
-            vc?.modifyPost = self.temp[0]
-            vc?.searchDelegate = self.searchDelegate
-            self.show(vc!, sender: self)
-        }))
-        
-        actionSheet.addAction(UIAlertAction(title: "삭제", style: .default, handler: {(ACTION:UIAlertAction) in
-            let sheet = UIAlertController(title: nil, message: "정말 삭제하겠습니까?", preferredStyle: .alert)
-            sheet.addAction(UIAlertAction(title: "확인", style: .default, handler: {_ in
-                Task{
-                    try? await deletePost(id: String(self.id))
-                    self.delegate?.refreshBoard()
-                    self.searchDelegate?.refreshSearch()
-                    self.navigationController?.popViewController(animated: true)
-                    
-                }
-                
-            }))
-            sheet.addAction(UIAlertAction(title: "취소", style: .cancel, handler: {_ in
-                actionSheet.dismiss(animated: true)
-            }))
-            self.present(sheet,animated: true)
-            
-            //                try? await deletePost(id: String(self.id))
-            //refresh
-            
-        }))
-        
         //취소 버튼 - 스타일(cancel)
         actionSheet.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
+        //여기서 글쓴이인지 확인
+        if user == temp[0].user?.id.description{
+            actionSheet.addAction(UIAlertAction(title: "수정", style: .default, handler: {(ACTION:UIAlertAction) in
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "WriteVC") as? WriteViewController
+                vc?.postDelegate = self
+                vc?.delegate = self.delegate
+                vc?.modifyPost = self.temp[0]
+                vc?.searchDelegate = self.searchDelegate
+                self.show(vc!, sender: self)
+            }))
+       
+          
+           
+            actionSheet.addAction(UIAlertAction(title: "삭제", style: .default, handler: {(ACTION:UIAlertAction) in
+                let sheet = UIAlertController(title: nil, message: "정말 삭제하겠습니까?", preferredStyle: .alert)
+                sheet.addAction(UIAlertAction(title: "확인", style: .default, handler: {_ in
+                    Task{
+                        try? await deletePost(id: String(self.id))
+                        self.delegate?.refreshBoard()
+                        self.searchDelegate?.refreshSearch()
+                        self.navigationController?.popViewController(animated: true)
+                        
+                    }
+                    
+                }))
+                sheet.addAction(UIAlertAction(title: "취소", style: .cancel, handler: {_ in
+                }))
+                self.present(sheet,animated: true)
+                
+                
+            }))
+            
+         
+            
+        }else{
+            //글쓴이가 아닐때
+            //쪽지, 신고 등등?
+
+            
+        }
+        
+        
         
         self.present(actionSheet, animated: true, completion: nil)
         
