@@ -8,12 +8,14 @@
 import UIKit
 import SwiftKeychainWrapper
 
-
+//비밀번호 일치
 class SignInViewController: UIViewController {
     @IBOutlet var emailText: UITextField!
     @IBOutlet var passwordText: UITextField!
     @IBOutlet var emailErrorText: UILabel!
     @IBOutlet var passwordErrorText: UILabel!
+    @IBOutlet var signInBtn: UIButton!
+    var isVisible : Bool = false
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
@@ -25,6 +27,17 @@ class SignInViewController: UIViewController {
         passwordText.addTarget(self, action: #selector(self.passwordTextChanged(_:)), for: .editingChanged)
     }
     
+    @IBAction func IspwdFieldVisible(_ sender: Any) {
+        if isVisible{
+            passwordText.isSecureTextEntry = true
+            isVisible = false
+        }else{
+            passwordText.isSecureTextEntry = false
+            isVisible = true
+        }
+        
+    }
+    
     @IBAction func signInBtnTapped(_ sender: Any) {
         guard let  email  = emailText.text else{
             return
@@ -33,24 +46,18 @@ class SignInViewController: UIViewController {
             return
         }
         
-        
-        if email != "" && password != "" {
-            //여기서 로그인 호출
-        
-            
-            Task{
-                try? await signIn(email: email, password: password)
-            }
-            
-        }else{
-    
-            //여기서 어느 필드가 공백인지 확인
-            if  email == "" {
-                self.emailErrorText.isHidden = false
-            }
-            
-            if  password == ""{
-                self.passwordErrorText.isHidden = false
+        Task{
+            if try await API.validateEmail(email: email){
+                emailErrorText.isHidden = false
+            }else{
+                try? await API.signIn(email: email, password: password)
+                let main = UIStoryboard.init(name: "Main", bundle: nil)
+                guard let vc = main.instantiateInitialViewController() else{
+                    return
+                }
+                vc.modalPresentationStyle = .fullScreen
+                self.present(vc, animated: true)
+
             }
         }
         
@@ -62,9 +69,14 @@ class SignInViewController: UIViewController {
         }
         
         if email == "" {
-            emailErrorText.isHidden = false
+            //버튼 비활성화
+            signInBtn.isEnabled = false
+            
         }else{
-            emailErrorText.isHidden = true
+            //버튼 활성화
+            if passwordText.text != "" {
+                signInBtn.isEnabled = true
+            }
         }
     }
     
@@ -74,44 +86,14 @@ class SignInViewController: UIViewController {
         }
         
         if password == "" {
-            passwordErrorText.isHidden = false
+            //버튼 비활성화
+            signInBtn.isEnabled = false
         }else{
-            passwordErrorText.isHidden = true
+            //버튼 활성화
+            if emailText.text != "" {
+                signInBtn.isEnabled = true
+            }
         }
     }
-    
-    func signIn(email: String, password: String) async throws{
-        
-        let url = "\(Bundle.main.url)auth/local"
-        let param = [
-            "identifier" : email,
-            "password" : password
-        ]
-        
-        do{
-            let data = try await
-            AppNetworking.shared.requestJSON(url, type: RegisterResponse.self, method: .post, parameters: param)
-            
-            print(data)
-            
-            if (KeychainWrapper.standard.string(forKey: "auth") != nil){
-                KeychainWrapper.standard.removeObject(forKey: "auth")
-                UserDefaults.standard.removeObject(forKey: "id")
-            }
-            UserDefaults.standard.set(data.user.id, forKey: "id")
-            KeychainWrapper.standard.set(data.jwt, forKey: "auth")
-            
-            let main = UIStoryboard.init(name: "Main", bundle: nil)
-            guard let vc = main.instantiateInitialViewController() else{
-                return
-            }
-            vc.modalPresentationStyle = .fullScreen
-            self.present(vc, animated: true)
-        }catch{
-            print(error)
-        }
-        
-    }
-    
     
 }

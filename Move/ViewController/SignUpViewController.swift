@@ -90,33 +90,42 @@ class SignUpViewController: UIViewController{
     
     
     @IBAction func signUpBtnTapped(_ sender: Any) {
-        
+
         guard let email = emailText.text else{
             return
         }
         guard let password = passwordText.text else{
             return
         }
-        
+
         guard let passwordConfirm = passwordConfirmText.text else{
             return
         }
         guard let username = userNameText.text else{
             return
         }
-        
+
         if email != "" && password != "" && passwordConfirm != "" && username != "" && password == passwordConfirm {
             Task{
                 do{
-                    try await signUp(email: email,
+                    try await API.signUp(email: email,
                                        password: password,
                                        username: username)
+
+                    let main = UIStoryboard.init(name: "Main", bundle: nil)
+                    guard let vc = main.instantiateInitialViewController() else{
+
+                        return
+                    }
+                    vc.modalPresentationStyle = .fullScreen
+                    self.present(vc, animated: true)
+
                 }catch{
-                    return
+                    throw error
                 }
-               
+
             }
-            
+
         }else{
             if email == "" {
                 emailErrorText.isHidden = false
@@ -130,49 +139,18 @@ class SignUpViewController: UIViewController{
             if username == "" {
                 usernameErrorText.isHidden = false
             }
-            
+
             if password != passwordConfirm {
                 passwordConfirmErrorText.isHidden = false
             }
-            
+
         }
-        
-        
-       
+
+
+
     }
     
-    func signUp(email: String, password: String, username: String) async throws{
-        let url = "\(Bundle.main.url)auth/local/register"
-        let param = [
-            "username" : username,
-            "email" : email,
-            "password" : password
-            
-        ]
-        
-        do{
-            let data = try await
-            AppNetworking.shared.requestJSON(url, type: RegisterResponse.self, method: .post, parameters: param)
-            print(data)
-            
-            if (KeychainWrapper.standard.string(forKey: "auth") != nil){
-                KeychainWrapper.standard.removeObject(forKey: "auth")
-                UserDefaults.standard.removeObject(forKey: "id")
-            }
-            UserDefaults.standard.set(data.user.id, forKey: "id")
-            KeychainWrapper.standard.set(data.jwt, forKey: "auth")
-            
-            let main = UIStoryboard.init(name: "Main", bundle: nil)
-            guard let vc = main.instantiateInitialViewController() else{
-            
-                return
-            }
-            vc.modalPresentationStyle = .fullScreen
-            self.present(vc, animated: true)
-        }catch{
-            print(error)
-        }
-    }
+
     
 }
 
