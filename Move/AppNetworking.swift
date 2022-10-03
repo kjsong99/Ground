@@ -19,11 +19,14 @@ final class AppNetworking {
                                  parameters: Parameters? = nil) async throws -> T {
     
       
+      
     return try await session.request(url,
                                      method: method,
                                      parameters: parameters,
                                      encoding: URLEncoding.default)
-      .serializingDecodable()
-      .value
+    .validate(statusCode: 200 ..< 300)
+          .serializingDecodable()
+          .value
+          
   }
 }

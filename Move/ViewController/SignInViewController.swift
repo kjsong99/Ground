@@ -47,16 +47,22 @@ class SignInViewController: UIViewController {
         }
         
         Task{
-            if try await API.validateEmail(email: email){
-                emailErrorText.isHidden = false
-            }else{
-                try? await API.signIn(email: email, password: password)
-                let main = UIStoryboard.init(name: "Main", bundle: nil)
-                guard let vc = main.instantiateInitialViewController() else{
-                    return
+            if try await API.isEmailExist(email: email){
+                do{
+                    try await API.signIn(email: email, password: password)
+                    let main = UIStoryboard.init(name: "Main", bundle: nil)
+                    guard let vc = main.instantiateInitialViewController() else{
+                        return
+                    }
+                    vc.modalPresentationStyle = .fullScreen
+                    self.present(vc, animated: true)
+                }catch{
+                    //비밀번호 불일치
                 }
-                vc.modalPresentationStyle = .fullScreen
-                self.present(vc, animated: true)
+              
+             
+            }else{
+                emailErrorText.isHidden = false
 
             }
         }

@@ -97,37 +97,36 @@ class API {
         }
     }
     
-    static func validateName(name : String) async throws -> Bool{
+    static func isNameExist(name : String) async throws -> Bool{
         let url =  "\(Bundle.main.url)users?username_eq=" + name
         
         do{
             let data = try await AppNetworking.shared.requestJSON(url, type: UserResponse.self, method: .get)
             if data.count == 0 {
-                return true
+                return false
             }
      
-            
         }catch{
             throw error
         }
-        return false
+        return true
         
     }
     
-    static func validateEmail(email : String) async throws -> Bool{
+    static func isEmailExist(email : String) async throws -> Bool{
         let url =  "\(Bundle.main.url)users?email_eq=" + email
         
         do{
             let data = try await AppNetworking.shared.requestJSON(url, type: UserResponse.self, method: .get)
            
             if data.count == 0 {
-                return true
+                return false
             }
             
         }catch{
             print(error)
         }
-        return false
+        return true
         
     }
     
@@ -142,8 +141,6 @@ class API {
         do{
             let data = try await
             AppNetworking.shared.requestJSON(url, type: RegisterResponse.self, method: .post, parameters: param)
-
-            print(data)
 
             if (KeychainWrapper.standard.string(forKey: "auth") != nil){
                 KeychainWrapper.standard.removeObject(forKey: "auth")
@@ -170,7 +167,7 @@ class API {
         do{
             let data = try await
             AppNetworking.shared.requestJSON(url, type: RegisterResponse.self, method: .post, parameters: param)
-            print(data)
+ 
 
             if (KeychainWrapper.standard.string(forKey: "auth") != nil){
                 KeychainWrapper.standard.removeObject(forKey: "auth")
