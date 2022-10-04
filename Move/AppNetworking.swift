@@ -20,7 +20,7 @@ final class AppNetworking {
     
       
       
-    return try await session.request(url,
+      return try await session.request(url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!,
                                      method: method,
                                      parameters: parameters,
                                      encoding: URLEncoding.default)

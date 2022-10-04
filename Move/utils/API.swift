@@ -98,6 +98,7 @@ class API {
     }
     
     static func isNameExist(name : String) async throws -> Bool{
+//        let url =  "\(Bundle.main.url)users?username_eq=" + name
         let url =  "\(Bundle.main.url)users?username_eq=" + name
         
         do{

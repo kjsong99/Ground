@@ -58,6 +58,7 @@ class SignInViewController: UIViewController {
                     self.present(vc, animated: true)
                 }catch{
                     //비밀번호 불일치
+                    passwordErrorText.isHidden = false
                 }
               
              
@@ -80,6 +81,9 @@ class SignInViewController: UIViewController {
             
         }else{
             //버튼 활성화
+            if !emailErrorText.isHidden{
+                emailErrorText.isHidden = true
+            }
             if passwordText.text != "" {
                 signInBtn.isEnabled = true
             }
@@ -96,6 +100,9 @@ class SignInViewController: UIViewController {
             signInBtn.isEnabled = false
         }else{
             //버튼 활성화
+            if !passwordErrorText.isHidden{
+                passwordErrorText.isHidden = true
+            }
             if emailText.text != "" {
                 signInBtn.isEnabled = true
             }
