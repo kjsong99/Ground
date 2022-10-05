@@ -27,7 +27,7 @@ class API {
         
         do{
             let data = try await AppNetworking.shared.requestJSON(url, type: PostsResponseElement.self, method: .get)
-           return data
+            return data
             
         }catch{
             throw error
@@ -45,7 +45,7 @@ class API {
         do{
             let data = try await AppNetworking.shared.requestJSON(url, type: [PostsResponseElement].self, method: .get, parameters: parameter)
             return data
-           
+            
         }catch{
             throw error
         }
@@ -98,7 +98,7 @@ class API {
     }
     
     static func isNameExist(name : String) async throws -> Bool{
-//        let url =  "\(Bundle.main.url)users?username_eq=" + name
+        //        let url =  "\(Bundle.main.url)users?username_eq=" + name
         let url =  "\(Bundle.main.url)users?username_eq=" + name
         
         do{
@@ -106,7 +106,7 @@ class API {
             if data.count == 0 {
                 return false
             }
-     
+            
         }catch{
             throw error
         }
@@ -119,7 +119,7 @@ class API {
         
         do{
             let data = try await AppNetworking.shared.requestJSON(url, type: UserResponse.self, method: .get)
-           
+            
             if data.count == 0 {
                 return false
             }
@@ -132,54 +132,102 @@ class API {
     }
     
     static func signIn(email: String, password: String) async throws{
-
+        
         let url = "\(Bundle.main.url)auth/local"
         let param = [
             "identifier" : email,
             "password" : password
         ]
-
+        
         do{
             let data = try await
             AppNetworking.shared.requestJSON(url, type: RegisterResponse.self, method: .post, parameters: param)
-
+            
             if (KeychainWrapper.standard.string(forKey: "auth") != nil){
                 KeychainWrapper.standard.removeObject(forKey: "auth")
                 UserDefaults.standard.removeObject(forKey: "id")
             }
             UserDefaults.standard.set(data.user.id, forKey: "id")
             KeychainWrapper.standard.set(data.jwt, forKey: "auth")
-
+            
         }catch{
             throw error
         }
-
+        
     }
-
+    
     static func signUp(email: String, password: String, username: String) async throws{
         let url = "\(Bundle.main.url)auth/local/register"
         let param = [
             "username" : username,
             "email" : email,
             "password" : password
-
+            
         ]
-
+        
         do{
             let data = try await
             AppNetworking.shared.requestJSON(url, type: RegisterResponse.self, method: .post, parameters: param)
- 
-
+            
+            
             if (KeychainWrapper.standard.string(forKey: "auth") != nil){
                 KeychainWrapper.standard.removeObject(forKey: "auth")
                 UserDefaults.standard.removeObject(forKey: "id")
             }
             UserDefaults.standard.set(data.user.id, forKey: "id")
             KeychainWrapper.standard.set(data.jwt, forKey: "auth")
-
+            
         }catch{
             print(error)
         }
+    }
+    
+    static func checkHeart(post : String, user : String) async throws -> Int? {
+        let url =  "\(Bundle.main.url)hearts"
+        let parameter : Parameters = [
+            "_where[_and][0][post.id_eq]" : post,
+            "_where[_and][1][user.id_eq]" : user
+        ]
+        
+        do{
+            let data = try await AppNetworking.shared.requestJSON(url, type: HeartsResponse.self, method: .get, parameters: parameter)
+            
+            if data.count == 0 {
+                return nil
+            }
+            
+            return data[0].id
+            
+        }catch{
+            throw error
+        }
+    }
+    
+    static func createHeart(post : String, user : String) async throws {
+        let url =  "\(Bundle.main.url)hearts"
+        let param : Parameters = [
+            "post" : post,
+            "user" : user
+        ]
+        
+        do{
+            _ = try await
+            AppNetworking.shared.requestJSON(url, type: HeartsResponseElement.self, method: .post, parameters: param)
+        }catch{
+            throw error
+        }
+        
+    }
+    
+    static func deleteHeart(id : String) async throws {
+        let url =  "\(Bundle.main.url)hearts/id"
+        do{
+            _ = try await
+            AppNetworking.shared.requestJSON(url, type: HeartsResponseElement.self, method: .delete)
+        }catch{
+            throw error
+        }
+        
     }
     
     

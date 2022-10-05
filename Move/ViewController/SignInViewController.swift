@@ -75,7 +75,7 @@ class SignInViewController: UIViewController {
             return
         }
         
-        if email == "" {
+        if email == "" || !email.contains("@") {
             //버튼 비활성화
             signInBtn.isEnabled = false
             

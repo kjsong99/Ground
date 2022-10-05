@@ -275,6 +275,12 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="21j-Bz-M4f">
+                                <rect key="frame" x="40" y="259.5" width="45.5" height="31"/>
+                                <color key="tintColor" systemColor="secondaryLabelColor"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="heart" catalog="system"/>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="EsN-uZ-0hi"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -283,9 +289,11 @@
                             <constraint firstItem="RVN-4n-98o" firstAttribute="leading" secondItem="EsN-uZ-0hi" secondAttribute="leading" constant="50" id="9WK-3u-GK6"/>
                             <constraint firstItem="bVH-EO-6gp" firstAttribute="leading" secondItem="EsN-uZ-0hi" secondAttribute="leading" constant="50" id="PJk-aH-MYg"/>
                             <constraint firstItem="WXp-qB-FXr" firstAttribute="top" secondItem="bVH-EO-6gp" secondAttribute="bottom" constant="10" id="PMk-Il-Pyj"/>
+                            <constraint firstItem="21j-Bz-M4f" firstAttribute="top" secondItem="RVN-4n-98o" secondAttribute="bottom" constant="10" id="YbE-Vx-gPP"/>
                             <constraint firstItem="WXp-qB-FXr" firstAttribute="leading" secondItem="EsN-uZ-0hi" secondAttribute="leading" constant="53" id="kp0-yV-Dg3"/>
                             <constraint firstItem="PVA-dx-eqD" firstAttribute="leading" secondItem="EsN-uZ-0hi" secondAttribute="leading" constant="50" id="nYS-l3-PeM"/>
                             <constraint firstItem="PVA-dx-eqD" firstAttribute="top" secondItem="WXp-qB-FXr" secondAttribute="bottom" constant="10" id="qpk-g8-wWp"/>
+                            <constraint firstItem="21j-Bz-M4f" firstAttribute="leading" secondItem="EsN-uZ-0hi" secondAttribute="leading" constant="40" id="uML-rD-OvL"/>
                             <constraint firstItem="bVH-EO-6gp" firstAttribute="top" secondItem="EsN-uZ-0hi" secondAttribute="top" constant="50" id="vjJ-vJ-ZSR"/>
                         </constraints>
                     </view>
@@ -434,6 +442,7 @@
     <resources>
         <image name="ellipsis" catalog="system" width="128" height="37"/>
         <image name="gear" catalog="system" width="128" height="119"/>
+        <image name="heart" catalog="system" width="128" height="109"/>
         <image name="list.bullet.rectangle.portrait" catalog="system" width="115" height="128"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="square.and.pencil" catalog="system" width="128" height="115"/>
