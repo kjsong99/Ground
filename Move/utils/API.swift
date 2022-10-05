@@ -190,41 +190,46 @@ class API {
         ]
         
         do{
-            let data = try await AppNetworking.shared.requestJSON(url, type: HeartsResponse.self, method: .get, parameters: parameter)
-            
+            let data = try await AppNetworking.shared.requestJSON(url, type: HeartResponse.self, method: .get, parameters: parameter)
+    
             if data.count == 0 {
                 return nil
+            }else{
+                return data[0].id
             }
             
-            return data[0].id
+          
             
         }catch{
+            print(error)
             throw error
         }
     }
     
-    static func createHeart(post : String, user : String) async throws {
+    static func createHeart(post : String, user : String) async throws -> Int{
         let url =  "\(Bundle.main.url)hearts"
         let param : Parameters = [
-            "post" : post,
-            "user" : user
+            "post" : Int(post),
+            "user" : Int(user)
         ]
         
         do{
-            _ = try await
-            AppNetworking.shared.requestJSON(url, type: HeartsResponseElement.self, method: .post, parameters: param)
+            var data = try await AppNetworking.shared.requestJSON(url, type: HeartResponseElement.self, method: .post, parameters: param)
+            return data.id
         }catch{
+            print(error)
             throw error
         }
         
     }
     
     static func deleteHeart(id : String) async throws {
-        let url =  "\(Bundle.main.url)hearts/id"
+        let url =  "\(Bundle.main.url)hearts/" + id
         do{
             _ = try await
-            AppNetworking.shared.requestJSON(url, type: HeartsResponseElement.self, method: .delete)
+            AppNetworking.shared.requestJSON(url, type: HeartResponseElement.self, method: .delete)
         }catch{
+            print(error)
             throw error
         }
         

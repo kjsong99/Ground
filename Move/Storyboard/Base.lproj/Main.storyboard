@@ -277,9 +277,12 @@
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="21j-Bz-M4f">
                                 <rect key="frame" x="40" y="259.5" width="45.5" height="31"/>
-                                <color key="tintColor" systemColor="secondaryLabelColor"/>
+                                <color key="tintColor" systemColor="systemRedColor"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="heart" catalog="system"/>
+                                <connections>
+                                    <action selector="heartBtnTapped:" destination="uQO-7S-mh9" eventType="touchUpInside" id="PUG-Lq-Y2E"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="EsN-uZ-0hi"/>
@@ -307,6 +310,7 @@
                     <connections>
                         <outlet property="contentLabel" destination="RVN-4n-98o" id="RZR-Jl-hLS"/>
                         <outlet property="dateLabel" destination="PVA-dx-eqD" id="mji-GN-2Xr"/>
+                        <outlet property="heartButton" destination="21j-Bz-M4f" id="br5-1o-bwE"/>
                         <outlet property="titleLabel" destination="bVH-EO-6gp" id="EwG-iM-pYC"/>
                         <outlet property="userLabel" destination="WXp-qB-FXr" id="Pn4-O1-top"/>
                     </connections>
@@ -463,6 +467,9 @@
         </systemColor>
         <systemColor name="systemGray6Color">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

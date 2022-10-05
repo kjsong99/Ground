@@ -7,6 +7,7 @@
 
 import UIKit
 import Alamofire
+import SwiftUI
 
 // MARK - protocol
 protocol SearchDelegate : AnyObject{
@@ -17,12 +18,15 @@ class PostViewController: UIViewController{
     
     
     // MARK - variable
+    @IBOutlet var heartButton: UIButton!
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var dateLabel: UILabel!
     @IBOutlet var contentLabel: UILabel!
     @IBOutlet var userLabel: UILabel!
     var id : Int = 0
     var postData : PostsResponseElement?
+    var heartChecked : Bool = false
+    var heartId = 0
     weak var delegate : BoardDelegate?
     weak var searchDelegate : SearchDelegate?
     
@@ -35,6 +39,16 @@ class PostViewController: UIViewController{
                 postData = try await API.getPost(id: id)
                 setData()
                 contentLabel.sizeToFit()
+                heartId = try await API.checkHeart(post: id.description, user: UserDefaults.standard.string(forKey: "id") ?? "") ?? 00
+                if heartId != 0{
+                    heartChecked = true
+                    let image = UIImage(systemName: "heart.fill")
+                    heartButton.setImage(image, for: .normal)
+                 
+                }else{
+                    heartChecked = false
+                }
+                
                 
             }catch{
                throw error
@@ -58,6 +72,30 @@ class PostViewController: UIViewController{
         }
     }
     
+    
+    @IBAction func heartBtnTapped(_ sender: Any) {
+        Task{
+            do{
+                if heartChecked {
+                    //하트 해제 로직
+                    try await API.deleteHeart(id: heartId.description)
+                    heartChecked = false
+                    heartId = 0
+                    let image = UIImage(systemName: "heart")
+                    heartButton.setImage(image, for: .normal)
+                }else{
+                    //하트 클릭 로직
+                    heartId = try await API.createHeart(post: id.description, user: UserDefaults.standard.string(forKey: "id") ?? "")
+                    heartChecked = true
+                    let image = UIImage(systemName: "heart.fill")
+                    heartButton.setImage(image, for: .normal)
+                    
+                }
+            }
+           
+        }
+       
+    }
     
     @IBAction func showMoreButton(_ sender: Any){
    
