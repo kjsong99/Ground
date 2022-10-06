@@ -5,6 +5,9 @@ import Kingfisher
 
 class SettingViewController: UIViewController {
     
+    @IBOutlet var nameLabel: UILabel!
+    var menuImage = ["square.and.pencil", "paperplane", "bookmark","bell" ,"megaphone", "person", "camera","person.crop.circle.badge.xmark" ]
+    var menuLabel = ["내가 쓴 글", "쪽지함",  "북마크",  "알림", "공지사항" , "고객센터", "신고", "회원 탈퇴"]
     override func viewWillLayoutSubviews() {
       // createCircleImageView(imageView: ima
         
@@ -14,6 +17,11 @@ class SettingViewController: UIViewController {
     override func viewDidLoad() {
         collectionView.delegate = self
         collectionView.dataSource = self
+        Task{
+            do{
+                nameLabel.text = try await API.getUser(id: UserDefaults.standard.string(forKey: "id")!).username
+            }
+        }
 //        let image = UIImage(systemName:"circle.dashed")
 //        let url = URL(string: Bundle.main.url+"uploads/astronaut_outer_open_space_planet_earth_stars_provide_background_erforming_space_planet_earth_sunrise_sunset_our_home_iss_elements_this_image_furnished_by_nasa_150455_16829_7b571df095.jpeg")
         
@@ -30,21 +38,28 @@ class SettingViewController: UIViewController {
     
     
     
-    @IBAction func SignOutBtnTapped(_ sender: Any) {
-    
-        KeychainWrapper.standard.removeObject(forKey: "auth")
-        UserDefaults.standard.removeObject(forKey: "id")
-        
-        let sb = UIStoryboard(name: "Login", bundle: nil)
-        guard let vc = sb.instantiateInitialViewController() else { return }
-        
-        
-        
-        vc.modalPresentationStyle = .fullScreen
-        
-        self.present(vc, animated: true)
+    @IBAction func nameChangeBtnTapped(_ sender: Any) {
     }
     
+
+    
+    @IBAction func profileEditBtnTapped(_ sender: Any) {
+    }
+    
+    @IBAction func logoutBtnTapped(_ sender: Any) {
+        
+            KeychainWrapper.standard.removeObject(forKey: "auth")
+            UserDefaults.standard.removeObject(forKey: "id")
+            
+            let sb = UIStoryboard(name: "Login", bundle: nil)
+            guard let vc = sb.instantiateInitialViewController() else { return }
+            
+            
+            
+            vc.modalPresentationStyle = .fullScreen
+            
+            self.present(vc, animated: true)
+    }
     
     
     
@@ -53,14 +68,19 @@ class SettingViewController: UIViewController {
 
 extension SettingViewController : UICollectionViewDelegate, UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return 8
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collection", for: indexPath) as?
-                    UICollectionViewCell else {
-                return UICollectionViewCell()
+                    SettingCollectionViewCell else {
+           
+                return SettingCollectionViewCell()
             }
+        cell.menuImage.image = UIImage(systemName: menuImage[indexPath.row])
+        cell.menuLabel.text = menuLabel[indexPath.row]
+     
+        
         return cell
     }
     

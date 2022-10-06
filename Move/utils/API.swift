@@ -250,5 +250,19 @@ class API {
         }
     }
     
+    static func getUser(id : String) async throws -> UserResponseElement {
+        let url =  "\(Bundle.main.url)users/" + id
+        
+        do{
+            let data = try await AppNetworking.shared.requestJSON(url, type: UserResponseElement.self, method: .get)
+            return data
+
+            
+        }catch{
+            print(error)
+            throw error
+        }
+    }
+    
     
 }
