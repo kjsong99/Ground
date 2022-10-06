@@ -209,8 +209,8 @@ class API {
     static func createHeart(post : String, user : String) async throws -> Int{
         let url =  "\(Bundle.main.url)hearts"
         let param : Parameters = [
-            "post" : Int(post),
-            "user" : Int(user)
+            "post" : post,
+            "user" : user
         ]
         
         do{
@@ -233,6 +233,21 @@ class API {
             throw error
         }
         
+    }
+    
+    static func getCountHeart(post : String) async throws -> Int{
+        let url =  "\(Bundle.main.url)hearts?post.id=" + post
+  
+        
+        do{
+            let data = try await AppNetworking.shared.requestJSON(url, type: HeartResponse.self, method: .get)
+            return data.count
+
+            
+        }catch{
+            print(error)
+            throw error
+        }
     }
     
     

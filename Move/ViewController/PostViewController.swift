@@ -36,17 +36,22 @@ class PostViewController: UIViewController{
         super.viewDidLoad()
         Task{
             do{
+                print(try await API.getCountHeart(post: id.description))
                 postData = try await API.getPost(id: id)
                 setData()
                 contentLabel.sizeToFit()
                 heartId = try await API.checkHeart(post: id.description, user: UserDefaults.standard.string(forKey: "id") ?? "") ?? 00
                 if heartId != 0{
                     heartChecked = true
-                    let image = UIImage(systemName: "heart.fill")
-                    heartButton.setImage(image, for: .normal)
+                    heartButton.getFilledHeartBtn()
+//                    let image = UIImage(systemName: "heart.fill")
+//                    heartButton.tintColor = UIColor.red
+//                    heartButton.setImage(image, for: .normal)
+                    
                  
                 }else{
                     heartChecked = false
+                    heartButton.getEmptyHeartBtn()
                 }
                 
                 
@@ -81,14 +86,20 @@ class PostViewController: UIViewController{
                     try await API.deleteHeart(id: heartId.description)
                     heartChecked = false
                     heartId = 0
-                    let image = UIImage(systemName: "heart")
-                    heartButton.setImage(image, for: .normal)
+                    heartButton.getEmptyHeartBtn()
+//                    let image = UIImage(systemName: "heart")
+//                    heartButton.setImage(image, for: .normal)
                 }else{
                     //하트 클릭 로직
                     heartId = try await API.createHeart(post: id.description, user: UserDefaults.standard.string(forKey: "id") ?? "")
+                    
                     heartChecked = true
-                    let image = UIImage(systemName: "heart.fill")
-                    heartButton.setImage(image, for: .normal)
+//                    let image = UIImage(systemName: "heart.fill")
+//                    heartButton.tintColor = UIColor.red
+//
+//                    heartButton.setImage(image, for: .normal)
+                    heartButton.getFilledHeartBtn()
+                    
                     
                 }
             }
@@ -182,6 +193,23 @@ extension PostViewController : PostDelegate{
         }
        
     }
-    
-    
 }
+
+// MARK - extension
+extension UIButton{
+    func getEmptyHeartBtn() {
+        let image = UIImage(systemName: "haert")
+        self.tintColor = UIColor.label
+
+        self.setImage(image, for: .normal)
+    }
+    
+    func getFilledHeartBtn() {
+        let image = UIImage(systemName: "heart.fill")
+        self.tintColor = UIColor.red
+        self.setImage(image, for: .normal)
+        
+    }
+}
+
+

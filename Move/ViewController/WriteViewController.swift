@@ -63,7 +63,7 @@ class WriteViewController: UIViewController{
     // MARK - Method
     
     @IBAction func submitTouched(_ sender: Any) {
-        print("touched")
+
         
         guard let title = titleText.text else {
             return
