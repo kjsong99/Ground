@@ -83,9 +83,11 @@ struct UserResponseElement: Codable {
     let blocked: Bool?
     let role: Role
     let createdAt, updatedAt: String
+    let gender: String?
+    let birth : String?
 
     enum CodingKeys: String, CodingKey {
-        case id, username, email, provider, confirmed, blocked, role
+        case id, username, email, provider, confirmed, blocked, role, gender, birth
         case createdAt = "created_at"
         case updatedAt = "updated_at"
     }

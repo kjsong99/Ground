@@ -63,11 +63,14 @@ struct HeartUser: Codable {
     let blocked: Bool?
     let role: Int?
     let createdAt, updatedAt: String?
+    let gender: String?
+    let birth : String?
 
     enum CodingKeys: String, CodingKey {
-        case id, username, email, provider, confirmed, blocked, role
+        case id, username, email, provider, confirmed, blocked, role, gender, birth
         case createdAt = "created_at"
         case updatedAt = "updated_at"
+
     }
 }
 

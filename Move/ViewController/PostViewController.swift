@@ -70,7 +70,7 @@ class PostViewController: UIViewController{
             userLabel.text = post.user?.username
             
             
-            if let date = post.created_at.dateUTC(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"){
+            if let date = post.createdAt.dateUTC(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"){
                 let str = date.string(format: "MM/dd HH:mm")
                 dateLabel.text = str
             }

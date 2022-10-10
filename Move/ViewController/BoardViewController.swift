@@ -85,7 +85,7 @@ extension BoardViewController : UITableViewDelegate, UITableViewDataSource{
         let cell = postsTableView.dequeueReusableCell(withIdentifier: "posts", for: indexPath) as! PostsTableViewCell
         if let data = postsData{
             cell.titleLabel.text = data[indexPath.row].title
-            cell.dateLabel.text = Util.setDate(row: indexPath.row, inputDate: data[indexPath.row].created_at)
+            cell.dateLabel.text = Util.setDate(row: indexPath.row, inputDate: data[indexPath.row].createdAt)
             cell.contentLabel.text = data[indexPath.row].content
             cell.nameLabel.text = data[indexPath.row].user?.username
             

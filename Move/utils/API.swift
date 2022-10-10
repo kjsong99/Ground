@@ -18,6 +18,7 @@ class API {
             
             return data
         }catch{
+            print(error)
             throw error
         }
     }
@@ -30,6 +31,7 @@ class API {
             return data
             
         }catch{
+            print(error)
             throw error
         }
     }
@@ -282,5 +284,16 @@ class API {
         }
     }
     
+    static func deleteUser(id : String) async throws {
+        let url =  "\(Bundle.main.url)users/" + id
+        do{
+            _ = try await
+            AppNetworking.shared.requestJSON(url, type: UserResponseElement.self, method: .delete)
+        }catch{
+            print(error)
+            throw error
+        }
+        
+    }
     
 }

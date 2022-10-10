@@ -93,6 +93,37 @@ extension SettingViewController : UICollectionViewDelegate, UICollectionViewData
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if menuLabel[indexPath.row] == "회원 탈퇴"{
+            let alert = UIAlertController(title: "정말 탈퇴하겠습니까?", message: "삭제된 계정의 데이터는 복구할 수 없습니다.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "아니요", style: .cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: "예", style: .default, handler: { _ in
+                Task{
+                    do{
+                        try await API.deleteUser(id: UserDefaults.standard.string(forKey: "id")!)
+                        KeychainWrapper.standard.removeObject(forKey: "auth")
+                        UserDefaults.standard.removeObject(forKey: "id")
+                        
+                        let sb = UIStoryboard(name: "Login", bundle: nil)
+                        guard let vc = sb.instantiateInitialViewController() else { return }
+                        
+                        
+                        
+                        vc.modalPresentationStyle = .fullScreen
+                        
+                        self.present(vc, animated: true)
+                    }catch{
+                        print(error)
+                        throw error
+                    }
+                }
+                
+            }))
+            
+            self.present(alert, animated: true)
+        }
+    }
+    
 //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
 //        return 0
 //    }
