@@ -10,7 +10,13 @@ class SignUpViewController: UIViewController{
     
     @IBOutlet var signUpBtn: UIButton!
     
-    var complete : [String : Bool] = [ "email" : false, "pwd" : false, "pwdConfirm" : false, "name" : false ,"check" : false , "confirm" : false]
+    @IBOutlet var birthPicker: UIDatePicker!
+    var picker = ["여성", "남성"]
+    var gender : String?
+    var birth : String?
+    @IBOutlet var genderPicker: UIPickerView!
+    
+    var complete : [String : Bool] = [ "email" : false, "pwd" : false, "pwdConfirm" : false, "name" : false ,"check" : false , "gender" : false, "birth" : false]
     
     
     var isPwdVisible : Bool = false
@@ -27,7 +33,7 @@ class SignUpViewController: UIViewController{
     override func viewDidLoad() {
         
         
-        
+        genderPicker.delegate = self
         emailText.delegate = self
         passwordText.delegate = self
         userNameText.delegate = self
@@ -37,6 +43,8 @@ class SignUpViewController: UIViewController{
         passwordConfirmText.addTarget(self, action: #selector(passwordConfirmDidChange(_:)), for: .editingChanged)
         passwordText.addTarget(self, action: #selector(passwordDidChange(_:)), for: .editingChanged)
         userNameText.addTarget(self, action: #selector(usernameDidChange(_:)), for: .editingChanged)
+     
+
         
     }
     
@@ -60,6 +68,8 @@ class SignUpViewController: UIViewController{
         
         
     }
+    
+   
     
     @objc func passwordDidChange(_ sender: Any){
         guard let password = passwordText.text else {
@@ -164,6 +174,25 @@ class SignUpViewController: UIViewController{
     }
     
     
+    @IBAction func datePickerSelected(_ sender: UIDatePicker) {
+        print("birth")
+        complete["birth"] = true
+        let datePK = sender
+        
+        // date의 형태를 설정한다.
+        let formatter = DateFormatter()
+        // HH(24) _ hh(12)
+        formatter.dateFormat = "yyyy-MM-dd"
+        
+        birth = formatter.string(from: datePK.date)
+        if !complete.values.contains(false){
+            signUpBtn.isEnabled = true
+        }
+
+
+    }
+    
+    
     @IBAction func isPwdConfirmVisible(_ sender: Any) {
         if isPwdConfirmVisible{
             passwordConfirmText.isSecureTextEntry = true
@@ -187,6 +216,17 @@ class SignUpViewController: UIViewController{
             return
         }
         
+        guard let gender = gender else{
+            return
+        }
+        
+        guard let birth = birth else{
+            return
+        }
+
+        
+        
+        
         Task{
             do{
                 if try await API.isEmailExist(email: email){
@@ -197,7 +237,7 @@ class SignUpViewController: UIViewController{
                 }else{
                     try await API.signUp(email: email,
                                          password: password,
-                                         username: username)
+                                         username: username, gender: gender, birth: birth)
                     
                     let main = UIStoryboard.init(name: "Main", bundle: nil)
                     guard let vc = main.instantiateInitialViewController() else{
@@ -238,4 +278,29 @@ extension SignUpViewController: UITextFieldDelegate {
         
         return true
     }
+}
+
+extension SignUpViewController : UIPickerViewDelegate, UIPickerViewDataSource{
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return picker.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return picker[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        complete["gender"] = true
+        gender = picker[row]
+        print("gendedr")
+        if !complete.values.contains(false){
+            signUpBtn.isEnabled = true
+        }
+        
+    }
+    
 }

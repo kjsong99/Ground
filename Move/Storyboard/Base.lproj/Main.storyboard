@@ -335,7 +335,7 @@
         <!--프로필 수정-->
         <scene sceneID="dMk-EE-afE">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="hBZ-X6-z8N" customClass="ProfileEditViewController" customModule="Move" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ProfileEditVC" modalPresentationStyle="fullScreen" id="hBZ-X6-z8N" customClass="ProfileEditViewController" customModule="Move" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fvH-d3-Mcd">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -478,7 +478,6 @@
                                         </buttonConfiguration>
                                         <connections>
                                             <action selector="profileEditBtnTapped:" destination="d8c-0J-yOe" eventType="touchUpInside" id="lE1-wK-PtO"/>
-                                            <segue destination="hBZ-X6-z8N" kind="show" id="sBU-U4-Tlp"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Clv-OB-VfS">

@@ -50,6 +50,9 @@ class SettingViewController: UIViewController {
 
     
     @IBAction func profileEditBtnTapped(_ sender: Any) {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "ProfileEditVC") as? ProfileEditViewController
+        
+        self.show(vc!, sender: self)
     }
     
     @IBAction func logoutBtnTapped(_ sender: Any) {

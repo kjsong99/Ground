@@ -22,7 +22,16 @@ class NameChangeViewController: UIViewController {
     
     override func viewDidLoad() {
         //delegate 설정
-        nameText.addTarget(self, action: #selector(self.usernameDidChange(_:)), for: .editingChanged)
+        Task{
+            do{
+                nameText.text = try await API.getUser(id: id).username
+                nameText.addTarget(self, action: #selector(self.usernameDidChange(_:)), for: .editingChanged)
+            }catch{
+                print(error)
+                throw error
+            }
+        }
+       
     }
     
     @objc func usernameDidChange(_ sender: Any){

@@ -156,13 +156,14 @@ class API {
         
     }
     
-    static func signUp(email: String, password: String, username: String) async throws{
+    static func signUp(email: String, password: String, username: String, gender: String, birth: String) async throws{
         let url = "\(Bundle.main.url)auth/local/register"
-        let param = [
+        let param : Parameters =  [
             "username" : username,
             "email" : email,
-            "password" : password
-            
+            "password" : password,
+            "gender" : gender,
+            "birth" : birth
         ]
         
         do{
