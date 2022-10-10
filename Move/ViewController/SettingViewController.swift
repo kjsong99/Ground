@@ -17,15 +17,19 @@ class SettingViewController: UIViewController {
     override func viewDidLoad() {
         collectionView.delegate = self
         collectionView.dataSource = self
+        setName()
+//        let image = UIImage(systemName:"circle.dashed")
+//        let url = URL(string: Bundle.main.url+"uploads/astronaut_outer_open_space_planet_earth_stars_provide_background_erforming_space_planet_earth_sunrise_sunset_our_home_iss_elements_this_image_furnished_by_nasa_150455_16829_7b571df095.jpeg")
+        
+       // imageView.kf.setImage(with: url, placeholder: image)
+    }
+    
+    func setName(){
         Task{
             do{
                 nameLabel.text = try await API.getUser(id: UserDefaults.standard.string(forKey: "id")!).username
             }
         }
-//        let image = UIImage(systemName:"circle.dashed")
-//        let url = URL(string: Bundle.main.url+"uploads/astronaut_outer_open_space_planet_earth_stars_provide_background_erforming_space_planet_earth_sunrise_sunset_our_home_iss_elements_this_image_furnished_by_nasa_150455_16829_7b571df095.jpeg")
-        
-       // imageView.kf.setImage(with: url, placeholder: image)
     }
     
     func createCircleImageView(imageView: UIImageView){
@@ -36,9 +40,11 @@ class SettingViewController: UIViewController {
         imageView.clipsToBounds = true
     }
     
-    
-    
     @IBAction func nameChangeBtnTapped(_ sender: Any) {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "NameChangeVC") as? NameChangeViewController
+        
+        vc?.delegate = self
+        self.show(vc!, sender: self)
     }
     
 
@@ -95,6 +101,14 @@ extension SettingViewController : UICollectionViewDelegate, UICollectionViewData
  
  
    
+    
+    
+}
+
+extension SettingViewController : SettingDelegate {
+    func refresh() {
+        setName()
+    }
     
     
 }

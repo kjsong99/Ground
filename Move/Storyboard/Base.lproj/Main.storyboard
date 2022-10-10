@@ -330,7 +330,102 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="et2-jc-BH2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2824.6376811594205" y="791.51785714285711"/>
+            <point key="canvasLocation" x="3734.7826086956525" y="791.51785714285711"/>
+        </scene>
+        <!--프로필 수정-->
+        <scene sceneID="dMk-EE-afE">
+            <objects>
+                <viewController modalPresentationStyle="fullScreen" id="hBZ-X6-z8N" customClass="ProfileEditViewController" customModule="Move" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="fvH-d3-Mcd">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="Mhb-d1-XOT"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="프로필 수정" id="3qg-w8-fbQ"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Oeo-x4-LbY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="628" y="2438"/>
+        </scene>
+        <!--닉네임 변경-->
+        <scene sceneID="c62-lD-P1B">
+            <objects>
+                <viewController storyboardIdentifier="NameChangeVC" id="veb-Lq-2Qh" customClass="NameChangeViewController" customModule="Move" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="9qp-HC-3js">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Yd0-Fe-ZOo">
+                                <rect key="frame" x="38" y="92" width="270" height="34"/>
+                                <color key="backgroundColor" systemColor="systemGray6Color"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="닉네임" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Exd-kD-jGJ">
+                                <rect key="frame" x="38" y="64" width="39" height="18"/>
+                                <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Waa-2Z-oc4">
+                                <rect key="frame" x="38" y="146" width="346" height="32"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="닉네임 설정" cornerStyle="large">
+                                    <backgroundConfiguration key="background">
+                                        <color key="backgroundColor" systemColor="systemRedColor"/>
+                                    </backgroundConfiguration>
+                                    <fontDescription key="titleFontDescription" type="system" weight="black" pointSize="15"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="setNameBtnTapped:" destination="veb-Lq-2Qh" eventType="touchUpInside" id="g5f-xk-XZf"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZZe-zC-64T">
+                                <rect key="frame" x="318" y="92" width="66" height="29"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="66" id="yWA-Wp-z42"/>
+                                </constraints>
+                                <color key="tintColor" systemColor="systemRedColor"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="중복확인" cornerStyle="capsule">
+                                    <backgroundConfiguration key="background">
+                                        <color key="strokeColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </backgroundConfiguration>
+                                    <fontDescription key="titleFontDescription" type="boldSystem" pointSize="0.0"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="existBtnTapped:" destination="veb-Lq-2Qh" eventType="touchUpInside" id="OBi-xy-KTU"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="onG-PQ-m31"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="ZZe-zC-64T" firstAttribute="leading" secondItem="Yd0-Fe-ZOo" secondAttribute="trailing" constant="10" id="5ju-6P-Itl"/>
+                            <constraint firstItem="Exd-kD-jGJ" firstAttribute="top" secondItem="onG-PQ-m31" secondAttribute="top" constant="20" id="855-A6-rMZ"/>
+                            <constraint firstItem="Waa-2Z-oc4" firstAttribute="top" secondItem="Yd0-Fe-ZOo" secondAttribute="bottom" constant="20" id="Axa-Oj-mIs"/>
+                            <constraint firstItem="Yd0-Fe-ZOo" firstAttribute="top" secondItem="Exd-kD-jGJ" secondAttribute="bottom" constant="10" id="Gor-aN-Hu3"/>
+                            <constraint firstItem="Waa-2Z-oc4" firstAttribute="leading" secondItem="onG-PQ-m31" secondAttribute="leading" constant="38" id="IYh-QR-PFR"/>
+                            <constraint firstItem="Exd-kD-jGJ" firstAttribute="leading" secondItem="onG-PQ-m31" secondAttribute="leading" constant="38" id="Ilx-eP-l7i"/>
+                            <constraint firstItem="onG-PQ-m31" firstAttribute="trailing" secondItem="ZZe-zC-64T" secondAttribute="trailing" constant="30" id="KGf-ko-pUs"/>
+                            <constraint firstItem="Yd0-Fe-ZOo" firstAttribute="leading" secondItem="onG-PQ-m31" secondAttribute="leading" constant="38" id="c1z-hv-wg8"/>
+                            <constraint firstItem="onG-PQ-m31" firstAttribute="trailing" secondItem="Waa-2Z-oc4" secondAttribute="trailing" constant="30" id="ecn-vH-bCa"/>
+                            <constraint firstItem="ZZe-zC-64T" firstAttribute="top" secondItem="Yd0-Fe-ZOo" secondAttribute="top" id="liw-dV-nfK"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="닉네임 변경" id="S4K-jp-v4R"/>
+                    <connections>
+                        <outlet property="existBtn" destination="ZZe-zC-64T" id="R37-Oy-oBV"/>
+                        <outlet property="nameSetBtn" destination="Waa-2Z-oc4" id="xKq-Kg-Z8L"/>
+                        <outlet property="nameText" destination="Yd0-Fe-ZOo" id="vxV-Oc-iMt"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QWg-FP-PYz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-120.28985507246378" y="2437.5"/>
         </scene>
         <!--SettingViewController-->
         <scene sceneID="W9Q-Tq-v0a">
@@ -364,7 +459,7 @@
                                             <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="0.0"/>
                                         </buttonConfiguration>
                                         <connections>
-                                            <action selector="nameChangeBtnTapped:" destination="d8c-0J-yOe" eventType="touchUpInside" id="7eF-to-yz0"/>
+                                            <action selector="nameChangeBtnTapped:" destination="d8c-0J-yOe" eventType="touchUpInside" id="svK-1l-kuQ"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ezk-DE-fFz">
@@ -383,6 +478,7 @@
                                         </buttonConfiguration>
                                         <connections>
                                             <action selector="profileEditBtnTapped:" destination="d8c-0J-yOe" eventType="touchUpInside" id="lE1-wK-PtO"/>
+                                            <segue destination="hBZ-X6-z8N" kind="show" id="sBU-U4-Tlp"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Clv-OB-VfS">
@@ -550,7 +646,9 @@
                             <constraint firstAttribute="trailingMargin" secondItem="dLf-jw-TpW" secondAttribute="trailing" id="tBs-E3-bNf"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Setting" image="gear" catalog="system" id="YSo-ke-VPA"/>
+                    <navigationItem key="navigationItem" id="twO-Ql-M1t">
+                        <barButtonItem key="backBarButtonItem" title=" " id="3gh-2C-Mf9"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="dLf-jw-TpW" id="wPV-8g-jd0"/>
                         <outlet property="nameLabel" destination="jEf-Ma-DpQ" id="6rF-Iw-0f3"/>
@@ -558,7 +656,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YDV-S1-uFW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="398.55072463768118" y="903.34821428571422"/>
+            <point key="canvasLocation" x="371" y="1654"/>
         </scene>
         <!-- -->
         <scene sceneID="Spt-t4-Wz1">
@@ -647,12 +745,31 @@
                     </tabBar>
                     <connections>
                         <segue destination="zuc-F0-wqj" kind="relationship" relationship="viewControllers" id="N0E-ZL-JD4"/>
-                        <segue destination="d8c-0J-yOe" kind="relationship" relationship="viewControllers" id="zKJ-QD-LA4"/>
+                        <segue destination="ovP-s2-r1V" kind="relationship" relationship="viewControllers" id="zKJ-QD-LA4"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N3z-Sa-gqf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="399" y="74"/>
+        </scene>
+        <!--Setting-->
+        <scene sceneID="Nhr-97-IQU">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ovP-s2-r1V" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Setting" image="gear" catalog="system" id="YSo-ke-VPA"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ANq-ts-Mzz">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="d8c-0J-yOe" kind="relationship" relationship="rootViewController" id="Gmb-pN-rLE"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jRR-v8-k3X" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="398.55072463768118" y="903.34821428571422"/>
         </scene>
     </scenes>
     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

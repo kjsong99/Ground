@@ -264,5 +264,22 @@ class API {
         }
     }
     
+    static func changeName(id: String, username : String) async throws {
+        let url =  "\(Bundle.main.url)users/" + id
+        let param : Parameters = [
+            "username" : username
+        ]
+        
+        do{
+            
+            let data = try await AppNetworking.shared.requestJSON(url, type: UserResponseElement.self, method: .put, parameters: param)
+
+            
+        }catch{
+            print(error)
+            throw error
+        }
+    }
+    
     
 }
