@@ -198,16 +198,15 @@ extension PostViewController : PostDelegate{
 // MARK - extension
 extension UIButton{
     func getEmptyHeartBtn() {
-        let image = UIImage(systemName: "haert")
+        self.setImage(UIImage(systemName: "heart"), for: .normal)
         self.tintColor = UIColor.label
 
-        self.setImage(image, for: .normal)
     }
     
     func getFilledHeartBtn() {
-        let image = UIImage(systemName: "heart.fill")
+        self.setImage(UIImage(systemName: "heart.fill"), for: .normal)
         self.tintColor = UIColor.red
-        self.setImage(image, for: .normal)
+        
         
     }
 }

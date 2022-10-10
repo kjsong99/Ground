@@ -296,4 +296,47 @@ class API {
         
     }
     
+    static func changePassword(id: String, password : String) async throws {
+        let url =  "\(Bundle.main.url)users/" + id
+        let param : Parameters = [
+            "password" : password
+        ]
+        
+        do{
+            
+            let data = try await AppNetworking.shared.requestJSON(url, type: UserResponseElement.self, method: .put, parameters: param)
+
+            
+        }catch{
+            print(error)
+            throw error
+        }
+    }
+    
+    static func currentPassword(id : String, password : String) async throws -> Bool{
+        do{
+            let username = try await getUser(id: id).username
+            
+            let url = "\(Bundle.main.url)auth/local"
+            let param = [
+                "identifier" : username,
+                "password" : password
+            ]
+            
+            let data = try await
+            AppNetworking.shared.requestJSON(url, type: RegisterResponse.self, method: .post, parameters: param)
+         
+            if data.jwt == nil {
+                return false
+            }else{
+                return true
+            }
+            
+        }catch{
+            print(error)
+            throw error
+        }
+        
+    }
+    
 }

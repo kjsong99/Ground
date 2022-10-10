@@ -6,8 +6,8 @@ import Kingfisher
 class SettingViewController: UIViewController {
     
     @IBOutlet var nameLabel: UILabel!
-    var menuImage = ["square.and.pencil", "paperplane", "bookmark","bell" ,"megaphone", "person", "camera","person.crop.circle.badge.xmark" ]
-    var menuLabel = ["내가 쓴 글", "쪽지함",  "북마크",  "알림", "공지사항" , "고객센터", "신고", "회원 탈퇴"]
+    var menuImage = ["square.and.pencil", "paperplane", "bookmark","bell" ,"megaphone", "camera", "key","person.crop.circle.badge.xmark" ]
+    var menuLabel = ["내가 쓴 글", "쪽지함",  "북마크",  "알림", "공지사항" , "신고", "비밀번호 변경" , "회원 탈퇴"]
     override func viewWillLayoutSubviews() {
       // createCircleImageView(imageView: ima
         
@@ -121,6 +121,9 @@ extension SettingViewController : UICollectionViewDelegate, UICollectionViewData
             }))
             
             self.present(alert, animated: true)
+        }else if menuLabel[indexPath.row] == "비밀번호 변경"{
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "PasswordChangeVC")
+            self.show(vc!, sender: self)
         }
     }
     

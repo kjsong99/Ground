@@ -37,9 +37,6 @@ class WriteViewController: UIViewController{
     
     override func viewDidLoad() {
         contentText.delegate = self
-        contentText.layer.borderWidth = 0.2
-        contentText.layer.cornerRadius = 5.0
-        contentText.layer.borderColor = UIColor.systemGray.cgColor
     
       
         
@@ -49,7 +46,7 @@ class WriteViewController: UIViewController{
         }else{
            
             contentText.text = "내용을 입력하세요."
-            contentText.textColor = UIColor.systemGray3
+            contentText.textColor = UIColor.systemGray2
         }
         
         
