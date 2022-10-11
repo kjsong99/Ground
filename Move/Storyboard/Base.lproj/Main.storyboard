@@ -348,45 +348,6 @@
             </objects>
             <point key="canvasLocation" x="3734.7826086956525" y="791.51785714285711"/>
         </scene>
-        <!--프로필 수정-->
-        <scene sceneID="dMk-EE-afE">
-            <objects>
-                <viewController storyboardIdentifier="ProfileEditVC" modalPresentationStyle="fullScreen" id="hBZ-X6-z8N" customClass="ProfileEditViewController" customModule="Move" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="fvH-d3-Mcd">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="이메일 변경" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oRs-JR-Xm3">
-                                <rect key="frame" x="55" y="82" width="78" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="생년월일 변경" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="np8-xn-lxM">
-                                <rect key="frame" x="73" y="366" width="93" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="성별 변경" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Llk-DN-KJr">
-                                <rect key="frame" x="83" y="438" width="64" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="Mhb-d1-XOT"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="프로필 수정" id="3qg-w8-fbQ"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Oeo-x4-LbY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="627.536231884058" y="2437.5"/>
-        </scene>
         <!--비밀번호 변경-->
         <scene sceneID="01S-Qf-D2q">
             <objects>
@@ -396,44 +357,44 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="현재 비밀번호" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pai-iJ-Oes">
-                                <rect key="frame" x="30" y="94" width="354" height="24"/>
+                                <rect key="frame" x="30" y="138" width="354" height="24"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="현재 비밀번호" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="agM-Km-iqD">
-                                <rect key="frame" x="30" y="138" width="334" height="34"/>
+                                <rect key="frame" x="30" y="182" width="334" height="34"/>
                                 <color key="backgroundColor" systemColor="systemGray6Color"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="새 비밀번호" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cua-Nu-OP7">
-                                <rect key="frame" x="30" y="192" width="354" height="24"/>
+                                <rect key="frame" x="30" y="236" width="354" height="24"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="새 비밀번호" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="h7e-VM-opX">
-                                <rect key="frame" x="30" y="236" width="334" height="34"/>
+                                <rect key="frame" x="30" y="280" width="334" height="34"/>
                                 <color key="backgroundColor" systemColor="systemGray6Color"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="새 비밀번호 확인" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kKW-hK-5Yb">
-                                <rect key="frame" x="30" y="300" width="354" height="24"/>
+                                <rect key="frame" x="30" y="344" width="354" height="24"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="새 비밀번호 확인" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xWD-RC-jDg">
-                                <rect key="frame" x="30" y="344" width="334" height="34"/>
+                                <rect key="frame" x="30" y="388" width="334" height="34"/>
                                 <color key="backgroundColor" systemColor="systemGray6Color"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2fK-CI-Hup">
-                                <rect key="frame" x="30" y="408" width="334" height="35.5"/>
+                                <rect key="frame" x="30" y="452" width="334" height="35.5"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="비밀번호 변경" cornerStyle="large">
@@ -447,7 +408,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bXI-w7-7z7">
-                                <rect key="frame" x="317" y="139.5" width="52" height="31"/>
+                                <rect key="frame" x="317" y="183.5" width="52" height="31"/>
                                 <color key="tintColor" systemColor="systemGrayColor"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="eye" catalog="system"/>
@@ -456,7 +417,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K5n-lQ-VeG">
-                                <rect key="frame" x="317" y="237.5" width="52" height="31"/>
+                                <rect key="frame" x="317" y="281.5" width="52" height="31"/>
                                 <color key="tintColor" systemColor="systemGrayColor"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="eye" catalog="system"/>
@@ -465,7 +426,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G3x-fK-1uo">
-                                <rect key="frame" x="317" y="345.5" width="52" height="31"/>
+                                <rect key="frame" x="317" y="389.5" width="52" height="31"/>
                                 <color key="tintColor" systemColor="systemGrayColor"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="eye" catalog="system"/>
@@ -506,6 +467,7 @@
                             <constraint firstItem="bXI-w7-7z7" firstAttribute="centerY" secondItem="agM-Km-iqD" secondAttribute="centerY" id="v43-Jx-OTs"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="nUw-A6-Ihr"/>
                     <connections>
                         <outlet property="currentPwd" destination="agM-Km-iqD" id="fX0-MU-kEb"/>
                         <outlet property="newPwd" destination="h7e-VM-opX" id="d5c-rW-mgh"/>
@@ -599,12 +561,12 @@
         <scene sceneID="W9Q-Tq-v0a">
             <objects>
                 <viewController title="SettingViewController" id="d8c-0J-yOe" customClass="SettingViewController" customModule="Move" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="F2q-ze-PtF">
+                    <view key="view" contentMode="scaleToFill" ambiguous="YES" id="F2q-ze-PtF">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c0G-P4-frK">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="180"/>
+                                <rect key="frame" x="0.0" y="0.0" width="435" height="180"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="닉네임" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jEf-Ma-DpQ">
                                         <rect key="frame" x="60" y="84" width="45" height="21"/>
@@ -638,14 +600,14 @@
                                         </constraints>
                                         <color key="tintColor" systemColor="systemRedColor"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="프로필 수정" cornerStyle="capsule">
+                                        <buttonConfiguration key="configuration" style="plain" title="비밀번호 변경" cornerStyle="capsule">
                                             <backgroundConfiguration key="background">
                                                 <color key="strokeColor" systemColor="systemRedColor"/>
                                             </backgroundConfiguration>
                                             <fontDescription key="titleFontDescription" type="boldSystem" pointSize="16"/>
                                         </buttonConfiguration>
                                         <connections>
-                                            <action selector="profileEditBtnTapped:" destination="d8c-0J-yOe" eventType="touchUpInside" id="lE1-wK-PtO"/>
+                                            <segue destination="wQh-yj-mPz" kind="show" id="Dsv-D4-YBt"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Clv-OB-VfS">
@@ -682,26 +644,26 @@
                                 </constraints>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" contentInsetAdjustmentBehavior="never" dataMode="prototypes" id="dLf-jw-TpW">
-                                <rect key="frame" x="20" y="190" width="374" height="423"/>
+                                <rect key="frame" x="8" y="188" width="395" height="425"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemGray6Color"/>
                                 <edgeInsets key="layoutMargins" top="0.0" left="0.0" bottom="0.0" right="0.0"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="1" minimumInteritemSpacing="1" id="4NL-FP-5sQ">
-                                    <size key="itemSize" width="92" height="92"/>
+                                    <size key="itemSize" width="95" height="95"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="collection" id="1qC-QT-99P" customClass="SettingCollectionViewCell" customModule="Move" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="92" height="92"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="95" height="95"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                            <rect key="frame" x="0.0" y="0.0" width="92" height="92"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="95" height="95"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wwT-K0-RI6">
-                                                    <rect key="frame" x="0.0" y="0.0" width="92" height="92"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="95" height="95"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="내가 쓴 글" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kEy-mp-8UW">
                                                             <rect key="frame" x="10" y="62.5" width="71" height="16"/>
@@ -743,58 +705,26 @@
                                         </connections>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Erz-HA-60U">
-                                        <rect key="frame" x="94" y="0.0" width="92" height="92"/>
+                                        <rect key="frame" x="100" y="0.0" width="95" height="95"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="fem-h8-fPf">
-                                            <rect key="frame" x="0.0" y="0.0" width="92" height="92"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="95" height="95"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </collectionViewCellContentView>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="5r6-NV-4wh">
-                                        <rect key="frame" x="188" y="0.0" width="92" height="92"/>
+                                        <rect key="frame" x="200" y="0.0" width="95" height="95"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="fVc-mA-KVq">
-                                            <rect key="frame" x="0.0" y="0.0" width="92" height="92"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="95" height="95"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </collectionViewCellContentView>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="rt8-xB-Cym">
-                                        <rect key="frame" x="282" y="0.0" width="92" height="92"/>
+                                        <rect key="frame" x="300" y="0.0" width="95" height="95"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="SKZ-De-wRa">
-                                            <rect key="frame" x="0.0" y="0.0" width="92" height="92"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </collectionViewCellContentView>
-                                    </collectionViewCell>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="tbZ-Px-Cmu">
-                                        <rect key="frame" x="0.0" y="93" width="92" height="92"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="8OB-Zb-VoA">
-                                            <rect key="frame" x="0.0" y="0.0" width="92" height="92"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </collectionViewCellContentView>
-                                    </collectionViewCell>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="ukw-lX-26K">
-                                        <rect key="frame" x="94" y="93" width="92" height="92"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="aw9-n8-0fb">
-                                            <rect key="frame" x="0.0" y="0.0" width="92" height="92"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </collectionViewCellContentView>
-                                    </collectionViewCell>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="9pm-MG-j3X">
-                                        <rect key="frame" x="188" y="93" width="92" height="92"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="hbm-42-QUW">
-                                            <rect key="frame" x="0.0" y="0.0" width="92" height="92"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </collectionViewCellContentView>
-                                    </collectionViewCell>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="WVp-Q0-UWj">
-                                        <rect key="frame" x="282" y="93" width="92" height="92"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="aad-AH-hfK">
-                                            <rect key="frame" x="0.0" y="0.0" width="92" height="92"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="95" height="95"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </collectionViewCellContentView>
                                     </collectionViewCell>
@@ -807,7 +737,7 @@
                             <constraint firstAttribute="trailing" secondItem="c0G-P4-frK" secondAttribute="trailing" id="Ffz-6z-dwf"/>
                             <constraint firstAttribute="bottomMargin" secondItem="dLf-jw-TpW" secondAttribute="bottom" constant="200" id="RRA-sF-467"/>
                             <constraint firstItem="dLf-jw-TpW" firstAttribute="leading" secondItem="F2q-ze-PtF" secondAttribute="leadingMargin" id="UiZ-4n-vpm"/>
-                            <constraint firstItem="dLf-jw-TpW" firstAttribute="top" secondItem="c0G-P4-frK" secondAttribute="bottom" constant="10" id="ffT-m9-F0j"/>
+                            <constraint firstItem="dLf-jw-TpW" firstAttribute="top" secondItem="c0G-P4-frK" secondAttribute="bottom" constant="7" id="ffT-m9-F0j"/>
                             <constraint firstItem="c0G-P4-frK" firstAttribute="leading" secondItem="F2q-ze-PtF" secondAttribute="leading" id="kSh-tq-RfZ"/>
                             <constraint firstItem="c0G-P4-frK" firstAttribute="top" secondItem="F2q-ze-PtF" secondAttribute="top" id="m9v-2L-w6Y"/>
                             <constraint firstAttribute="trailingMargin" secondItem="dLf-jw-TpW" secondAttribute="trailing" id="tBs-E3-bNf"/>
@@ -823,7 +753,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YDV-S1-uFW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="371" y="1654"/>
+            <point key="canvasLocation" x="369.56521739130437" y="1653.3482142857142"/>
         </scene>
         <!-- -->
         <scene sceneID="Spt-t4-Wz1">

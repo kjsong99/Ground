@@ -6,8 +6,8 @@ import Kingfisher
 class SettingViewController: UIViewController {
     
     @IBOutlet var nameLabel: UILabel!
-    var menuImage = ["square.and.pencil", "paperplane", "bookmark","bell" ,"megaphone", "camera", "key","person.crop.circle.badge.xmark" ]
-    var menuLabel = ["내가 쓴 글", "쪽지함",  "북마크",  "알림", "공지사항" , "신고", "비밀번호 변경" , "회원 탈퇴"]
+    var menuImage = ["square.and.pencil", "paperplane", "bookmark", "person.crop.circle.badge.xmark" ]
+    var menuLabel = ["내가 쓴 글", "쪽지함",  "북마크", "회원 탈퇴"]
     override func viewWillLayoutSubviews() {
       // createCircleImageView(imageView: ima
         
@@ -77,7 +77,7 @@ class SettingViewController: UIViewController {
 
 extension SettingViewController : UICollectionViewDelegate, UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 8
+        return menuLabel.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -121,10 +121,11 @@ extension SettingViewController : UICollectionViewDelegate, UICollectionViewData
             }))
             
             self.present(alert, animated: true)
-        }else if menuLabel[indexPath.row] == "비밀번호 변경"{
-            let vc = self.storyboard?.instantiateViewController(withIdentifier: "PasswordChangeVC")
-            self.show(vc!, sender: self)
         }
+//        else if menuLabel[indexPath.row] == "비밀번호 변경"{
+//            let vc = self.storyboard?.instantiateViewController(withIdentifier: "PasswordChangeVC")
+//            self.show(vc!, sender: self)
+//        }
     }
     
 //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
