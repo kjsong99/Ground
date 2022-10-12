@@ -18,6 +18,7 @@ class PostViewController: UIViewController{
     
     
     // MARK - variable
+    @IBOutlet var contentView: UIScrollView!
     @IBOutlet var heartButton: UIButton!
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var dateLabel: UILabel!
@@ -40,6 +41,7 @@ class PostViewController: UIViewController{
                 postData = try await API.getPost(id: id)
                 setData()
                 contentLabel.sizeToFit()
+                contentView.sizeToFit()
                 heartId = try await API.checkHeart(post: id.description, user: UserDefaults.standard.string(forKey: "id") ?? "") ?? 00
                 if heartId != 0{
                     heartChecked = true

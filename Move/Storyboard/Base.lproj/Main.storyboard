@@ -254,31 +254,30 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="제목입니다." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bVH-EO-6gp">
-                                <rect key="frame" x="50" y="138" width="98" height="25.5"/>
+                                <rect key="frame" x="50" y="128" width="98" height="25.5"/>
                                 <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="21"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="09/29 20:06" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PVA-dx-eqD">
-                                <rect key="frame" x="50" y="198.5" width="66" height="14"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" verticalCompressionResistancePriority="752" text="09/29 20:06" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PVA-dx-eqD">
+                                <rect key="frame" x="50" y="193.5" width="66" height="14"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
                                 <color key="textColor" systemColor="secondaryLabelColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="test12" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WXp-qB-FXr">
-                                <rect key="frame" x="53" y="173.5" width="35" height="15"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="test12" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WXp-qB-FXr">
+                                <rect key="frame" x="53" y="168.5" width="35" height="15"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F4A-jE-DEt">
-                                <rect key="frame" x="57" y="238" width="300" height="300"/>
+                                <rect key="frame" x="57" y="237.5" width="300" height="200"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="내용입니다." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="none" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RVN-4n-98o">
-                                        <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="300" height="17"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="300" id="d5T-Lb-dxE"/>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="300" id="ks8-DC-XVq"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                         <nil key="textColor"/>
@@ -286,6 +285,7 @@
                                     </label>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="66W-gb-GgK"/>
                                     <constraint firstItem="RVN-4n-98o" firstAttribute="top" secondItem="F4A-jE-DEt" secondAttribute="top" id="HIX-tQ-guB"/>
                                     <constraint firstAttribute="trailing" secondItem="RVN-4n-98o" secondAttribute="trailing" id="Ikq-sT-v52"/>
                                     <constraint firstAttribute="bottom" secondItem="RVN-4n-98o" secondAttribute="bottom" id="tai-bd-E4M"/>
@@ -294,8 +294,8 @@
                                 <viewLayoutGuide key="contentLayoutGuide" id="DIQ-4j-H52"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="KZK-1c-ML3"/>
                             </scrollView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E8T-Uq-xre">
-                                <rect key="frame" x="50" y="558" width="45.5" height="31"/>
+                            <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="752" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E8T-Uq-xre">
+                                <rect key="frame" x="50" y="442.5" width="45.5" height="31"/>
                                 <color key="tintColor" systemColor="labelColor"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="heart" catalog="system"/>
@@ -304,7 +304,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y8T-xF-3ru">
-                                <rect key="frame" x="103" y="558" width="43" height="31"/>
+                                <rect key="frame" x="103" y="442.5" width="43" height="31"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="bookmark" catalog="system"/>
                             </button>
@@ -312,20 +312,23 @@
                         <viewLayoutGuide key="safeArea" id="EsN-uZ-0hi"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="EsN-uZ-0hi" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="PVA-dx-eqD" secondAttribute="trailing" symbolic="YES" id="237-UC-T8l"/>
+                            <constraint firstItem="EsN-uZ-0hi" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Y8T-xF-3ru" secondAttribute="trailing" symbolic="YES" id="6YZ-hx-grW"/>
                             <constraint firstItem="E8T-Uq-xre" firstAttribute="leading" secondItem="PVA-dx-eqD" secondAttribute="leading" id="8RY-fc-hsU"/>
+                            <constraint firstItem="E8T-Uq-xre" firstAttribute="top" secondItem="F4A-jE-DEt" secondAttribute="bottom" constant="5" id="8ho-WB-5Ke"/>
+                            <constraint firstItem="EsN-uZ-0hi" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="WXp-qB-FXr" secondAttribute="trailing" symbolic="YES" id="DyH-Rw-7AH"/>
+                            <constraint firstItem="EsN-uZ-0hi" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="bVH-EO-6gp" secondAttribute="trailing" symbolic="YES" id="Hea-iE-CLo"/>
                             <constraint firstItem="E8T-Uq-xre" firstAttribute="baseline" secondItem="Y8T-xF-3ru" secondAttribute="baseline" id="I8a-G6-FIx"/>
                             <constraint firstItem="Y8T-xF-3ru" firstAttribute="leading" secondItem="E8T-Uq-xre" secondAttribute="trailing" constant="7.5" id="JI5-W4-tJk"/>
                             <constraint firstItem="EsN-uZ-0hi" firstAttribute="trailing" secondItem="F4A-jE-DEt" secondAttribute="trailing" constant="57" id="M5E-Jg-fXq"/>
                             <constraint firstItem="bVH-EO-6gp" firstAttribute="leading" secondItem="EsN-uZ-0hi" secondAttribute="leading" constant="50" id="PJk-aH-MYg"/>
-                            <constraint firstItem="WXp-qB-FXr" firstAttribute="top" secondItem="bVH-EO-6gp" secondAttribute="bottom" constant="10" id="PMk-Il-Pyj"/>
-                            <constraint firstItem="F4A-jE-DEt" firstAttribute="top" secondItem="PVA-dx-eqD" secondAttribute="bottom" constant="25.5" id="QaC-Wg-0dt"/>
-                            <constraint firstItem="E8T-Uq-xre" firstAttribute="top" secondItem="F4A-jE-DEt" secondAttribute="bottom" constant="20" id="UWI-Im-FVc"/>
+                            <constraint firstItem="WXp-qB-FXr" firstAttribute="top" secondItem="bVH-EO-6gp" secondAttribute="bottom" constant="15" id="PMk-Il-Pyj"/>
+                            <constraint firstItem="F4A-jE-DEt" firstAttribute="top" secondItem="PVA-dx-eqD" secondAttribute="bottom" constant="30" id="QaC-Wg-0dt"/>
                             <constraint firstItem="F4A-jE-DEt" firstAttribute="leading" secondItem="EsN-uZ-0hi" secondAttribute="leading" constant="57" id="fez-SU-QcZ"/>
                             <constraint firstItem="WXp-qB-FXr" firstAttribute="leading" secondItem="EsN-uZ-0hi" secondAttribute="leading" constant="53" id="kp0-yV-Dg3"/>
-                            <constraint firstItem="EsN-uZ-0hi" firstAttribute="bottom" secondItem="E8T-Uq-xre" secondAttribute="bottom" constant="224" id="nY1-sa-LpV"/>
                             <constraint firstItem="PVA-dx-eqD" firstAttribute="leading" secondItem="EsN-uZ-0hi" secondAttribute="leading" constant="50" id="nYS-l3-PeM"/>
                             <constraint firstItem="PVA-dx-eqD" firstAttribute="top" secondItem="WXp-qB-FXr" secondAttribute="bottom" constant="10" id="qpk-g8-wWp"/>
-                            <constraint firstItem="bVH-EO-6gp" firstAttribute="top" secondItem="EsN-uZ-0hi" secondAttribute="top" constant="50" id="vjJ-vJ-ZSR"/>
+                            <constraint firstItem="bVH-EO-6gp" firstAttribute="top" secondItem="EsN-uZ-0hi" secondAttribute="top" constant="40" id="vjJ-vJ-ZSR"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title=" " id="se2-e1-Xbb">
@@ -338,6 +341,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="contentLabel" destination="RVN-4n-98o" id="RZR-Jl-hLS"/>
+                        <outlet property="contentView" destination="F4A-jE-DEt" id="yK8-Dd-imW"/>
                         <outlet property="dateLabel" destination="PVA-dx-eqD" id="mji-GN-2Xr"/>
                         <outlet property="heartButton" destination="E8T-Uq-xre" id="1Fz-5I-ywN"/>
                         <outlet property="titleLabel" destination="bVH-EO-6gp" id="EwG-iM-pYC"/>
