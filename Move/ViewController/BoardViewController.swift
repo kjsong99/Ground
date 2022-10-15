@@ -16,7 +16,17 @@ class BoardViewController: UIViewController{
     var postsData : PostsResponse?
     @IBOutlet lazy var postsTableView: UITableView! = UITableView()
     
-    
+    override func viewWillAppear(_ animated: Bool) {
+        Task{
+            do{
+                postsData = try await API.getPosts()
+                self.postsTableView.reloadData()
+                
+            }catch{
+                throw error
+            }
+        }
+    }
     // MARK - Override
     override func viewDidLoad() {
         
@@ -96,6 +106,7 @@ extension BoardViewController : UITableViewDelegate, UITableViewDataSource{
         
         let postVC = self.storyboard?.instantiateViewController(withIdentifier: "PostVC") as! PostViewController
         if let data = postsData{
+            print(data[indexPath.row])
             postVC.id = data[indexPath.row].id
             postVC.delegate = self
             self.navigationController?.pushViewController(postVC, animated: true)

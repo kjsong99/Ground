@@ -18,12 +18,18 @@ protocol MyDelegate : AnyObject{
     func refreshMyView()
 }
 
+protocol StarDelegate : AnyObject{
+    func refreshStar()
+}
+
 class PostViewController: UIViewController{
     
     
     // MARK - variable
     @IBOutlet var contentView: UIScrollView!
     @IBOutlet var heartButton: UIButton!
+    @IBOutlet var bookmarkButton: UIButton!
+    
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var dateLabel: UILabel!
     @IBOutlet var contentLabel: UILabel!
@@ -31,10 +37,13 @@ class PostViewController: UIViewController{
     var id : Int = 0
     var postData : PostsResponseElement?
     var heartChecked : Bool = false
+    var bookmarkChecked : Bool = false
     var heartId = 0
+    var bookmarkId = 0
     weak var delegate : BoardDelegate?
     weak var searchDelegate : SearchDelegate?
     weak var myDelegate : MyDelegate?
+    weak var starDelegate : StarDelegate?
     
     
     // MARK - override
@@ -42,12 +51,25 @@ class PostViewController: UIViewController{
         super.viewDidLoad()
         Task{
             do{
-                print(try await API.getCountHeart(post: id.description))
+               
                 postData = try await API.getPost(id: id)
                 setData()
                 contentLabel.sizeToFit()
                 contentView.sizeToFit()
                 heartId = try await API.checkHeart(post: id.description, user: UserDefaults.standard.string(forKey: "id") ?? "") ?? 00
+                print(heartId)
+                
+                bookmarkId = try await API.checkStar(post: id.description, user: UserDefaults.standard.string(forKey: "id") ?? "") ?? 00
+                print(bookmarkId)
+                
+                if bookmarkId != 0 {
+                    bookmarkChecked = true
+                    bookmarkButton.getFilledBookmarkBtn()
+                }
+//                }else{
+//                    bookmarkChecked = false
+//                    bookmarkButton
+//                }
                 if heartId != 0{
                     heartChecked = true
                     heartButton.getFilledHeartBtn()
@@ -56,10 +78,11 @@ class PostViewController: UIViewController{
 //                    heartButton.setImage(image, for: .normal)
                     
                  
-                }else{
-                    heartChecked = false
-                    heartButton.getEmptyHeartBtn()
                 }
+//                else{
+//                    heartChecked = false
+//                    heartButton.getEmptyHeartBtn()
+//                }
                 
                 
             }catch{
@@ -84,6 +107,31 @@ class PostViewController: UIViewController{
         }
     }
     
+    
+    @IBAction func bookmarkBtnTapped(_ sender: Any) {
+        Task{
+            do{
+                if bookmarkChecked {
+                    //하트 해제 로직
+                    try await API.deleteStar(id: bookmarkId.description)
+                    bookmarkChecked = false
+                    bookmarkId = 0
+                    bookmarkButton.getEmptyBookmarkBtn()
+
+                }else{
+                    //북마크 클릭 로직
+                    bookmarkId = try await API.createStar(post: id.description, user: UserDefaults.standard.string(forKey: "id") ?? "")
+                    
+                    bookmarkChecked = true
+                    bookmarkButton.getFilledBookmarkBtn()
+                    
+                    
+                }
+                starDelegate?.refreshStar()
+            }
+           
+        }
+    }
     
     @IBAction func heartBtnTapped(_ sender: Any) {
         Task{
@@ -147,14 +195,20 @@ class PostViewController: UIViewController{
                         do{
                             try await API.deletePost(id: self.id.description)
                             self.delegate?.refreshBoard()
-                            self.myDelegate?.refreshMyView()
-                            self.searchDelegate?.refreshSearch()
-                            self.navigationController?.popViewController(animated: true)
+//                            self.myDelegate?.refreshMyView()
+//                            self.searchDelegate?.refreshSearch()
+//                            self.starDelegate?.refreshStar()
+                          
+                            self.tabBarController?.selectedIndex = 0
+//                            self.navigationController?.loadView()
+//                            self.show(vc!, sender: self)
+//                            self.navigationController?.popViewController(animated: true)
                         }catch{
                             throw error
                         }
                         
                     }
+                  
                     
                 }))
                 sheet.addAction(UIAlertAction(title: "취소", style: .cancel, handler: {_ in
@@ -208,13 +262,26 @@ extension PostViewController : PostDelegate{
 extension UIButton{
     func getEmptyHeartBtn() {
         self.setImage(UIImage(systemName: "heart"), for: .normal)
-        self.tintColor = UIColor.label
+        self.tintColor = UIColor.darkGray
 
     }
     
     func getFilledHeartBtn() {
         self.setImage(UIImage(systemName: "heart.fill"), for: .normal)
         self.tintColor = UIColor.red
+        
+        
+    }
+    
+    func getEmptyBookmarkBtn() {
+        self.setImage(UIImage(systemName: "star"), for: .normal)
+        self.tintColor = UIColor.darkGray
+
+    }
+    
+    func getFilledBookmarkBtn() {
+        self.setImage(UIImage(systemName: "star.fill"), for: .normal)
+        self.tintColor = UIColor.systemYellow
         
         
     }

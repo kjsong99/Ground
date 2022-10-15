@@ -198,18 +198,47 @@ class API {
         }
     }
     
+    static func deleteHeart(id : String) async throws {
+        let url =  "\(Bundle.main.url)hearts/" + id
+        do{
+            _ = try await
+            AppNetworking.shared.requestJSON(url, type: HeartResponseElement.self, method: .delete)
+        }catch{
+            print(error)
+            throw error
+        }
+        
+    }
+    
+    static func getCountHeart(post : String) async throws -> Int{
+        let url =  "\(Bundle.main.url)hearts?post.id=" + post
+        
+        
+        do{
+            let data = try await AppNetworking.shared.requestJSON(url, type: HeartResponse.self, method: .get)
+            return data.count
+            
+            
+        }catch{
+            print(error)
+            throw error
+        }
+    }
+    
+
+    
     static func checkHeart(post : String, user : String) async throws -> Int? {
         let url =  "\(Bundle.main.url)hearts"
         let parameter : Parameters = [
-            "_where[_and][0][post.id_eq]" : post,
-            "_where[_and][1][user.id_eq]" : user
+            "_where[_and][0][post_eq]" : post,
+            "_where[_and][1][user_eq]" : user
         ]
         
         do{
             let data = try await AppNetworking.shared.requestJSON(url, type: HeartResponse.self, method: .get, parameters: parameter)
     
             if data.count == 0 {
-                return nil
+                return 0
             }else{
                 return data[0].id
             }
@@ -239,11 +268,40 @@ class API {
         
     }
     
-    static func deleteHeart(id : String) async throws {
-        let url =  "\(Bundle.main.url)hearts/" + id
+    static func checkStar(post : String, user : String) async throws -> Int? {
+        let url =  "\(Bundle.main.url)stars"
+        let parameter : Parameters = [
+            "_where[_and][0][post.id_eq]" : post,
+            "_where[_and][1][user_eq]" : user
+        ]
+        
         do{
-            _ = try await
-            AppNetworking.shared.requestJSON(url, type: HeartResponseElement.self, method: .delete)
+            let data = try await AppNetworking.shared.requestJSON(url, type: StarResponse.self, method: .get, parameters: parameter)
+    
+            if data.count == 0 {
+                return 0
+            }else{
+                return data[0].id
+            }
+            
+          
+            
+        }catch{
+            print(error)
+            throw error
+        }
+    }
+    
+    static func createStar(post : String, user : String) async throws -> Int{
+        let url =  "\(Bundle.main.url)stars"
+        let param : Parameters = [
+            "post" : post,
+            "user" : user
+        ]
+        
+        do{
+            var data = try await AppNetworking.shared.requestJSON(url, type: StarResponseElement.self, method: .post, parameters: param)
+            return data.id
         }catch{
             print(error)
             throw error
@@ -251,19 +309,28 @@ class API {
         
     }
     
-    static func getCountHeart(post : String) async throws -> Int{
-        let url =  "\(Bundle.main.url)hearts?post.id=" + post
-  
-        
+    static func deleteStar(id : String) async throws{
+        let url =  "\(Bundle.main.url)stars/" + id
         do{
-            let data = try await AppNetworking.shared.requestJSON(url, type: HeartResponse.self, method: .get)
-            return data.count
-
-            
+            _ = try await
+            AppNetworking.shared.requestJSON(url, type: StarResponseElement.self, method: .delete)
         }catch{
             print(error)
             throw error
         }
+    }
+    
+    static func getStarPosts(id : String) async throws  -> StarResponse{
+        let url =  "\(Bundle.main.url)stars?user=" + id
+        do{
+            var data = try await
+            AppNetworking.shared.requestJSON(url, type: StarResponse.self, method: .get)
+            return data
+        }catch{
+            print(error)
+            throw error
+        }
+    
     }
     
     static func getUser(id : String) async throws -> UserResponseElement {

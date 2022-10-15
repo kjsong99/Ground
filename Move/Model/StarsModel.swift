@@ -28,10 +28,10 @@
 import Foundation
 
 // MARK: - HeartModelElement
-struct HeartResponseElement: Codable {
+struct StarResponseElement: Codable {
     let id: Int
-    let post: HeartPost?
-    let user: HeartUser?
+    let post: StarPost?
+    let user: StarUser?
     let createdAt, updatedAt: String
 
     enum CodingKeys: String, CodingKey {
@@ -41,8 +41,8 @@ struct HeartResponseElement: Codable {
     }
 }
 //
-// MARK: - Post
-struct HeartPost: Codable {
+//// MARK: - Post
+struct StarPost: Codable {
     let id: Int?
     let title, content: String?
     let user: Int?
@@ -56,7 +56,7 @@ struct HeartPost: Codable {
 }
 
 // MARK: - User
-struct HeartUser: Codable {
+struct StarUser: Codable {
     let id: Int?
     let username, email, provider: String?
     let confirmed: Bool?
@@ -74,4 +74,23 @@ struct HeartUser: Codable {
     }
 }
 
-typealias HeartResponse = [HeartResponseElement]
+//// MARK: - User
+//struct HeartUser: Codable {
+//    let id: Int?
+//    let username, email, provider: String?
+//    let confirmed: Bool?
+//    let blocked: Bool?
+//    let role: Int?
+//    let createdAt, updatedAt: String?
+//    let gender: String?
+//    let birth : String?
+//
+//    enum CodingKeys: String, CodingKey {
+//        case id, username, email, provider, confirmed, blocked, role, gender, birth
+//        case createdAt = "created_at"
+//        case updatedAt = "updated_at"
+//
+//    }
+//}
+
+typealias StarResponse = [StarResponseElement]

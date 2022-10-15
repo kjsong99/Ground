@@ -123,7 +123,11 @@ extension SettingViewController : UICollectionViewDelegate, UICollectionViewData
             self.present(alert, animated: true)
         }
         else if menuLabel[indexPath.row] == "내가 쓴 글"{
-            let vc = self.storyboard?.instantiateViewController(withIdentifier: "MyVC")
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "MyVC") as? MyViewController
+            self.show(vc!, sender: self)
+        }else if menuLabel[indexPath.row] == "북마크"{
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "StarVC") as? StarViewController
+            
             self.show(vc!, sender: self)
         }
 //        else if menuLabel[indexPath.row] == "비밀번호 변경"{
