@@ -27,6 +27,7 @@ class WriteViewController: UIViewController{
     weak var delegate: BoardDelegate?
     weak var postDelegate: PostDelegate?
     weak var searchDelegate: SearchDelegate?
+    weak var myDelegate: MyDelegate?
     
     
     
@@ -82,6 +83,7 @@ class WriteViewController: UIViewController{
                 
                 delegate?.refreshBoard()
                 searchDelegate?.refreshSearch()
+                myDelegate?.refreshMyView()
                 navigationController?.popViewController(animated: true)
                 
             }catch{

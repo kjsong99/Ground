@@ -60,7 +60,7 @@ extension SearchViewController : UITableViewDelegate,  UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = searchTableView.dequeueReusableCell(withIdentifier: "posts", for: indexPath) as! PostsTableViewCell
+        let cell = searchTableView.dequeueReusableCell(withIdentifier: "SearchPosts", for: indexPath) as! PostsTableViewCell
         if let data = postsData{
             
             cell.titleLabel.text = data[indexPath.row].title

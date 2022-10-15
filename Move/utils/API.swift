@@ -49,6 +49,19 @@ class API {
             return data
             
         }catch{
+            print(error)
+            throw error
+        }
+    }
+    
+    static func getMyPosts(id: String) async throws -> PostsResponse{
+        let url =  "\(Bundle.main.url)posts?user.id=" + id
+        do{
+            let data = try await AppNetworking.shared.requestJSON(url, type: [PostsResponseElement].self, method: .get)
+            return data
+            
+        }catch{
+            print(error)
             throw error
         }
     }

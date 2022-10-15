@@ -14,6 +14,10 @@ protocol SearchDelegate : AnyObject{
     func refreshSearch()
 }
 
+protocol MyDelegate : AnyObject{
+    func refreshMyView()
+}
+
 class PostViewController: UIViewController{
     
     
@@ -30,6 +34,7 @@ class PostViewController: UIViewController{
     var heartId = 0
     weak var delegate : BoardDelegate?
     weak var searchDelegate : SearchDelegate?
+    weak var myDelegate : MyDelegate?
     
     
     // MARK - override
@@ -128,6 +133,7 @@ class PostViewController: UIViewController{
                     vc.delegate = self.delegate
                     vc.modifyPost = self.postData!
                     vc.searchDelegate = self.searchDelegate
+                    vc.myDelegate = self.myDelegate
                     self.show(vc, sender: self)
                 }
             }))
@@ -141,6 +147,7 @@ class PostViewController: UIViewController{
                         do{
                             try await API.deletePost(id: self.id.description)
                             self.delegate?.refreshBoard()
+                            self.myDelegate?.refreshMyView()
                             self.searchDelegate?.refreshSearch()
                             self.navigationController?.popViewController(animated: true)
                         }catch{
