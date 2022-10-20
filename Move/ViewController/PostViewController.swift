@@ -195,14 +195,11 @@ class PostViewController: UIViewController{
                         do{
                             try await API.deletePost(id: self.id.description)
                             self.delegate?.refreshBoard()
-//                            self.myDelegate?.refreshMyView()
-//                            self.searchDelegate?.refreshSearch()
-//                            self.starDelegate?.refreshStar()
-                          
+                            self.myDelegate?.refreshMyView()
+                            self.searchDelegate?.refreshSearch()
+                            self.starDelegate?.refreshStar()
                             self.tabBarController?.selectedIndex = 0
-//                            self.navigationController?.loadView()
-//                            self.show(vc!, sender: self)
-//                            self.navigationController?.popViewController(animated: true)
+                            self.navigationController?.popToRootViewController(animated: false)
                         }catch{
                             throw error
                         }
