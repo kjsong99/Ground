@@ -57,10 +57,10 @@ class PostViewController: UIViewController{
                 contentLabel.sizeToFit()
                 contentView.sizeToFit()
                 heartId = try await API.checkHeart(post: id.description, user: UserDefaults.standard.string(forKey: "id") ?? "") ?? 00
-                print(heartId)
+         
                 
                 bookmarkId = try await API.checkStar(post: id.description, user: UserDefaults.standard.string(forKey: "id") ?? "") ?? 00
-                print(bookmarkId)
+            
                 
                 if bookmarkId != 0 {
                     bookmarkChecked = true
@@ -241,7 +241,7 @@ extension PostViewController : PostDelegate{
     func refreshPost() async throws{
         Task{
             do{
-                print("refreshPost")
+       
                 postData = try await API.getPost(id: self.id)
                 titleLabel.text = self.postData!.title
                 contentLabel.text = self.postData!.content

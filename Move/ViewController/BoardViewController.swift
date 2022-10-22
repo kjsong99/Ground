@@ -106,7 +106,6 @@ extension BoardViewController : UITableViewDelegate, UITableViewDataSource{
         
         let postVC = self.storyboard?.instantiateViewController(withIdentifier: "PostVC") as! PostViewController
         if let data = postsData{
-            print(data[indexPath.row])
             postVC.id = data[indexPath.row].id
             postVC.delegate = self
             self.navigationController?.pushViewController(postVC, animated: true)

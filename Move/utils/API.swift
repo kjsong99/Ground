@@ -10,6 +10,9 @@ import SwiftKeychainWrapper
 import Alamofire
 
 class API {
+    
+    // MARK - Post
+    
     static func getPosts() async throws -> PostsResponse{
         let url =  "\(Bundle.main.url)posts"
         
@@ -112,6 +115,8 @@ class API {
         }
     }
     
+    // MARK - User
+    
     static func isNameExist(name : String) async throws -> Bool{
         //        let url =  "\(Bundle.main.url)users?username_eq=" + name
         let url =  "\(Bundle.main.url)users?username_eq=" + name
@@ -198,6 +203,81 @@ class API {
         }
     }
     
+    static func changeName(id: String, username : String) async throws {
+        let url =  "\(Bundle.main.url)users/" + id
+        let param : Parameters = [
+            "username" : username
+        ]
+        
+        do{
+            
+            _ = try await AppNetworking.shared.requestJSON(url, type: UserResponseElement.self, method: .put, parameters: param)
+
+            
+        }catch{
+            print(error)
+            throw error
+        }
+    }
+    
+    static func deleteUser(id : String) async throws {
+        let url =  "\(Bundle.main.url)users/" + id
+        do{
+            _ = try await
+            AppNetworking.shared.requestJSON(url, type: UserResponseElement.self, method: .delete)
+        }catch{
+            print(error)
+            throw error
+        }
+        
+    }
+    
+    static func changePassword(id: String, password : String) async throws {
+        let url =  "\(Bundle.main.url)users/" + id
+        let param : Parameters = [
+            "password" : password
+        ]
+        
+        do{
+            
+            let data = try await AppNetworking.shared.requestJSON(url, type: UserResponseElement.self, method: .put, parameters: param)
+
+            
+        }catch{
+            print(error)
+            throw error
+        }
+    }
+    
+    static func currentPassword(id : String, password : String) async throws -> Bool{
+        do{
+            let username = try await getUser(id: id).username
+            
+            let url = "\(Bundle.main.url)auth/local"
+            let param = [
+                "identifier" : username,
+                "password" : password
+            ]
+            
+            let data = try await
+                    AppNetworking.shared.requestJSON(url, type: RegisterResponse.self, method: .post, parameters: param)
+            
+            if data.jwt.isEmpty{
+                return false
+            }else{
+                return true
+            }
+            
+        }catch{
+            print(error)
+            throw error
+        }
+        
+    }
+    
+    
+    // MARK - Heart
+    
     static func deleteHeart(id : String) async throws {
         let url =  "\(Bundle.main.url)hearts/" + id
         do{
@@ -259,7 +339,7 @@ class API {
         ]
         
         do{
-            var data = try await AppNetworking.shared.requestJSON(url, type: HeartResponseElement.self, method: .post, parameters: param)
+            let data = try await AppNetworking.shared.requestJSON(url, type: HeartResponseElement.self, method: .post, parameters: param)
             return data.id
         }catch{
             print(error)
@@ -268,6 +348,7 @@ class API {
         
     }
     
+    // MARK - Star
     static func checkStar(post : String, user : String) async throws -> Int? {
         let url =  "\(Bundle.main.url)stars"
         let parameter : Parameters = [
@@ -300,7 +381,7 @@ class API {
         ]
         
         do{
-            var data = try await AppNetworking.shared.requestJSON(url, type: StarResponseElement.self, method: .post, parameters: param)
+            let data = try await AppNetworking.shared.requestJSON(url, type: StarResponseElement.self, method: .post, parameters: param)
             return data.id
         }catch{
             print(error)
@@ -323,7 +404,7 @@ class API {
     static func getStarPosts(id : String) async throws  -> StarResponse{
         let url =  "\(Bundle.main.url)stars?user=" + id
         do{
-            var data = try await
+            let data = try await
             AppNetworking.shared.requestJSON(url, type: StarResponse.self, method: .get)
             return data
         }catch{
@@ -347,76 +428,5 @@ class API {
         }
     }
     
-    static func changeName(id: String, username : String) async throws {
-        let url =  "\(Bundle.main.url)users/" + id
-        let param : Parameters = [
-            "username" : username
-        ]
-        
-        do{
-            
-            let data = try await AppNetworking.shared.requestJSON(url, type: UserResponseElement.self, method: .put, parameters: param)
-
-            
-        }catch{
-            print(error)
-            throw error
-        }
-    }
-    
-    static func deleteUser(id : String) async throws {
-        let url =  "\(Bundle.main.url)users/" + id
-        do{
-            _ = try await
-            AppNetworking.shared.requestJSON(url, type: UserResponseElement.self, method: .delete)
-        }catch{
-            print(error)
-            throw error
-        }
-        
-    }
-    
-    static func changePassword(id: String, password : String) async throws {
-        let url =  "\(Bundle.main.url)users/" + id
-        let param : Parameters = [
-            "password" : password
-        ]
-        
-        do{
-            
-            let data = try await AppNetworking.shared.requestJSON(url, type: UserResponseElement.self, method: .put, parameters: param)
-
-            
-        }catch{
-            print(error)
-            throw error
-        }
-    }
-    
-    static func currentPassword(id : String, password : String) async throws -> Bool{
-        do{
-            let username = try await getUser(id: id).username
-            
-            let url = "\(Bundle.main.url)auth/local"
-            let param = [
-                "identifier" : username,
-                "password" : password
-            ]
-            
-            let data = try await
-            AppNetworking.shared.requestJSON(url, type: RegisterResponse.self, method: .post, parameters: param)
-         
-            if data.jwt == nil {
-                return false
-            }else{
-                return true
-            }
-            
-        }catch{
-            print(error)
-            throw error
-        }
-        
-    }
-    
+  
 }

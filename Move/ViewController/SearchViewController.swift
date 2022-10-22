@@ -28,8 +28,9 @@ class SearchViewController: UIViewController {
     
     @IBAction func searchBtnTapped(_ sender: UIButton) {
         if keyword.text == ""{
-            //alert 추가
-            print("검색어를 입력해주세요!")
+            let alert = UIAlertController(title: nil, message: "검색어를 입력하세요!", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "확인", style: .default, handler: nil))
+            self.present(alert, animated: true)
         }else{
             Task{
                 do{

@@ -8,6 +8,7 @@ class SignUpViewController: UIViewController{
     @IBOutlet var userNameText: UITextField!
     @IBOutlet var passwordConfirmText: UITextField!
     
+    @IBOutlet var scrollView: UIScrollView!
     @IBOutlet var signUpBtn: UIButton!
     
     @IBOutlet var birthPicker: UIDatePicker!
@@ -32,7 +33,7 @@ class SignUpViewController: UIViewController{
     
     override func viewDidLoad() {
         
-        
+       
         genderPicker.delegate = self
         emailText.delegate = self
         passwordText.delegate = self
@@ -175,7 +176,7 @@ class SignUpViewController: UIViewController{
     
     
     @IBAction func datePickerSelected(_ sender: UIDatePicker) {
-        print("birth")
+   
         complete["birth"] = true
         let datePK = sender
         
@@ -296,7 +297,7 @@ extension SignUpViewController : UIPickerViewDelegate, UIPickerViewDataSource{
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         complete["gender"] = true
         gender = picker[row]
-        print("gendedr")
+    
         if !complete.values.contains(false){
             signUpBtn.isEnabled = true
         }

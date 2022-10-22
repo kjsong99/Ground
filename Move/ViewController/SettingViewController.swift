@@ -5,18 +5,27 @@ import Kingfisher
 
 class SettingViewController: UIViewController {
     
+    @IBOutlet var headerView: UIView!
+    
     @IBOutlet var nameLabel: UILabel!
     var menuImage = ["square.and.pencil", "paperplane", "bookmark", "person.crop.circle.badge.xmark" ]
     var menuLabel = ["내가 쓴 글", "쪽지함",  "북마크", "회원 탈퇴"]
     override func viewWillLayoutSubviews() {
       // createCircleImageView(imageView: ima
+   
+
         
     }
     
     @IBOutlet var collectionView: UICollectionView!
     override func viewDidLoad() {
+        
         collectionView.delegate = self
         collectionView.dataSource = self
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = 0.5
+        layout.minimumInteritemSpacing = 0.5
+        collectionView.setCollectionViewLayout(layout, animated: false)
         setName()
 //        let image = UIImage(systemName:"circle.dashed")
 //        let url = URL(string: Bundle.main.url+"uploads/astronaut_outer_open_space_planet_earth_stars_provide_background_erforming_space_planet_earth_sunrise_sunset_our_home_iss_elements_this_image_furnished_by_nasa_150455_16829_7b571df095.jpeg")
@@ -80,18 +89,26 @@ extension SettingViewController : UICollectionViewDelegate, UICollectionViewData
         return menuLabel.count
     }
     
+    
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collection", for: indexPath) as?
                     SettingCollectionViewCell else {
            
                 return SettingCollectionViewCell()
             }
+        
+    
         cell.menuImage.image = UIImage(systemName: menuImage[indexPath.row])
         cell.menuLabel.text = menuLabel[indexPath.row]
      
         
         return cell
     }
+    
+    
+    
+    
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if menuLabel[indexPath.row] == "회원 탈퇴"{
@@ -149,6 +166,15 @@ extension SettingViewController : UICollectionViewDelegate, UICollectionViewData
    
     
     
+}
+
+extension SettingViewController : UICollectionViewDelegateFlowLayout{
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+            
+        let width: CGFloat = (collectionView.frame.width / 4) - 1.5
+            
+            return CGSize(width: width, height: width)
+        }
 }
 
 extension SettingViewController : SettingDelegate {
