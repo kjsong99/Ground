@@ -461,8 +461,8 @@ class API {
     static func getNotesbyCertainUser(id: Int) async throws -> NotesResponse{
         let url =  "\(Bundle.main.url)notes"
         let parameter : Parameters = [
-            "_where[_or][0][user.id_eq]" : id,
-            "_where[_or][1][user.id_eq]" : id
+            "_where[_or][0][send_user.id_eq]" : id,
+            "_where[_or][1][receive_user.id_eq]" : id
         ]
         
         do{

@@ -42,8 +42,16 @@ extension NoteViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "SelectedNoteVC") as? SelectedUserNoteViewController
-        vc!.id = "test"
+        if data![indexPath.row].send_user!.id.description == API.id {
+            vc!.id = data![indexPath.row].receive_user!.id
+            vc!.title = data![indexPath.row].receive_user!.username
+        }else{
+            vc!.id = data![indexPath.row].send_user!.id
+            vc!.title = data![indexPath.row].send_user!.username
+        }
+      
         
+  
         self.show(vc!, sender: self)
         
     }

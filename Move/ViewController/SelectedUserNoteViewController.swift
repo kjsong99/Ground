@@ -8,23 +8,50 @@
 import UIKit
 
 class SelectedUserNoteViewController: UIViewController {
-    var id : String?
+    var data: NotesResponse?
+    var id : Int?
     @IBOutlet var selectedNoteTableVIew: UITableView!
     
     override func viewDidLoad() {
-        print(id!)
         selectedNoteTableVIew.delegate = self
         selectedNoteTableVIew.dataSource = self
+        Task{
+            do{
+                data = try await API.getNotesbyCertainUser(id: id!)
+                selectedNoteTableVIew.reloadData()
+            }
+        }
     }
     
 }
 extension SelectedUserNoteViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return data?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SelectedUserNoteTableViewCell
+        if let data = data{
+            cell.content.text = data[indexPath.row].content
+            cell.date.text = data[indexPath.row].created_at.date(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")?.string(format: "yy/mm/dd HH:mm")
+            if data[indexPath.row].send_user!.id.description == API.id {
+                cell.statusLabel.sendLabel()
+            }else{
+                cell.statusLabel.receiveLabel()
+            }
+        }
         return cell
+    }
+}
+
+extension UILabel{
+    func sendLabel(){
+        self.text = "보낸 쪽지"
+        self.textColor = UIColor.systemYellow
+    }
+    
+    func receiveLabel(){
+        self.text = "받은 쪽지"
+        self.textColor = UIColor.systemGreen
     }
 }
