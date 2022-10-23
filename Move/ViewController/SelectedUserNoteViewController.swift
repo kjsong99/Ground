@@ -8,9 +8,13 @@
 import UIKit
 
 class SelectedUserNoteViewController: UIViewController {
+    var id : String?
+    @IBOutlet var selectedNoteTableVIew: UITableView!
     
     override func viewDidLoad() {
-        super.viewDidLoad()
+        print(id!)
+        selectedNoteTableVIew.delegate = self
+        selectedNoteTableVIew.dataSource = self
     }
     
 }

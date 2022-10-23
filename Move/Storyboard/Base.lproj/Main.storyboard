@@ -848,7 +848,7 @@
         <!--Note View Controller-->
         <scene sceneID="fgE-KZ-rnt">
             <objects>
-                <viewController id="2FD-F4-hBx" customClass="NoteViewController" customModule="Move" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="NoteVC" id="2FD-F4-hBx" customClass="NoteViewController" customModule="Move" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="NQv-an-eIW">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -858,7 +858,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="vmG-CF-buz" customClass="NoteTableViewCell" customModule="Move" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="cell" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="vmG-CF-buz" customClass="NoteTableViewCell" customModule="Move" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="50" width="414" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vmG-CF-buz" id="Voe-DI-k9O">
@@ -901,6 +901,11 @@
                                                 <constraint firstAttribute="bottom" secondItem="Bq1-CM-OKR" secondAttribute="bottom" constant="11.5" id="xi4-Uk-9ea"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="content" destination="Bq1-CM-OKR" id="vSQ-Q0-OYK"/>
+                                            <outlet property="date" destination="JcN-iF-oSb" id="VoD-If-DSx"/>
+                                            <outlet property="username" destination="adB-FF-jUI" id="xma-iD-QFK"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -912,6 +917,7 @@
                         <barButtonItem key="backBarButtonItem" title=" " id="8LR-Gp-V9Q"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="noteTableView" destination="eW0-cm-4Cd" id="9Eg-XZ-EkS"/>
                         <segue destination="vU1-wp-Ubp" kind="show" id="lkE-cC-jk7"/>
                     </connections>
                 </viewController>
@@ -922,7 +928,7 @@
         <!--익명-->
         <scene sceneID="Qi5-SP-tS9">
             <objects>
-                <viewController id="vU1-wp-Ubp" customClass="SelectedUserNoteViewController" customModule="Move" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SelectedNoteVC" id="vU1-wp-Ubp" customClass="SelectedUserNoteViewController" customModule="Move" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="dly-62-p5F">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -931,7 +937,7 @@
                                 <rect key="frame" x="0.0" y="92" width="414" height="770"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="80" id="o7M-BG-ee8" customClass="SelectedUserNoteTableViewCell" customModule="Move" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" rowHeight="80" id="o7M-BG-ee8" customClass="SelectedUserNoteTableViewCell" customModule="Move" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="50" width="414" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="o7M-BG-ee8" id="4bX-g8-9dk">
@@ -971,6 +977,11 @@
                                                 <constraint firstItem="Dqz-nf-XJh" firstAttribute="centerY" secondItem="4bX-g8-9dk" secondAttribute="centerY" constant="10" id="sgc-cC-8Uv"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="content" destination="Dqz-nf-XJh" id="JBM-HH-bRf"/>
+                                            <outlet property="date" destination="sLN-rv-N4T" id="mi0-g8-nH9"/>
+                                            <outlet property="statusLabel" destination="oCc-5I-FIM" id="OMN-lr-yfX"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -985,6 +996,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="익명" id="XCP-Po-y3s"/>
+                    <connections>
+                        <outlet property="selectedNoteTableVIew" destination="wLu-zU-gjB" id="igB-sS-XDL"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hG3-wd-uxA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

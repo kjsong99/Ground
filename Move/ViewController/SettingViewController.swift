@@ -146,6 +146,9 @@ extension SettingViewController : UICollectionViewDelegate, UICollectionViewData
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "StarVC") as? StarViewController
             
             self.show(vc!, sender: self)
+        }else if menuLabel[indexPath.row] == "쪽지함"{
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "NoteVC") as? NoteViewController
+            self.show(vc!, sender: self)
         }
 //        else if menuLabel[indexPath.row] == "비밀번호 변경"{
 //            let vc = self.storyboard?.instantiateViewController(withIdentifier: "PasswordChangeVC")

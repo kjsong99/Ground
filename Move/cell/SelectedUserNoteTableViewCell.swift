@@ -9,6 +9,10 @@ import UIKit
 
 class SelectedUserNoteTableViewCell: UITableViewCell {
 
+    @IBOutlet var date: UILabel!
+    @IBOutlet var statusLabel: UILabel!
+    @IBOutlet var content: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

@@ -9,6 +9,10 @@ import UIKit
 
 class NoteTableViewCell: UITableViewCell {
 
+    @IBOutlet var username: UILabel!
+    @IBOutlet var content: UILabel!
+    @IBOutlet var date: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
