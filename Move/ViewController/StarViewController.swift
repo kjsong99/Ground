@@ -19,7 +19,7 @@ class StarViewController: UIViewController {
         starTableView.dataSource = self
         Task{
             do{
-                postsData = try await API.getStarPosts(id: UserDefaults.standard.string(forKey: "id")!)
+                postsData = try await API.getStarPosts()
                 starTableView.reloadData()
                 
             }catch{
@@ -76,7 +76,7 @@ extension StarViewController : StarDelegate{
     func refreshStar() {
         Task{
             do{
-                postsData = try await API.getStarPosts(id: UserDefaults.standard.string(forKey: "id")!)
+                postsData = try await API.getStarPosts()
                 starTableView.reloadData()
                 
             }catch{

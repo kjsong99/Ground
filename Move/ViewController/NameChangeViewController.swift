@@ -18,13 +18,13 @@ class NameChangeViewController: UIViewController {
     @IBOutlet var nameSetBtn: UIButton!
     var delegate : SettingDelegate?
     
-    let id = UserDefaults.standard.string(forKey: "id")!
+    //let id = UserDefaults.standard.string(forKey: "id")!
     
     override func viewDidLoad() {
         //delegate 설정
         Task{
             do{
-                nameText.text = try await API.getUser(id: id).username
+                nameText.text = try await API.getUser().username
                 nameText.addTarget(self, action: #selector(self.usernameDidChange(_:)), for: .editingChanged)
             }catch{
                 print(error)
@@ -67,7 +67,7 @@ class NameChangeViewController: UIViewController {
     @IBAction func setNameBtnTapped(_ sender: Any) {
         Task{
             do{
-                try await API.changeName(id: id, username: nameText.text ?? "")
+                try await API.changeName(username: nameText.text ?? "")
                 delegate?.refresh()
                 navigationController?.popViewController(animated: true)
             }catch{

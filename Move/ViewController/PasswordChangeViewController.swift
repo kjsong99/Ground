@@ -57,9 +57,9 @@ class PasswordChangeViewController: UIViewController {
         }else{
             Task{
                 do{
-                    if try await API.currentPassword(id: UserDefaults.standard.string(forKey: "id")!, password: currentPwd.text!){
+                    if try await API.currentPassword(password: currentPwd.text!){
                         
-                        try await API.changePassword(id: UserDefaults.standard.string(forKey: "id")!, password: newPwd.text!)
+                        try await API.changePassword(password: newPwd.text!)
                         
                         let alert = UIAlertController(title: nil, message: "비밀번호가 변경되었습니다..", preferredStyle: .alert)
                         alert.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in

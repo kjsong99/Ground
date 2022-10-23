@@ -36,7 +36,7 @@ class SettingViewController: UIViewController {
     func setName(){
         Task{
             do{
-                nameLabel.text = try await API.getUser(id: UserDefaults.standard.string(forKey: "id")!).username
+                nameLabel.text = try await API.getUser().username
             }
         }
     }
@@ -117,7 +117,7 @@ extension SettingViewController : UICollectionViewDelegate, UICollectionViewData
             alert.addAction(UIAlertAction(title: "예", style: .default, handler: { _ in
                 Task{
                     do{
-                        try await API.deleteUser(id: UserDefaults.standard.string(forKey: "id")!)
+                        try await API.deleteUser()
                         KeychainWrapper.standard.removeObject(forKey: "auth")
                         UserDefaults.standard.removeObject(forKey: "id")
                         

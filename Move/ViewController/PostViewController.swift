@@ -56,10 +56,10 @@ class PostViewController: UIViewController{
                 setData()
                 contentLabel.sizeToFit()
                 contentView.sizeToFit()
-                heartId = try await API.checkHeart(post: id.description, user: UserDefaults.standard.string(forKey: "id") ?? "") ?? 00
+                heartId = try await API.checkHeart(post: id.description) ?? 00
          
                 
-                bookmarkId = try await API.checkStar(post: id.description, user: UserDefaults.standard.string(forKey: "id") ?? "") ?? 00
+                bookmarkId = try await API.checkStar(post: id.description) ?? 00
             
                 
                 if bookmarkId != 0 {
@@ -120,7 +120,7 @@ class PostViewController: UIViewController{
 
                 }else{
                     //북마크 클릭 로직
-                    bookmarkId = try await API.createStar(post: id.description, user: UserDefaults.standard.string(forKey: "id") ?? "")
+                    bookmarkId = try await API.createStar(post: id.description)
                     
                     bookmarkChecked = true
                     bookmarkButton.getFilledBookmarkBtn()
@@ -146,7 +146,7 @@ class PostViewController: UIViewController{
 //                    heartButton.setImage(image, for: .normal)
                 }else{
                     //하트 클릭 로직
-                    heartId = try await API.createHeart(post: id.description, user: UserDefaults.standard.string(forKey: "id") ?? "")
+                    heartId = try await API.createHeart(post: id.description)
                     
                     heartChecked = true
 //                    let image = UIImage(systemName: "heart.fill")

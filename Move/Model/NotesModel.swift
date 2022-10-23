@@ -24,3 +24,26 @@ struct NotesResponseElement: Codable {
         case updated_at
     }
 }
+
+typealias NotesResponse = [NotesResponseElement]
+
+extension NotesResponse {
+    func sort() -> NotesResponse{
+        return self.sorted(by: {$0.created_at < $1.created_at})
+    }
+    
+}
+
+func append(data1 : NotesResponse, data2 : NotesResponse) -> NotesResponse{
+    var result : NotesResponse = NotesResponse()
+    result += data1
+    for data in data2{
+        for temp in result{
+            if data.send_user!.id == temp.receive_user!.id {
+                break
+            }
+            result.append(data)
+        }
+    }
+    return result
+}

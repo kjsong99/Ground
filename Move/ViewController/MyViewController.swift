@@ -17,7 +17,7 @@ class MyViewController: UIViewController {
         myTableView.dataSource = self
         Task{
             do{
-                postsData = try await API.getMyPosts(id: UserDefaults.standard.string(forKey: "id")!)
+                postsData = try await API.getMyPosts()
                 myTableView.reloadData()
                 
             }catch{
@@ -66,7 +66,7 @@ extension MyViewController : MyDelegate{
     func refreshMyView(){
         Task{
             do{
-                postsData = try await API.getMyPosts(id: UserDefaults.standard.string(forKey: "id")!)
+                postsData = try await API.getMyPosts()
                 myTableView.reloadData()
             }catch{
                 print(error)
