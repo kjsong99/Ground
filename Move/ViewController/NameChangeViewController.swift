@@ -7,19 +7,13 @@
 
 import UIKit
 
-protocol SettingDelegate : AnyObject{
-    func refresh()
-}
-
 class NameChangeViewController: UIViewController {
     
     @IBOutlet var nameText: UITextField!
     @IBOutlet var existBtn: UIButton!
     @IBOutlet var nameSetBtn: UIButton!
-    var delegate : SettingDelegate?
     
-    //let id = UserDefaults.standard.string(forKey: "id")!
-    
+
     override func viewDidLoad() {
         //delegate 설정
         Task{
@@ -68,7 +62,6 @@ class NameChangeViewController: UIViewController {
         Task{
             do{
                 try await API.changeName(username: nameText.text ?? "")
-                delegate?.refresh()
                 navigationController?.popViewController(animated: true)
             }catch{
                 print(error)

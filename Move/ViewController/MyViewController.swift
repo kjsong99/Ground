@@ -11,8 +11,20 @@ class MyViewController: UIViewController {
     @IBOutlet var myTableView: UITableView!
     var postsData : PostsResponse?
     
+    override func viewWillAppear(_ animated: Bool) {
+        Task{
+            do{
+                postsData = try await API.getMyPosts()
+                myTableView.reloadData()
+                
+            }catch{
+                print(error)
+                throw error
+            }
+        }
+    }
+    
     override func viewDidLoad() {
-        super.viewDidLoad()
         myTableView.delegate = self
         myTableView.dataSource = self
         Task{
@@ -49,30 +61,13 @@ extension MyViewController : UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let postVC = self.storyboard?.instantiateViewController(withIdentifier: "PostVC") as! PostViewController
-        postVC.myDelegate = self
         if let data = postsData{
             
             postVC.id = data[indexPath.row].id
-//            postVC.delegate = self.delegate
             
             self.navigationController?.pushViewController(postVC, animated: true)
         }
     }
     
-    
-}
-
-extension MyViewController : MyDelegate{
-    func refreshMyView(){
-        Task{
-            do{
-                postsData = try await API.getMyPosts()
-                myTableView.reloadData()
-            }catch{
-                print(error)
-                throw error
-            }
-        }
-    }
     
 }

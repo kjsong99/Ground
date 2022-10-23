@@ -29,10 +29,10 @@ class BoardViewController: UIViewController{
     }
     // MARK - Override
     override func viewDidLoad() {
+        postsTableView.dataSource = self
+        postsTableView.delegate = self
         
         Task{
-            postsTableView.dataSource = self
-            postsTableView.delegate = self
             do{
                 postsData = try await API.getPosts()
                 self.postsTableView.reloadData()
@@ -43,20 +43,11 @@ class BoardViewController: UIViewController{
         }
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "show"{
-            let vc : WriteViewController = segue.destination as! WriteViewController
-            vc.delegate = self
-        }
-        
-    }
-    
     
     // MARK - Method
     
     @IBAction func searchBtnTapped(_ sender: Any) {
         if let vc = self.storyboard?.instantiateViewController(withIdentifier: "SearchVC") as? SearchViewController {
-            vc.delegate = self
             self.navigationController?.show(vc, sender: self)
         }
     }
@@ -65,20 +56,7 @@ class BoardViewController: UIViewController{
 
 // MARK - EXTENSION
 
-extension BoardViewController : BoardDelegate{
-    func refreshBoard() {
-        Task{
-            do{
-                self.postsData =  try await API.getPosts()
-                self.postsTableView.reloadData()
-                
-            }catch{
-                throw error
-            }
-        }
-        
-    }
-}
+
 
 
 extension BoardViewController : UITableViewDelegate, UITableViewDataSource{
@@ -107,7 +85,7 @@ extension BoardViewController : UITableViewDelegate, UITableViewDataSource{
         let postVC = self.storyboard?.instantiateViewController(withIdentifier: "PostVC") as! PostViewController
         if let data = postsData{
             postVC.id = data[indexPath.row].id
-            postVC.delegate = self
+//            postVC.delegate = self
             self.navigationController?.pushViewController(postVC, animated: true)
         }
         

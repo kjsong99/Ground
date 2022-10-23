@@ -12,9 +12,21 @@ class StarViewController: UIViewController {
     @IBOutlet var starTableView: UITableView!
     var postsData : StarResponse?
     
+    override func viewWillAppear(_ animated: Bool) {
+        Task{
+            do{
+                postsData = try await API.getStarPosts()
+                starTableView.reloadData()
+                
+            }catch{
+                print(error)
+                throw error
+            }
+        }
+    }
+    
     
     override func viewDidLoad() {
-        super.viewDidLoad()
         starTableView.delegate = self
         starTableView.dataSource = self
         Task{
@@ -58,31 +70,13 @@ extension StarViewController : UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let postVC = self.storyboard?.instantiateViewController(withIdentifier: "PostVC") as! PostViewController
-        postVC.starDelegate = self
+      
         
         if let data = postsData{
             
             postVC.id = data[indexPath.row].post?.id ?? 0
-            //            postVC.delegate = self.delegate
             
             self.navigationController?.pushViewController(postVC, animated: true)
-        }
-    }
-    
-    
-}
-
-extension StarViewController : StarDelegate{
-    func refreshStar() {
-        Task{
-            do{
-                postsData = try await API.getStarPosts()
-                starTableView.reloadData()
-                
-            }catch{
-                print(error)
-                throw error
-            }
         }
     }
     

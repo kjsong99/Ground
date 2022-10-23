@@ -13,16 +13,29 @@ class SearchViewController: UIViewController {
     // MARK - Variable
     
     var postsData : PostsResponse?
-    weak var delegate : BoardDelegate?
     @IBOutlet var searchTableView: UITableView!
     @IBOutlet var keyword: UITextField!
     
     // MARK - override
     
+    override func viewWillAppear(_ animated: Bool) {
+        Task{
+            do{
+                postsData = try await API.getSearchPosts(keyword: keyword.text ?? "")
+                self.searchTableView.reloadData()
+            }catch{
+                throw error
+            }
+         
+        }
+    }
+    
     override func viewDidLoad() {
         searchTableView.delegate = self
         searchTableView.dataSource = self
     }
+    
+    
     
     // MARK - method
     
@@ -76,11 +89,9 @@ extension SearchViewController : UITableViewDelegate,  UITableViewDataSource{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let postVC = self.storyboard?.instantiateViewController(withIdentifier: "PostVC") as! PostViewController
-        postVC.searchDelegate = self
         if let data = postsData{
             
             postVC.id = data[indexPath.row].id
-            postVC.delegate = self.delegate
             
             self.navigationController?.pushViewController(postVC, animated: true)
         }
@@ -89,19 +100,3 @@ extension SearchViewController : UITableViewDelegate,  UITableViewDataSource{
     
 }
 
-extension SearchViewController : SearchDelegate{
-    func refreshSearch() {
-        Task{
-            do{
-                postsData = try await API.getSearchPosts(keyword: keyword.text ?? "")
-                searchTableView.reloadData()
-            }catch{
-                throw error
-            }
-         
-        }
-    }
-    
-    
-
-}

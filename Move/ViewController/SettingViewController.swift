@@ -18,6 +18,10 @@ class SettingViewController: UIViewController {
     }
     
     @IBOutlet var collectionView: UICollectionView!
+    
+    override func viewWillAppear(_ animated: Bool) {
+        setName()
+    }
     override func viewDidLoad() {
         
         collectionView.delegate = self
@@ -51,18 +55,13 @@ class SettingViewController: UIViewController {
     
     @IBAction func nameChangeBtnTapped(_ sender: Any) {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "NameChangeVC") as? NameChangeViewController
-        
-        vc?.delegate = self
+     
         self.show(vc!, sender: self)
     }
     
 
     
-    @IBAction func profileEditBtnTapped(_ sender: Any) {
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "ProfileEditVC") as? ProfileEditViewController
-        
-        self.show(vc!, sender: self)
-    }
+
     
     @IBAction func logoutBtnTapped(_ sender: Any) {
         
@@ -180,10 +179,4 @@ extension SettingViewController : UICollectionViewDelegateFlowLayout{
         }
 }
 
-extension SettingViewController : SettingDelegate {
-    func refresh() {
-        setName()
-    }
-    
-    
-}
+

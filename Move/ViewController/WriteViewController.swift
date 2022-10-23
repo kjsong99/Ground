@@ -7,15 +7,6 @@
 import Alamofire
 import UIKit
 
-// MARK - protocol
-
-protocol BoardDelegate : AnyObject{
-    func refreshBoard()
-}
-
-protocol PostDelegate : AnyObject{
-    func refreshPost() async throws
-}
 
 class WriteViewController: UIViewController{
     
@@ -24,16 +15,6 @@ class WriteViewController: UIViewController{
     @IBOutlet var titleText: UITextField!
     @IBOutlet var contentText: UITextView!
     var modifyPost : PostsResponseElement?
-    weak var delegate: BoardDelegate?
-    weak var postDelegate: PostDelegate?
-    weak var searchDelegate: SearchDelegate?
-    weak var myDelegate: MyDelegate?
-    
-    
-    
-    
-    
-
     // MARK - override
     
     override func viewDidLoad() {
@@ -77,13 +58,8 @@ class WriteViewController: UIViewController{
                     try await API.createPost(title: title, content: content)
                 }else{
                     try await API.modify(title: title, content: content, id: self.modifyPost!.id)
-                    //board가 아니라 post delegate 위임해서 데이터 업데이트 해야함.
-                    try await postDelegate?.refreshPost()
+              
                 }
-                
-                delegate?.refreshBoard()
-                searchDelegate?.refreshSearch()
-                myDelegate?.refreshMyView()
                 navigationController?.popViewController(animated: true)
                 
             }catch{
