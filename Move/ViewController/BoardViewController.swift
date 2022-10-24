@@ -19,14 +19,17 @@ class BoardViewController: UIViewController{
     
     // MARK - OVERRIDE
     override func viewDidLoad() {
+        
         postsTableView.dataSource = self
         postsTableView.delegate = self
+    
         viewInit()
         
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
+     
         viewInit()
     }
     

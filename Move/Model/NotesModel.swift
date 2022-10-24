@@ -10,17 +10,14 @@ import Foundation
 
 struct NotesResponseElement: Codable {
     let id: Int
-    let title, content: String
-    let send_user, receive_user: UserClass
-    let read: Int
+    let content: String
+    let send_user, receive_user: UserCompact
     let created_at, updated_at: String
 
     enum CodingKeys: String, CodingKey {
         case id
-        case title
         case content
         case send_user, receive_user
-        case read
         case created_at
         case updated_at
     }
@@ -41,7 +38,7 @@ extension NotesResponse {
     
 }
 
-func append(data1 : NotesResponse, data2 : NotesResponse) -> NotesResponse{
+func getChats(data1 : NotesResponse, data2 : NotesResponse) -> NotesResponse{
     var result : NotesResponse = NotesResponse()
     result += data1
     for data in data2{
@@ -52,6 +49,13 @@ func append(data1 : NotesResponse, data2 : NotesResponse) -> NotesResponse{
             result.append(data)
         }
     }
+    return result
+}
+
+func append(data1 : NotesResponse, data2 : NotesResponse) -> NotesResponse{
+    var result : NotesResponse = NotesResponse()
+    result += data1
+    result += data2
     return result
 }
 

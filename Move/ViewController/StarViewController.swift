@@ -53,7 +53,7 @@ extension StarViewController : UITableViewDelegate, UITableViewDataSource{
                 cell.titleLabel.text = data[indexPath.row].post.title
                 cell.dateLabel.text = Util.setDate(row: indexPath.row, inputDate: (data[indexPath.row].post.createdAt ?? ""))
                 cell.contentLabel.text = data[indexPath.row].post.content
-                cell.nameLabel.text = try await API.getUser(id: data[indexPath.row].post.user.id.description ?? "").username
+                cell.nameLabel.text = try await API.getUser(id: data[indexPath.row].post.user.description).username
             }
             
         }

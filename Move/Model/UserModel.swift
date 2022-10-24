@@ -5,28 +5,6 @@ struct RegisterResponse: Codable {
     let user: User
 }
 
-// relation 사용시 가져오는 user class
-struct UserClass: Codable, Hashable {
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-    }
-    
-    let id: Int
-    let username, email, provider: String
-    let confirmed: Bool?
-    let blocked: Bool?
-    let role: Int?
-    let createdAt, updatedAt: String
-    let birth, gender: String?
-
-    enum CodingKeys: String, CodingKey {
-        case id, username, email, provider, confirmed, blocked, role
-        case createdAt = "created_at"
-        case updatedAt = "updated_at"
-        case birth, gender
-    }
-}
 
 //user 조회시 사용되는 user class
 struct User: Codable, Hashable {
@@ -50,6 +28,32 @@ struct User: Codable, Hashable {
         case birth, gender
     }
 }
+
+// relation 사용시 가져오는 user class
+struct UserCompact: Codable, Hashable {
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+    
+    let id: Int
+    let username, email, provider: String
+    let confirmed: Bool?
+    let blocked: Bool?
+    let role: Int?
+    let createdAt, updatedAt: String
+    let birth, gender: String?
+
+   
+    
+    enum CodingKeys: String, CodingKey {
+        case id, username, email, provider, confirmed, blocked, role
+        case createdAt = "created_at"
+        case updatedAt = "updated_at"
+        case birth, gender
+    }
+}
+
 
 
 struct Role: Codable, Equatable{

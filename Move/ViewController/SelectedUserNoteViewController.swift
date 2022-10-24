@@ -18,7 +18,7 @@ class SelectedUserNoteViewController: UIViewController {
         selectedNoteTableVIew.dataSource = self
         Task{
             do{
-                data = try await API.getNotesbyCertainUser(id: id!)
+                data = try await API.getNotesbyCertainUser(user: id!)
                 selectedNoteTableVIew.reloadData()
             }
         }

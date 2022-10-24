@@ -3,8 +3,8 @@ import Foundation
 // MARK: - HeartModelElement
 struct StarResponseElement: Codable {
     let id: Int
-    let post: PostClass
-    let user: UserClass
+    let post: PostCompact
+    let user: UserCompact
     let createdAt, updatedAt: String
 
     enum CodingKeys: String, CodingKey {
@@ -12,6 +12,8 @@ struct StarResponseElement: Codable {
         case createdAt = "created_at"
         case updatedAt = "updated_at"
     }
+    
+    
 }
 
 typealias StarResponse = [StarResponseElement]

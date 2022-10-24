@@ -206,7 +206,7 @@ class API {
         
         do{
             
-            _ = try await AppNetworking.shared.requestJSON(url, type: UserClass.self, method: .put, parameters: param)
+            _ = try await AppNetworking.shared.requestJSON(url, type: User.self, method: .put, parameters: param)
 
             
         }catch{
@@ -220,7 +220,7 @@ class API {
         let url =  "\(Bundle.main.url)users/" + id
         do{
             _ = try await
-            AppNetworking.shared.requestJSON(url, type: UserClass.self, method: .delete)
+            AppNetworking.shared.requestJSON(url, type: User.self, method: .delete)
         }catch{
             print(error)
             throw error
@@ -237,7 +237,7 @@ class API {
         
         do{
             
-            let _ = try await AppNetworking.shared.requestJSON(url, type: UserClass.self, method: .put, parameters: param)
+            let _ = try await AppNetworking.shared.requestJSON(url, type: User.self, method: .put, parameters: param)
 
             
         }catch{
@@ -456,7 +456,7 @@ class API {
             let data1 = try await AppNetworking.shared.requestJSON(url1, type: NotesResponse.self, method: .get)
             let data2 = try await AppNetworking.shared.requestJSON(url2, type: NotesResponse.self, method: .get)
 
-            return append(data1: data1.sort().uniques(by:\.receive_user), data2: data2.sort().uniques(by: \.send_user)).sort()
+            return getChats(data1: data1.sort().uniques(by:\.receive_user), data2: data2.sort().uniques(by: \.send_user)).sort()
             
         }catch{
             print(error)
@@ -464,18 +464,25 @@ class API {
         }
     }
     
-    static func getNotesbyCertainUser(id: Int) async throws -> NotesResponse{
+    static func getNotesbyCertainUser(user: Int) async throws -> NotesResponse{
         getId()
         let url =  "\(Bundle.main.url)notes"
-        let parameter : Parameters = [
-            "_where[_or][0][send_user.id_eq]" : id,
-            "_where[_or][1][receive_user.id_eq]" : id
+        let parameter1 : Parameters = [
+            "_where[_and][0][send_user.id_eq]" : user,
+            "_where[_and][1][receive_user.id_eq]" : id
+        ]
+        
+        let parameter2 : Parameters = [
+            "_where[_and][0][send_user.id_eq]" : id,
+            "_where[_and][1][receive_user.id_eq]" : user
         ]
         
         do{
-            let data = try await AppNetworking.shared.requestJSON(url, type: NotesResponse.self, method: .get,parameters: parameter)
-            
-            return data.sort()
+            let data1 = try await AppNetworking.shared.requestJSON(url, type: NotesResponse.self, method: .get,parameters: parameter1)
+         
+            let data2 = try await AppNetworking.shared.requestJSON(url, type: NotesResponse.self, method: .get,parameters: parameter2)
+        
+            return  append(data1: data1.sort(), data2: data2.sort()).sort()
             
         }catch{
             print(error)
@@ -515,8 +522,7 @@ class API {
     }
     
     static func deleteAll(user: Int) async throws{
-        let url =  "\(Bundle.main.url)notes/"
-        var notes = try await self.getNotesbyCertainUser(id: user)
+        let notes = try await self.getNotesbyCertainUser(user: user)
         for note in notes{
             try await self.deleteNote(id: note.id)
         }

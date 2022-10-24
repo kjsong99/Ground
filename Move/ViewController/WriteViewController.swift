@@ -48,6 +48,8 @@ class WriteViewController: UIViewController{
         }else{
             contentText.text = "내용을 입력하세요."
             contentText.textColor = UIColor.systemGray2
+            contentText.layer.borderWidth = 1.0
+            
         }
     }
     

@@ -35,10 +35,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             
             
         }else{
-            let font : UIFont = UIFont.systemFont(ofSize: 16, weight: .heavy)
-            
-            
-            UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: font], for: .normal)
+           
 
             //Board View Controller로
             
