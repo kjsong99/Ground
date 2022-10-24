@@ -1,24 +1,9 @@
-//
-//  PostViewController.swift
-//  Move
-//
-//  Created by 송경진 on 2022/09/29.
-//
-
 import UIKit
 import Alamofire
+
 class PostViewController: UIViewController{
     
-    
-    // MARK - variable
-    @IBOutlet var contentView: UIScrollView!
-    @IBOutlet var heartButton: UIButton!
-    @IBOutlet var bookmarkButton: UIButton!
-    
-    @IBOutlet var titleLabel: UILabel!
-    @IBOutlet var dateLabel: UILabel!
-    @IBOutlet var contentLabel: UILabel!
-    @IBOutlet var userLabel: UILabel!
+    // MARK - PROPERTY
     var id : Int = 0
     var postData : PostsResponseElement?
     var heartChecked : Bool = false
@@ -26,79 +11,14 @@ class PostViewController: UIViewController{
     var heartId = 0
     var bookmarkId = 0
     
-    
-    // MARK - override
-    
-    override func viewWillAppear(_ animated: Bool) {
-        //초기화
-        Task{
-            do{
-                postData = try await API.getPost(id: id)
-                
-                heartId = try await API.checkHeart(post: id.description) ?? 00
-                
-                
-                bookmarkId = try await API.checkStar(post: id.description) ?? 00
-                
-                setData(heartId: heartId, bookmarkId: bookmarkId)
-            }catch{
-                print(error)
-                throw error
-            }
-        }
-        
-    }
-    override func viewDidLoad() {
-        Task{
-            do{
-                
-                postData = try await API.getPost(id: id)
-                
-                heartId = try await API.checkHeart(post: id.description) ?? 00
-                
-                
-                bookmarkId = try await API.checkStar(post: id.description) ?? 00
-                
-                setData(heartId: heartId, bookmarkId: bookmarkId)
-                
-                
-            }catch{
-                throw error
-            }
-        }
-    }
-    
-    // MARK - method
-    func setData(heartId : Int , bookmarkId : Int){
-        if let post = postData {
-            
-            titleLabel.text = post.title
-            contentLabel.text = post.content
-            userLabel.text = post.user?.username
-            
-            
-            if let date = post.createdAt.dateUTC(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"){
-                let str = date.string(format: "MM/dd HH:mm")
-                dateLabel.text = str
-            }
-            
-            contentLabel.sizeToFit()
-            contentView.sizeToFit()
-            
-            
-            if bookmarkId != 0 {
-                bookmarkChecked = true
-                bookmarkButton.getFilledBookmarkBtn()
-            }
-            if heartId != 0{
-                heartChecked = true
-                heartButton.getFilledHeartBtn()
-                
-                
-            }
-        }
-    }
-    
+    // MARK - OUTLET
+    @IBOutlet var contentView: UIScrollView!
+    @IBOutlet var heartButton: UIButton!
+    @IBOutlet var bookmarkButton: UIButton!
+    @IBOutlet var titleLabel: UILabel!
+    @IBOutlet var dateLabel: UILabel!
+    @IBOutlet var contentLabel: UILabel!
+    @IBOutlet var userLabel: UILabel!
     
     @IBAction func bookmarkBtnTapped(_ sender: Any) {
         Task{
@@ -156,19 +76,19 @@ class PostViewController: UIViewController{
     
     @IBAction func showMoreButton(_ sender: Any){
         
-     
+        
         
         let actionSheet = UIAlertController(title: "글메뉴", message: nil, preferredStyle: .actionSheet)
         //취소 버튼 - 스타일(cancel)
         actionSheet.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
         //여기서 글쓴이인지 확인
-        
+        API.getId()
         if API.id == postData!.user?.id.description{
             actionSheet.addAction(UIAlertAction(title: "수정", style: .default, handler: {(ACTION:UIAlertAction) in
                 if let vc = self.storyboard?.instantiateViewController(withIdentifier: "WriteVC") as? WriteViewController{
-//
+                    //
                     vc.modifyPost = self.postData!
-//
+                    //
                     self.show(vc, sender: self)
                 }
             }))
@@ -181,10 +101,11 @@ class PostViewController: UIViewController{
                     Task{
                         do{
                             try await API.deletePost(id: self.id.description)
-                      
+                            
                             self.tabBarController?.selectedIndex = 0
                             self.navigationController?.popToRootViewController(animated: false)
                         }catch{
+                            print(error)
                             throw error
                         }
                         
@@ -205,22 +126,82 @@ class PostViewController: UIViewController{
             //글쓴이가 아닐때
             //쪽지, 신고 등등?
             
-            
+            actionSheet.addAction(UIAlertAction(title: "쪽지", style: .default, handler: {(ACTION:UIAlertAction) in
+                //쪽지 write 뷰로 이동
+                //수신자 아이디 property로
+            }))
+            self.present(actionSheet, animated: true, completion: nil)
         }
-        
-        
-        
-        self.present(actionSheet, animated: true, completion: nil)
-        
-        
     }
     
     
     
+    // MARK - OVERRIDE
+    
+    override func viewWillAppear(_ animated: Bool) {
+        viewInit()
+        
+    }
+    override func viewDidLoad() {
+        viewInit()
+    }
+    
+    // MARK - METHOD
+    
+    func viewInit(){
+        Task{
+            do{
+                
+                postData = try await API.getPost(id: id)
+                
+                heartId = try await API.checkHeart(post: id.description) ?? 00
+                
+                
+                bookmarkId = try await API.checkStar(post: id.description) ?? 00
+                
+                setData(heartId: heartId, bookmarkId: bookmarkId)
+                
+                
+            }catch{
+                print(error)
+                throw error
+            }
+        }
+    }
+    
+    func setData(heartId : Int , bookmarkId : Int){
+        if let post = postData {
+            
+            titleLabel.text = post.title
+            contentLabel.text = post.content
+            userLabel.text = post.user?.username
+            
+            
+            if let date = post.createdAt.dateUTC(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"){
+                let str = date.string(format: "MM/dd HH:mm")
+                dateLabel.text = str
+            }
+            
+            contentLabel.sizeToFit()
+            contentView.sizeToFit()
+            
+            
+            if bookmarkId != 0 {
+                bookmarkChecked = true
+                bookmarkButton.getFilledBookmarkBtn()
+            }
+            if heartId != 0{
+                heartChecked = true
+                heartButton.getFilledHeartBtn()
+                
+                
+            }
+        }
+    }
 }
+    
 
-
-// MARK - extension
+// MARK - EXTENSION
 extension UIButton{
     func getEmptyHeartBtn() {
         self.setImage(UIImage(systemName: "heart"), for: .normal)

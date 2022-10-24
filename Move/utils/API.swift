@@ -1,16 +1,17 @@
-//
-//  API.swift
-//  Move
-//
-//  Created by 송경진 on 2022/10/02.
-//
-
 import Foundation
 import SwiftKeychainWrapper
 import Alamofire
 
 class API {
-    static var id = UserDefaults.standard.string(forKey: "id")!
+    static var id : String = ""
+    
+    static func getId(){
+        guard let temp = UserDefaults.standard.string(forKey: "id")else{
+            print("getId error")
+            return
+        }
+       id = temp
+    }
     
     // MARK - Post
     
@@ -28,7 +29,7 @@ class API {
     }
     
     static func getPost(id: Int) async throws -> PostsResponseElement{
-        let url =  "\(Bundle.main.url)posts/"+String(id)
+        let url =  "\(Bundle.main.url)posts/"+id.description
         
         do{
             let data = try await AppNetworking.shared.requestJSON(url, type: PostsResponseElement.self, method: .get)
@@ -59,6 +60,7 @@ class API {
     }
     
     static func getMyPosts() async throws -> PostsResponse{
+        getId()
         let url =  "\(Bundle.main.url)posts?user.id=" + id
         do{
             let data = try await AppNetworking.shared.requestJSON(url, type: [PostsResponseElement].self, method: .get)
@@ -71,6 +73,7 @@ class API {
     }
     
     static func createPost(title: String, content: String) async throws{
+        getId()
         let url =  "\(Bundle.main.url)posts"
 
         let param : Parameters = [
@@ -161,15 +164,12 @@ class API {
         do{
             let data = try await
             AppNetworking.shared.requestJSON(url, type: RegisterResponse.self, method: .post, parameters: param)
-            
-            if (KeychainWrapper.standard.string(forKey: "auth") != nil){
-                KeychainWrapper.standard.removeObject(forKey: "auth")
-                UserDefaults.standard.removeObject(forKey: "id")
-            }
-            UserDefaults.standard.set(data.user.id, forKey: "id")
+            UserDefaults.standard.set(data.user.id.description, forKey: "id")
             KeychainWrapper.standard.set(data.jwt, forKey: "auth")
+        
             
         }catch{
+            print(error)
             throw error
         }
         
@@ -188,21 +188,17 @@ class API {
         do{
             let data = try await
             AppNetworking.shared.requestJSON(url, type: RegisterResponse.self, method: .post, parameters: param)
-            
-            
-            if (KeychainWrapper.standard.string(forKey: "auth") != nil){
-                KeychainWrapper.standard.removeObject(forKey: "auth")
-                UserDefaults.standard.removeObject(forKey: "id")
-            }
-            UserDefaults.standard.set(data.user.id, forKey: "id")
+            UserDefaults.standard.set(data.user.id.description, forKey: "id")
             KeychainWrapper.standard.set(data.jwt, forKey: "auth")
             
         }catch{
             print(error)
+            throw error
         }
     }
     
     static func changeName(username : String) async throws {
+        getId()
         let url =  "\(Bundle.main.url)users/" + id
         let param : Parameters = [
             "username" : username
@@ -220,6 +216,7 @@ class API {
     }
     
     static func deleteUser() async throws {
+        getId()
         let url =  "\(Bundle.main.url)users/" + id
         do{
             _ = try await
@@ -232,6 +229,7 @@ class API {
     }
     
     static func changePassword(password : String) async throws {
+        getId()
         let url =  "\(Bundle.main.url)users/" + id
         let param : Parameters = [
             "password" : password
@@ -307,6 +305,7 @@ class API {
 
     
     static func checkHeart(post : String) async throws -> Int? {
+        getId()
         let url =  "\(Bundle.main.url)hearts"
         let parameter : Parameters = [
             "_where[_and][0][post_eq]" : post,
@@ -331,6 +330,7 @@ class API {
     }
     
     static func createHeart(post : String) async throws -> Int{
+        getId()
         let url =  "\(Bundle.main.url)hearts"
         let param : Parameters = [
             "post" : post,
@@ -349,6 +349,7 @@ class API {
     
     // MARK - Star
     static func checkStar(post : String) async throws -> Int? {
+        getId()
         let url =  "\(Bundle.main.url)stars"
         let parameter : Parameters = [
             "_where[_and][0][post.id_eq]" : post,
@@ -373,6 +374,7 @@ class API {
     }
     
     static func createStar(post : String) async throws -> Int{
+        getId()
         let url =  "\(Bundle.main.url)stars"
         let param : Parameters = [
             "post" : post,
@@ -390,6 +392,7 @@ class API {
     }
     
     static func deleteStar(id : String) async throws{
+        getId()
         let url =  "\(Bundle.main.url)stars/" + id
         do{
             _ = try await
@@ -401,6 +404,7 @@ class API {
     }
     
     static func getStarPosts() async throws  -> StarResponse{
+        getId()
         let url =  "\(Bundle.main.url)stars?user=" + id
         do{
             let data = try await
@@ -414,6 +418,7 @@ class API {
     }
     
     static func getUser() async throws -> UserResponseElement {
+        getId()
         let url =  "\(Bundle.main.url)users/" + id
         
         do{
@@ -440,17 +445,18 @@ class API {
             throw error
         }
     }
+    
     // MARK - Note
     
     static func getNotes() async throws -> NotesResponse{
-      
+        getId()
         let url1 =  "\(Bundle.main.url)notes?send_user.id=" + id
         let url2 =  "\(Bundle.main.url)notes?receive_user.id=" + id
         do{
             let data1 = try await AppNetworking.shared.requestJSON(url1, type: NotesResponse.self, method: .get)
             let data2 = try await AppNetworking.shared.requestJSON(url2, type: NotesResponse.self, method: .get)
 
-            return append(data1: data1, data2: data2).sort()
+            return append(data1: data1.sort().uniques(by:\.receive_user), data2: data2.sort().uniques(by: \.send_user)).sort()
             
         }catch{
             print(error)
@@ -459,6 +465,7 @@ class API {
     }
     
     static func getNotesbyCertainUser(id: Int) async throws -> NotesResponse{
+        getId()
         let url =  "\(Bundle.main.url)notes"
         let parameter : Parameters = [
             "_where[_or][0][send_user.id_eq]" : id,
@@ -477,6 +484,7 @@ class API {
     }
     
     static func sendNote(title: String, content: String,destination: Int) async throws{
+        getId()
         let url =  "\(Bundle.main.url)notes"
         let parameter : Parameters = [
             "title" : title,

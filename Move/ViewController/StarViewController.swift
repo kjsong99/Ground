@@ -13,22 +13,17 @@ class StarViewController: UIViewController {
     var postsData : StarResponse?
     
     override func viewWillAppear(_ animated: Bool) {
-        Task{
-            do{
-                postsData = try await API.getStarPosts()
-                starTableView.reloadData()
-                
-            }catch{
-                print(error)
-                throw error
-            }
-        }
+        viewInit()
     }
     
     
     override func viewDidLoad() {
         starTableView.delegate = self
         starTableView.dataSource = self
+        viewInit()
+    }
+    
+    func viewInit(){
         Task{
             do{
                 postsData = try await API.getStarPosts()
@@ -40,9 +35,8 @@ class StarViewController: UIViewController {
             }
         }
     }
-    
-    // Do any additional setup after loading the view.
 }
+
 
 
 
@@ -53,7 +47,7 @@ extension StarViewController : UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = starTableView.dequeueReusableCell(withIdentifier: "StarPosts", for: indexPath) as! PostsTableViewCell
-    
+        
         if let data = postsData{
             Task{
                 cell.titleLabel.text = data[indexPath.row].post?.title
@@ -61,7 +55,7 @@ extension StarViewController : UITableViewDelegate, UITableViewDataSource{
                 cell.contentLabel.text = data[indexPath.row].post?.content
                 cell.nameLabel.text = try await API.getUser(id: data[indexPath.row].post?.user?.description ?? "").username
             }
-      
+            
         }
         
         return cell
@@ -70,7 +64,7 @@ extension StarViewController : UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let postVC = self.storyboard?.instantiateViewController(withIdentifier: "PostVC") as! PostViewController
-      
+        
         
         if let data = postsData{
             

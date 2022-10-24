@@ -78,7 +78,7 @@ struct PostsResponseElement: Codable {
 }
 
 // MARK: - User
-struct PostUser: Codable {
+struct PostUser: Codable, Hashable {
     let id: Int
     let username, email, provider: String
     let confirmed: Bool?

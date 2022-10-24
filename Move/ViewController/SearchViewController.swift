@@ -18,17 +18,7 @@ class SearchViewController: UIViewController {
     
     // MARK - override
     
-    override func viewWillAppear(_ animated: Bool) {
-        Task{
-            do{
-                postsData = try await API.getSearchPosts(keyword: keyword.text ?? "")
-                self.searchTableView.reloadData()
-            }catch{
-                throw error
-            }
-         
-        }
-    }
+
     
     override func viewDidLoad() {
         searchTableView.delegate = self
@@ -39,6 +29,7 @@ class SearchViewController: UIViewController {
     
     // MARK - method
     
+ 
     @IBAction func searchBtnTapped(_ sender: UIButton) {
         if keyword.text == ""{
             let alert = UIAlertController(title: nil, message: "검색어를 입력하세요!", preferredStyle: .alert)

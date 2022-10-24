@@ -12,6 +12,16 @@ class MyViewController: UIViewController {
     var postsData : PostsResponse?
     
     override func viewWillAppear(_ animated: Bool) {
+        viewInit()
+    }
+    
+    override func viewDidLoad() {
+        myTableView.delegate = self
+        myTableView.dataSource = self
+        viewInit()
+    }
+    
+    func viewInit(){
         Task{
             do{
                 postsData = try await API.getMyPosts()
@@ -24,21 +34,6 @@ class MyViewController: UIViewController {
         }
     }
     
-    override func viewDidLoad() {
-        myTableView.delegate = self
-        myTableView.dataSource = self
-        Task{
-            do{
-                postsData = try await API.getMyPosts()
-                myTableView.reloadData()
-                
-            }catch{
-                print(error)
-                throw error
-            }
-        }
-    }
-
 }
 extension MyViewController : UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -48,7 +43,7 @@ extension MyViewController : UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = myTableView.dequeueReusableCell(withIdentifier: "MyPosts", for: indexPath) as! PostsTableViewCell
         if let data = postsData{
-
+            
             cell.titleLabel.text = data[indexPath.row].title
             cell.dateLabel.text = Util.setDate(row: indexPath.row, inputDate: data[indexPath.row].createdAt)
             cell.contentLabel.text = data[indexPath.row].content

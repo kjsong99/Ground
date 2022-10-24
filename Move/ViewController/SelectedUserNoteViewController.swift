@@ -33,8 +33,9 @@ extension SelectedUserNoteViewController: UITableViewDelegate, UITableViewDataSo
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SelectedUserNoteTableViewCell
         if let data = data{
             cell.content.text = data[indexPath.row].content
-            cell.date.text = data[indexPath.row].created_at.date(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")?.string(format: "yy/mm/dd HH:mm")
-            if data[indexPath.row].send_user!.id.description == API.id {
+            cell.date.text = data[indexPath.row].created_at.dateUTC(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")?.string(format: "yy/MM/dd HH:mm")
+            API.getId()
+            if data[indexPath.row].send_user.id.description == API.id {
                 cell.statusLabel.sendLabel()
             }else{
                 cell.statusLabel.receiveLabel()

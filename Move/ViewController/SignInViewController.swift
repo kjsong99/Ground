@@ -1,31 +1,19 @@
-//
-//  SignInViewController.swift
-//  Move
-//
-//  Created by 송경진 on 2022/09/02.
-//
-
 import UIKit
 import SwiftKeychainWrapper
 
-//비밀번호 일치
 class SignInViewController: UIViewController {
+    
+    // MARK - PROPERTY
+    
+    var isVisible : Bool = false
+    
+    // MARK - OUTLET
+    
     @IBOutlet var emailText: UITextField!
     @IBOutlet var passwordText: UITextField!
     @IBOutlet var emailErrorText: UILabel!
     @IBOutlet var passwordErrorText: UILabel!
     @IBOutlet var signInBtn: UIButton!
-    var isVisible : Bool = false
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        view.endEditing(true)
-    }
-    
-    override func viewDidLoad() {
-        emailText.addTarget(self, action: #selector(self.emailTextChanged(_:)), for: .editingChanged)
-        
-        passwordText.addTarget(self, action: #selector(self.passwordTextChanged(_:)), for: .editingChanged)
-    }
     
     @IBAction func IspwdFieldVisible(_ sender: Any) {
         if isVisible{
@@ -60,15 +48,29 @@ class SignInViewController: UIViewController {
                     //비밀번호 불일치
                     passwordErrorText.isHidden = false
                 }
-              
-             
+                
+                
             }else{
                 emailErrorText.isHidden = false
-
+                
             }
         }
         
     }
+    
+    // MARK - OVERRIDE
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+    }
+    
+    override func viewDidLoad() {
+        emailText.addTarget(self, action: #selector(self.emailTextChanged(_:)), for: .editingChanged)
+        
+        passwordText.addTarget(self, action: #selector(self.passwordTextChanged(_:)), for: .editingChanged)
+    }
+    
+    // MARK - METHOD
     
     @objc func emailTextChanged(_ sender: Any){
         guard let email = emailText.text else {

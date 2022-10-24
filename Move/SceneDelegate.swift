@@ -15,6 +15,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+
         
         guard let scene = (scene as? UIWindowScene) else { return }
         
@@ -40,6 +41,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: font], for: .normal)
 
             //Board View Controller로
+            
+          
          
             
             

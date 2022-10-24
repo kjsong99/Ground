@@ -7,10 +7,11 @@
 
 import Foundation
 
+
 struct NotesResponseElement: Codable {
     let id: Int
     let title, content: String
-    let send_user, receive_user: PostUser?
+    let send_user, receive_user: PostUser
     let read: Int
     let created_at, updated_at: String
 
@@ -25,12 +26,18 @@ struct NotesResponseElement: Codable {
     }
 }
 
+
 typealias NotesResponse = [NotesResponseElement]
 
 extension NotesResponse {
     func sort() -> NotesResponse{
         return self.sorted(by: {$0.created_at < $1.created_at})
     }
+    
+    func reverse() -> NotesResponse{
+        return self.sorted(by: {$0.created_at > $1.created_at})
+    }
+  
     
 }
 
@@ -39,11 +46,21 @@ func append(data1 : NotesResponse, data2 : NotesResponse) -> NotesResponse{
     result += data1
     for data in data2{
         for temp in result{
-            if data.send_user!.id == temp.receive_user!.id {
+            if data.send_user.id == temp.receive_user.id {
                 break
             }
             result.append(data)
         }
     }
     return result
+}
+
+extension Array {
+
+    func uniques<T: Hashable>(by keyPath: KeyPath<Element, T>) -> [Element] {
+        return reduce([]) { result, element in
+            let alreadyExists = (result.contains(where: { $0[keyPath: keyPath] == element[keyPath: keyPath] }))
+            return alreadyExists ? result : result + [element]
+        }
+    }
 }
