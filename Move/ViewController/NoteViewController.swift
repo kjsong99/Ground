@@ -1,15 +1,17 @@
-//
-//  NoteViewController.swift
-//  Move
-//
-//  Created by 송경진 on 2022/10/20.
-//
-
 import UIKit
 
 class NoteViewController: UIViewController {
+    
+    // MARK - PROPERTY
+    
     var data : NotesResponse?
+    
+    // MARK - OUTLET
+    
     @IBOutlet var noteTableView: UITableView!
+    
+    // MARK - OVERRIDE
+    
     override func viewDidLoad() {
         noteTableView.delegate = self
         noteTableView.dataSource = self
@@ -22,6 +24,8 @@ class NoteViewController: UIViewController {
     }
     
 }
+
+// MARK - EXTENSION
 
 extension NoteViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -50,9 +54,6 @@ extension NoteViewController: UITableViewDelegate, UITableViewDataSource{
             vc!.id = data![indexPath.row].send_user.id
             vc!.title = data![indexPath.row].send_user.username
         }
-      
-        
-  
         self.show(vc!, sender: self)
         
     }

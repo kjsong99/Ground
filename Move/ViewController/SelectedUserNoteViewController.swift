@@ -1,16 +1,17 @@
-//
-//  SelectedUserNoteViewController.swift
-//  Move
-//
-//  Created by 송경진 on 2022/10/22.
-//
-
 import UIKit
 
 class SelectedUserNoteViewController: UIViewController {
+    
+    // MARK - PROPERTY
+    
     var data: NotesResponse?
     var id : Int?
+    
+    // MARK - OUTLET
+    
     @IBOutlet var selectedNoteTableVIew: UITableView!
+    
+    // MARK - OVERRIDE
     
     override func viewDidLoad() {
         selectedNoteTableVIew.delegate = self
@@ -24,6 +25,9 @@ class SelectedUserNoteViewController: UIViewController {
     }
     
 }
+
+// MARK - EXTENSION
+
 extension SelectedUserNoteViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return data?.count ?? 0

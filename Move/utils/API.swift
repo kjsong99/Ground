@@ -28,11 +28,11 @@ class API {
         }
     }
     
-    static func getPost(id: Int) async throws -> PostsResponseElement{
+    static func getPost(id: Int) async throws -> PostClass{
         let url =  "\(Bundle.main.url)posts/"+id.description
         
         do{
-            let data = try await AppNetworking.shared.requestJSON(url, type: PostsResponseElement.self, method: .get)
+            let data = try await AppNetworking.shared.requestJSON(url, type: PostClass.self, method: .get)
             return data
             
         }catch{
@@ -50,7 +50,7 @@ class API {
         ]
         
         do{
-            let data = try await AppNetworking.shared.requestJSON(url, type: [PostsResponseElement].self, method: .get, parameters: parameter)
+            let data = try await AppNetworking.shared.requestJSON(url, type: PostsResponse.self, method: .get, parameters: parameter)
             return data
             
         }catch{
@@ -63,7 +63,7 @@ class API {
         getId()
         let url =  "\(Bundle.main.url)posts?user.id=" + id
         do{
-            let data = try await AppNetworking.shared.requestJSON(url, type: [PostsResponseElement].self, method: .get)
+            let data = try await AppNetworking.shared.requestJSON(url, type: PostsResponse.self, method: .get)
             return data
             
         }catch{
@@ -84,7 +84,7 @@ class API {
         
         do{
             _ = try await
-            AppNetworking.shared.requestJSON(url, type: WriteResponse.self, method: .post, parameters: param)
+            AppNetworking.shared.requestJSON(url, type: PostClass.self, method: .post, parameters: param)
         }catch{
             return
         }
@@ -94,7 +94,7 @@ class API {
         let url =  "\(Bundle.main.url)posts/\(id)"
         
         do{
-            _ = try await AppNetworking.shared.requestJSON(url, type: WriteResponse.self, method: .delete)
+            _ = try await AppNetworking.shared.requestJSON(url, type: PostClass.self, method: .delete)
         }catch{
             return
         }
@@ -111,7 +111,7 @@ class API {
         
         do{
             _ = try await
-            AppNetworking.shared.requestJSON(url, type: WriteResponse.self, method: .put, parameters: param)
+            AppNetworking.shared.requestJSON(url, type: PostClass.self, method: .put, parameters: param)
         }catch{
             throw error
         }
@@ -206,7 +206,7 @@ class API {
         
         do{
             
-            _ = try await AppNetworking.shared.requestJSON(url, type: UserResponseElement.self, method: .put, parameters: param)
+            _ = try await AppNetworking.shared.requestJSON(url, type: UserClass.self, method: .put, parameters: param)
 
             
         }catch{
@@ -220,7 +220,7 @@ class API {
         let url =  "\(Bundle.main.url)users/" + id
         do{
             _ = try await
-            AppNetworking.shared.requestJSON(url, type: UserResponseElement.self, method: .delete)
+            AppNetworking.shared.requestJSON(url, type: UserClass.self, method: .delete)
         }catch{
             print(error)
             throw error
@@ -237,7 +237,7 @@ class API {
         
         do{
             
-            let _ = try await AppNetworking.shared.requestJSON(url, type: UserResponseElement.self, method: .put, parameters: param)
+            let _ = try await AppNetworking.shared.requestJSON(url, type: UserClass.self, method: .put, parameters: param)
 
             
         }catch{
@@ -417,12 +417,12 @@ class API {
     
     }
     
-    static func getUser() async throws -> UserResponseElement {
+    static func getUser() async throws -> User {
         getId()
         let url =  "\(Bundle.main.url)users/" + id
         
         do{
-            let data = try await AppNetworking.shared.requestJSON(url, type: UserResponseElement.self, method: .get)
+            let data = try await AppNetworking.shared.requestJSON(url, type: User.self, method: .get)
             return data
 
             
@@ -432,11 +432,11 @@ class API {
         }
     }
     
-    static func getUser(id: String) async throws -> UserResponseElement {
+    static func getUser(id: String) async throws -> User {
         let url =  "\(Bundle.main.url)users/" + id
         
         do{
-            let data = try await AppNetworking.shared.requestJSON(url, type: UserResponseElement.self, method: .get)
+            let data = try await AppNetworking.shared.requestJSON(url, type: User.self, method: .get)
             return data
 
             

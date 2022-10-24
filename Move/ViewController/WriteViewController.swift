@@ -4,7 +4,7 @@ class WriteViewController: UIViewController{
     
     // MARK - PROPERTY
     
-    var modifyPost : PostsResponseElement?
+    var modifyPost : PostClass?
     
     // MARK - OUTLET
     

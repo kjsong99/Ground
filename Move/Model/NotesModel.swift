@@ -11,7 +11,7 @@ import Foundation
 struct NotesResponseElement: Codable {
     let id: Int
     let title, content: String
-    let send_user, receive_user: PostUser
+    let send_user, receive_user: UserClass
     let read: Int
     let created_at, updated_at: String
 

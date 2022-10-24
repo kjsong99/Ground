@@ -1,37 +1,10 @@
-//
-//  HeartsModel.swift
-//  Move
-//
-//  Created by 송경진 on 2022/10/05.
-//
-//
-//import Foundation
-//
-//struct HeartsResponseElement : Codable{
-//    let id: Int
-//    let post : HeartPost?
-//    let user : HeartUser?
-//    let created_at, updated_at: String
-//
-//    enum CodingKeys: String, CodingKey {
-//        case id
-//        case post
-//        case user
-//        case created_at
-//        case updated_at
-//    }
-//}
-//
-//typealias HeartsResponse = [HeartsResponseElement]
-
-
 import Foundation
 
 // MARK: - HeartModelElement
 struct HeartResponseElement: Codable {
     let id: Int
     let post: HeartPost?
-    let user: HeartUser?
+    let user: UserClass
     let createdAt, updatedAt: String
 
     enum CodingKeys: String, CodingKey {

@@ -64,7 +64,7 @@ extension BoardViewController : UITableViewDelegate, UITableViewDataSource{
             cell.titleLabel.text = data[indexPath.row].title
             cell.dateLabel.text = Util.setDate(row: indexPath.row, inputDate: data[indexPath.row].createdAt)
             cell.contentLabel.text = data[indexPath.row].content
-            cell.nameLabel.text = data[indexPath.row].user?.username
+            cell.nameLabel.text = data[indexPath.row].user.username
             
         }
         return cell

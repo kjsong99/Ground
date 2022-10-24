@@ -1,11 +1,10 @@
 import UIKit
-import Alamofire
 
 class PostViewController: UIViewController{
     
     // MARK - PROPERTY
     var id : Int = 0
-    var postData : PostsResponseElement?
+    var postData : PostClass?
     var heartChecked : Bool = false
     var bookmarkChecked : Bool = false
     var heartId = 0
@@ -75,15 +74,12 @@ class PostViewController: UIViewController{
     }
     
     @IBAction func showMoreButton(_ sender: Any){
-        
-        
-        
         let actionSheet = UIAlertController(title: "글메뉴", message: nil, preferredStyle: .actionSheet)
         //취소 버튼 - 스타일(cancel)
         actionSheet.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
         //여기서 글쓴이인지 확인
         API.getId()
-        if API.id == postData!.user?.id.description{
+        if API.id == postData!.user.id.description{
             actionSheet.addAction(UIAlertAction(title: "수정", style: .default, handler: {(ACTION:UIAlertAction) in
                 if let vc = self.storyboard?.instantiateViewController(withIdentifier: "WriteVC") as? WriteViewController{
                     //
@@ -120,8 +116,6 @@ class PostViewController: UIViewController{
                 
             }))
             
-            
-            
         }else{
             //글쓴이가 아닐때
             //쪽지, 신고 등등?
@@ -151,17 +145,10 @@ class PostViewController: UIViewController{
     func viewInit(){
         Task{
             do{
-                
                 postData = try await API.getPost(id: id)
-                
                 heartId = try await API.checkHeart(post: id.description) ?? 00
-                
-                
                 bookmarkId = try await API.checkStar(post: id.description) ?? 00
-                
                 setData(heartId: heartId, bookmarkId: bookmarkId)
-                
-                
             }catch{
                 print(error)
                 throw error
@@ -174,7 +161,7 @@ class PostViewController: UIViewController{
             
             titleLabel.text = post.title
             contentLabel.text = post.content
-            userLabel.text = post.user?.username
+            userLabel.text = post.user.username
             
             
             if let date = post.createdAt.dateUTC(format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"){

@@ -1,17 +1,15 @@
-//
-//  PasswordChangeViewController.swift
-//  Move
-//
-//  Created by 송경진 on 2022/10/10.
-//
-
 import UIKit
 
 class PasswordChangeViewController: UIViewController {
 
+    // MARK - PROPERTY
+    
     var currentPwdVisible : Bool = false
     var newPwdVisible : Bool = false
     var newPwdConfirmVisible : Bool = false
+    
+    // MARK - OUTLET
+    
     @IBOutlet var newPwd: UITextField!
     @IBOutlet var newPwdConfirm: UITextField!
     @IBOutlet var currentPwd: UITextField!

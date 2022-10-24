@@ -1,16 +1,16 @@
-//
-//  MyViewController.swift
-//  Move
-//
-//  Created by 송경진 on 2022/10/15.
-//
-
 import UIKit
 
 class MyViewController: UIViewController {
-    @IBOutlet var myTableView: UITableView!
-    var postsData : PostsResponse?
     
+    // MARK - PROPERTY
+    
+    var postsData : PostsResponse?
+
+    // MARK - OUTLET
+    
+    @IBOutlet var myTableView: UITableView!
+    
+    // MARK - OVERRIDE
     override func viewWillAppear(_ animated: Bool) {
         viewInit()
     }
@@ -20,6 +20,8 @@ class MyViewController: UIViewController {
         myTableView.dataSource = self
         viewInit()
     }
+    
+    // MARK - METHOD
     
     func viewInit(){
         Task{
@@ -35,6 +37,9 @@ class MyViewController: UIViewController {
     }
     
 }
+
+// MARK - EXTENSION
+
 extension MyViewController : UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return postsData?.count ?? 0
@@ -47,7 +52,7 @@ extension MyViewController : UITableViewDelegate, UITableViewDataSource{
             cell.titleLabel.text = data[indexPath.row].title
             cell.dateLabel.text = Util.setDate(row: indexPath.row, inputDate: data[indexPath.row].createdAt)
             cell.contentLabel.text = data[indexPath.row].content
-            cell.nameLabel.text = data[indexPath.row].user?.username
+            cell.nameLabel.text = data[indexPath.row].user.username
         }
         
         return cell

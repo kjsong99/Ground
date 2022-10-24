@@ -1,27 +1,28 @@
-//
-//  StarViewController.swift
-//  Move
-//
-//  Created by 송경진 on 2022/10/15.
-//
-
 import UIKit
 
 class StarViewController: UIViewController {
     
-    @IBOutlet var starTableView: UITableView!
+    // MARK - PROPERTY
+    
     var postsData : StarResponse?
+    
+    // MARK - OUTLET
+    
+    @IBOutlet var starTableView: UITableView!
+    
+    // MARK - OVERRIDE
     
     override func viewWillAppear(_ animated: Bool) {
         viewInit()
     }
-    
     
     override func viewDidLoad() {
         starTableView.delegate = self
         starTableView.dataSource = self
         viewInit()
     }
+    
+    // MARK - METHOD
     
     func viewInit(){
         Task{
@@ -37,8 +38,7 @@ class StarViewController: UIViewController {
     }
 }
 
-
-
+// MARK - EXTENSION
 
 extension StarViewController : UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -50,10 +50,10 @@ extension StarViewController : UITableViewDelegate, UITableViewDataSource{
         
         if let data = postsData{
             Task{
-                cell.titleLabel.text = data[indexPath.row].post?.title
-                cell.dateLabel.text = Util.setDate(row: indexPath.row, inputDate: (data[indexPath.row].post?.createdAt ?? ""))
-                cell.contentLabel.text = data[indexPath.row].post?.content
-                cell.nameLabel.text = try await API.getUser(id: data[indexPath.row].post?.user?.description ?? "").username
+                cell.titleLabel.text = data[indexPath.row].post.title
+                cell.dateLabel.text = Util.setDate(row: indexPath.row, inputDate: (data[indexPath.row].post.createdAt ?? ""))
+                cell.contentLabel.text = data[indexPath.row].post.content
+                cell.nameLabel.text = try await API.getUser(id: data[indexPath.row].post.user.id.description ?? "").username
             }
             
         }
@@ -68,7 +68,7 @@ extension StarViewController : UITableViewDelegate, UITableViewDataSource{
         
         if let data = postsData{
             
-            postVC.id = data[indexPath.row].post?.id ?? 0
+            postVC.id = data[indexPath.row].post.id ?? 0
             
             self.navigationController?.pushViewController(postVC, animated: true)
         }

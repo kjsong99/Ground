@@ -1,46 +1,14 @@
-//
-//  NameChangeViewController.swift
-//  Move
-//
-//  Created by 송경진 on 2022/10/10.
-//
-
 import UIKit
 
 class NameChangeViewController: UIViewController {
+    
+    // MARK - OUTLET
     
     @IBOutlet var nameText: UITextField!
     @IBOutlet var existBtn: UIButton!
     @IBOutlet var nameSetBtn: UIButton!
     
-
-    override func viewDidLoad() {
-        //delegate 설정
-        Task{
-            do{
-                nameText.text = try await API.getUser().username
-                nameText.addTarget(self, action: #selector(self.usernameDidChange(_:)), for: .editingChanged)
-            }catch{
-                print(error)
-                throw error
-            }
-        }
-       
-    }
-    
-    @objc func usernameDidChange(_ sender: Any){
-        guard let username = nameText.text else {
-            return
-        }
-        if username == "" {
-            existBtn.configuration!.background.strokeColor = UIColor.darkGray
-            existBtn.isEnabled = false
-            nameSetBtn.isEnabled = false
-        }else{
-            existBtn.configuration!.background.strokeColor = UIColor.red
-            existBtn.isEnabled = true
-        }
-    }
+    // MARK - OVERRIDE
     
     @IBAction func existBtnTapped(_ sender: Any) {
         Task{
@@ -70,6 +38,33 @@ class NameChangeViewController: UIViewController {
         }
     }
     
+    override func viewDidLoad() {
+        Task{
+            do{
+                nameText.text = try await API.getUser().username
+                nameText.addTarget(self, action: #selector(self.usernameDidChange(_:)), for: .editingChanged)
+            }catch{
+                print(error)
+                throw error
+            }
+        }
+       
+    }
     
+    // MARK - METHOD
+    
+    @objc func usernameDidChange(_ sender: Any){
+        guard let username = nameText.text else {
+            return
+        }
+        if username == "" {
+            existBtn.configuration!.background.strokeColor = UIColor.darkGray
+            existBtn.isEnabled = false
+            nameSetBtn.isEnabled = false
+        }else{
+            existBtn.configuration!.background.strokeColor = UIColor.red
+            existBtn.isEnabled = true
+        }
+    }
 }
 

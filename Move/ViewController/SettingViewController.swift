@@ -1,23 +1,41 @@
-
 import UIKit
 import SwiftKeychainWrapper
 import Kingfisher
 
 class SettingViewController: UIViewController {
     
-    @IBOutlet var headerView: UIView!
+    // MARK - PROPERTY
     
-    @IBOutlet var nameLabel: UILabel!
     var menuImage = ["square.and.pencil", "paperplane", "bookmark", "person.crop.circle.badge.xmark" ]
     var menuLabel = ["내가 쓴 글", "쪽지함",  "북마크", "회원 탈퇴"]
-    override func viewWillLayoutSubviews() {
-        // createCircleImageView(imageView: ima
+    
+    // MARK - OUTLET
+    
+    @IBOutlet var headerView: UIView!
+    @IBOutlet var collectionView: UICollectionView!
+    @IBOutlet var nameLabel: UILabel!
+    
+    @IBAction func nameChangeBtnTapped(_ sender: Any) {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "NameChangeVC") as? NameChangeViewController
         
+        self.show(vc!, sender: self)
+    }
+
+    
+    @IBAction func logoutBtnTapped(_ sender: Any) {
         
+        KeychainWrapper.standard.removeObject(forKey: "auth")
+        UserDefaults.standard.removeObject(forKey: "id")
         
+        let sb = UIStoryboard(name: "Login", bundle: nil)
+        guard let vc = sb.instantiateInitialViewController() else { return }
+        
+        vc.modalPresentationStyle = .fullScreen
+        
+        self.present(vc, animated: true)
     }
     
-    @IBOutlet var collectionView: UICollectionView!
+    // MARK - OVERRIDE
     
     override func viewWillAppear(_ animated: Bool) {
         setName()
@@ -37,6 +55,8 @@ class SettingViewController: UIViewController {
         // imageView.kf.setImage(with: url, placeholder: image)
     }
     
+    // MARK - METHOD
+    
     func setName(){
         Task{
             do{
@@ -52,66 +72,24 @@ class SettingViewController: UIViewController {
         imageView.layer.cornerRadius = imageView.frame.size.width / 2
         imageView.clipsToBounds = true
     }
-    
-    @IBAction func nameChangeBtnTapped(_ sender: Any) {
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "NameChangeVC") as? NameChangeViewController
-        
-        self.show(vc!, sender: self)
-    }
-    
-    
-    
-    
-    
-    @IBAction func logoutBtnTapped(_ sender: Any) {
-        
-        KeychainWrapper.standard.removeObject(forKey: "auth")
-        UserDefaults.standard.removeObject(forKey: "id")
-        
-//        print(KeychainWrapper.standard.string(forKey: "auth")))
-//        print(UserDefaults.standard.
-        
-        
-        let sb = UIStoryboard(name: "Login", bundle: nil)
-        guard let vc = sb.instantiateInitialViewController() else { return }
-        
-        
-        
-        vc.modalPresentationStyle = .fullScreen
-        
-        self.present(vc, animated: true)
-    }
-    
-    
-    
-    
 }
+
+// MARK - EXTENSION
 
 extension SettingViewController : UICollectionViewDelegate, UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return menuLabel.count
     }
-    
-    
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collection", for: indexPath) as?
                 SettingCollectionViewCell else {
             
             return SettingCollectionViewCell()
         }
-        
-        
         cell.menuImage.image = UIImage(systemName: menuImage[indexPath.row])
         cell.menuLabel.text = menuLabel[indexPath.row]
-        
-        
         return cell
     }
-    
-    
-    
-    
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if menuLabel[indexPath.row] == "회원 탈퇴"{
@@ -126,9 +104,7 @@ extension SettingViewController : UICollectionViewDelegate, UICollectionViewData
                         
                         let sb = UIStoryboard(name: "Login", bundle: nil)
                         guard let vc = sb.instantiateInitialViewController() else { return }
-                        
-                        
-                        
+                  
                         vc.modalPresentationStyle = .fullScreen
                         
                         self.present(vc, animated: true)
@@ -166,19 +142,11 @@ extension SettingViewController : UICollectionViewDelegate, UICollectionViewData
     //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
     //        return 0
     //    }
-    
-    
-    
-    
-    
-    
 }
 
 extension SettingViewController : UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
         let width: CGFloat = (collectionView.frame.width / 4) - 1.5
-        
         return CGSize(width: width, height: width)
     }
 }

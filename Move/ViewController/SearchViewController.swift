@@ -1,35 +1,16 @@
-//
-//  SearchViewController.swift
-//  Move
-//
-//  Created by 송경진 on 2022/10/02.
-//
-
 import UIKit
-import Alamofire
 
 class SearchViewController: UIViewController {
     
-    // MARK - Variable
+    // MARK - PROPERTY
     
     var postsData : PostsResponse?
+    
+    // MARK - OUTLET
+    
     @IBOutlet var searchTableView: UITableView!
     @IBOutlet var keyword: UITextField!
     
-    // MARK - override
-    
-
-    
-    override func viewDidLoad() {
-        searchTableView.delegate = self
-        searchTableView.dataSource = self
-    }
-    
-    
-    
-    // MARK - method
-    
- 
     @IBAction func searchBtnTapped(_ sender: UIButton) {
         if keyword.text == ""{
             let alert = UIAlertController(title: nil, message: "검색어를 입력하세요!", preferredStyle: .alert)
@@ -43,17 +24,21 @@ class SearchViewController: UIViewController {
                 }catch{
                     throw error
                 }
-             
+                
             }
             
         }
     }
     
- 
+    // MARK - OVERRIDE
     
+    override func viewDidLoad() {
+        searchTableView.delegate = self
+        searchTableView.dataSource = self
+    }
 }
 
-// MARK - extension
+// MARK - EXTENSION
 
 extension SearchViewController : UITableViewDelegate,  UITableViewDataSource{
     
@@ -71,7 +56,7 @@ extension SearchViewController : UITableViewDelegate,  UITableViewDataSource{
             cell.titleLabel.text = data[indexPath.row].title
             cell.dateLabel.text = Util.setDate(row: indexPath.row, inputDate: data[indexPath.row].createdAt)
             cell.contentLabel.text = data[indexPath.row].content
-            cell.nameLabel.text = data[indexPath.row].user?.username
+            cell.nameLabel.text = data[indexPath.row].user.username
         }
         
         return cell
