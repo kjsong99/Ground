@@ -79,6 +79,8 @@ class PostViewController: UIViewController{
         actionSheet.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
         //여기서 글쓴이인지 확인
         API.getId()
+        print(API.id)
+        print(postData)
         if API.id == postData!.user.id.description{
             actionSheet.addAction(UIAlertAction(title: "수정", style: .default, handler: {(ACTION:UIAlertAction) in
                 if let vc = self.storyboard?.instantiateViewController(withIdentifier: "WriteVC") as? WriteViewController{
@@ -115,6 +117,7 @@ class PostViewController: UIViewController{
                 
                 
             }))
+            self.present(actionSheet,animated: true)
             
         }else{
             //글쓴이가 아닐때
@@ -135,9 +138,6 @@ class PostViewController: UIViewController{
     override func viewWillAppear(_ animated: Bool) {
         viewInit()
         
-    }
-    override func viewDidLoad() {
-        viewInit()
     }
     
     // MARK - METHOD
