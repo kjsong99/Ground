@@ -211,7 +211,6 @@ class API {
             
         }catch{
             print(error)
-            throw error
         }
     }
     

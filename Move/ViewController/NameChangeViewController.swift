@@ -14,8 +14,12 @@ class NameChangeViewController: UIViewController {
         Task{
             do{
                 if try await API.isNameExist(name: nameText.text ?? ""){
+                    let alert = UIAlertController(title: nil, message: "이미 존재하는 닉네임입니다", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "확인", style: .default, handler: nil))
+                    self.present(alert, animated: true)
                     nameSetBtn.isEnabled = false
                 }else{
+             
                     nameSetBtn.isEnabled = true
                 }
             }catch{
@@ -32,10 +36,10 @@ class NameChangeViewController: UIViewController {
                 try await API.changeName(username: nameText.text ?? "")
                 navigationController?.popViewController(animated: true)
             }catch{
-                print(error)
                 throw error
             }
         }
+
     }
     
     override func viewDidLoad() {
