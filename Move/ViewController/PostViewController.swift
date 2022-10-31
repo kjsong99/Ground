@@ -82,9 +82,9 @@ class PostViewController: UIViewController{
         if API.id == postData!.user.id.description{
             actionSheet.addAction(UIAlertAction(title: "수정", style: .default, handler: {(ACTION:UIAlertAction) in
                 if let vc = self.storyboard?.instantiateViewController(withIdentifier: "WriteVC") as? WriteViewController{
-                    //
+                    
                     vc.modifyPost = self.postData!
-                    //
+                    
                     self.show(vc, sender: self)
                 }
             }))

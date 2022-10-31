@@ -769,7 +769,6 @@
                             </view>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="6gn-GI-VFR">
                                 <rect key="frame" x="30" y="191" width="354" height="514"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="514" id="8aM-Iv-EJa"/>
                                 </constraints>

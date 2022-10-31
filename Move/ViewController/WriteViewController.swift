@@ -1,6 +1,7 @@
 import UIKit
 
 class WriteViewController: UIViewController{
+
     
     // MARK - PROPERTY
     
@@ -10,6 +11,9 @@ class WriteViewController: UIViewController{
     
     @IBOutlet var titleText: UITextField!
     @IBOutlet var contentText: UITextView!
+    
+ 
+    
     
     @IBAction func submitTouched(_ sender: Any) {
         
@@ -39,7 +43,7 @@ class WriteViewController: UIViewController{
     }
     
     // MARK - OERRIDE
-    
+
     override func viewDidLoad() {
         contentText.delegate = self
         if modifyPost != nil {
@@ -48,10 +52,11 @@ class WriteViewController: UIViewController{
         }else{
             contentText.text = "내용을 입력하세요."
             contentText.textColor = UIColor.systemGray2
-            contentText.layer.borderWidth = 1.0
             
-        }
-    }
+        }    }
+    
+
+
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
