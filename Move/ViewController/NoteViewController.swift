@@ -12,15 +12,19 @@ class NoteViewController: UIViewController {
     
     // MARK - OVERRIDE
     
-    override func viewDidLoad() {
-        noteTableView.delegate = self
-        noteTableView.dataSource = self
+    override func viewWillAppear(_ animated: Bool) {
         Task{
             do{
                 data = try await API.getNotes()
                 noteTableView.reloadData()
             }
         }
+    }
+    
+    override func viewDidLoad() {
+        noteTableView.delegate = self
+        noteTableView.dataSource = self
+      
     }
     
 }

@@ -13,15 +13,19 @@ class SelectedUserNoteViewController: UIViewController {
     
     // MARK - OVERRIDE
     
-    override func viewDidLoad() {
-        selectedNoteTableVIew.delegate = self
-        selectedNoteTableVIew.dataSource = self
+    override func viewWillAppear(_ animated: Bool) {
         Task{
             do{
                 data = try await API.getNotesbyCertainUser(user: id!)
                 selectedNoteTableVIew.reloadData()
             }
         }
+    }
+    
+    override func viewDidLoad() {
+        selectedNoteTableVIew.delegate = self
+        selectedNoteTableVIew.dataSource = self
+        
     }
     
 }

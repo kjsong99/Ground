@@ -6,8 +6,8 @@ class SettingViewController: UIViewController {
     
     // MARK - PROPERTY
     
-    var menuImage = ["square.and.pencil", "paperplane", "bookmark", "person.crop.circle.badge.xmark" ]
-    var menuLabel = ["내가 쓴 글", "쪽지함",  "북마크", "회원 탈퇴"]
+    var menuImage = ["square.and.pencil", "person", "bookmark", "person.crop.circle.badge.xmark" ]
+    var menuLabel = ["내가 쓴 글", "닉네임 변경",  "북마크", "회원 탈퇴"]
     
     // MARK - OUTLET
     
@@ -130,9 +130,13 @@ extension SettingViewController : UICollectionViewDelegate, UICollectionViewData
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "StarVC") as? StarViewController
             
             self.show(vc!, sender: self)
-        }else if menuLabel[indexPath.row] == "쪽지함"{
-            let vc = self.storyboard?.instantiateViewController(withIdentifier: "NoteVC") as? NoteViewController
+        }else if menuLabel[indexPath.row] == "닉네임 변경"{
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "NameChangeVC") as? NameChangeViewController
+            
             self.show(vc!, sender: self)
+            
+//            let vc = self.storyboard?.instantiateViewController(withIdentifier: "NoteVC") as? NoteViewController
+//            self.show(vc!, sender: self)
         }
         //        else if menuLabel[indexPath.row] == "비밀번호 변경"{
         //            let vc = self.storyboard?.instantiateViewController(withIdentifier: "PasswordChangeVC")
