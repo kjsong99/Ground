@@ -6,7 +6,7 @@ https://www.youtube.com/watch?v=oaKnmow3yHU
 
 Swift + Strapi
 
--회원가입
+-회원가입<br/>
 -로그인
 -비밀번호 변경
 -닉네임 변경
